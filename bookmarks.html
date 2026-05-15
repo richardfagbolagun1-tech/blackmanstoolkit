@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Saved | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,500;1,6..72,300;1,6..72,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit<small>Black Thrive Lambeth &middot; Office of Art &amp; Technology</small></span></a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="quiz.html">Where to start</a>
+    <a href="resources.html">Resources</a>
+    <a href="bookmarks.html" class="active">Saved</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="simple-page" data-screen-label="Bookmarks">
+  <h1>Saved <em>for later.</em></h1>
+  <p class="lead">Resources you bookmarked while reading. Saved on your device only.</p>
+  <div id="bm-list"></div>
+</main>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+function render() {
+  const list = window.BMT.getBookmarks();
+  const root = document.getElementById("bm-list");
+  if (!list.length) {
+    root.innerHTML = `
+      <div class="empty-state">
+        Nothing saved yet.<br/>
+        <a href="index.html" class="btn btn-primary" style="margin-top:24px;font-style:normal;font-family:var(--sans);font-size:14px">Pick a chapter to start</a>
+      </div>`;
+    return;
+  }
+  const grouped = {};
+  list.forEach(b => { (grouped[b.chapter] = grouped[b.chapter] || []).push(b); });
+
+  root.innerHTML = Object.entries(grouped).map(([slug, items]) => {
+    const c = window.getChapter(slug);
+    return `
+      <section style="margin-bottom:48px">
+        <div style="display:flex;align-items:end;gap:18px;margin-bottom:18px;border-bottom:1px solid var(--rule);padding-bottom:16px">
+          <div style="font-family:var(--display);font-weight:800;font-size:36px;letter-spacing:-.02em">${c?.title || slug}.</div>
+          <div style="font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-soft)">${c?.promise || ''}</div>
+          <a href="chapters/${slug}.html" style="margin-left:auto;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;text-decoration:none">Open chapter \u2192</a>
+        </div>
+        <div class="resources-list">
+          ${items.map(r => `
+            <a href="${r.link}" target="_blank" rel="noopener" class="resource">
+              <div class="resource-text">
+                <div class="name">${r.name}${r.black_led ? '<span class="badge">Black-led</span>' : ''}</div>
+                <div class="note">${r.note}</div>
+              </div>
+              <div class="resource-actions">
+                <button class="bookmark-btn" data-saved="true" data-link="${r.link}" data-chapter="${r.chapter}" aria-label="Remove">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+              </div>
+            </a>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }).join("");
+
+  root.querySelectorAll(".bookmark-btn").forEach(b => {
+    b.addEventListener("click", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const link = b.dataset.link;
+      const r = window.BMT.getBookmarks().find(x => x.link === link);
+      if (r) window.BMT.toggleBookmark(r, r.chapter);
+      render();
+    });
+  });
+}
+render();
+</script>
+</body>
+</html>

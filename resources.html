@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Resource finder | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,500;1,6..72,300;1,6..72,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit<small>Black Thrive Lambeth &middot; Office of Art &amp; Technology</small></span></a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="quiz.html">Where to start</a>
+    <a href="resources.html" class="active">Resources</a>
+    <a href="bookmarks.html">Saved</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="simple-page" data-screen-label="Resources">
+  <h1>UK <em>resource</em> finder.</h1>
+  <p class="lead">Free or low-cost organisations across health, money, mind, faith, brotherhood, and community. Many are Black-led.</p>
+
+  <div class="filter-bar" id="filter-bar"></div>
+  <div id="results-meta" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin-bottom:20px"></div>
+  <div id="results" class="resources-list"></div>
+</main>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+const all = [];
+window.TOOLKIT.chapters.forEach(c => {
+  c.resources.forEach(r => all.push({ ...r, chapter: c.slug, chapterTitle: c.title, accent: c.accent }));
+});
+
+let active = "all";
+let q = "";
+let blackLedOnly = false;
+
+const filters = [
+  { id: "all", label: "All" },
+  ...window.TOOLKIT.chapters.map(c => ({ id: c.slug, label: c.title })),
+];
+
+function renderFilters() {
+  const bar = document.getElementById("filter-bar");
+  bar.innerHTML = filters.map(f => `<button class="filter-chip ${active === f.id ? 'active' : ''}" data-f="${f.id}">${f.label}</button>`).join("")
+    + `<button class="filter-chip ${blackLedOnly ? 'active' : ''}" data-bl="1">Black-led only</button>`
+    + `<input class="filter-search" id="search" placeholder="Search resources..." value="${q}" />`;
+  bar.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => { active = b.dataset.f; render(); }));
+  bar.querySelector("[data-bl]").addEventListener("click", () => { blackLedOnly = !blackLedOnly; render(); });
+  const s = bar.querySelector("#search");
+  s.addEventListener("input", e => { q = e.target.value.toLowerCase(); renderResults(); });
+  setTimeout(() => s.focus(), 50);
+}
+
+function renderResults() {
+  const filtered = all.filter(r => {
+    if (active !== "all" && r.chapter !== active) return false;
+    if (blackLedOnly && !r.black_led) return false;
+    if (q && !(r.name + " " + r.note + " " + r.chapterTitle).toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  // Dedupe by link (some resources appear in multiple chapters)
+  const seen = new Set();
+  const dedup = filtered.filter(r => seen.has(r.link) ? false : (seen.add(r.link), true));
+
+  document.getElementById("results-meta").textContent = `${dedup.length} ${dedup.length === 1 ? 'resource' : 'resources'}${active !== 'all' ? ' \u00B7 ' + window.getChapter(active).title : ''}${blackLedOnly ? ' \u00B7 Black-led only' : ''}`;
+
+  const out = document.getElementById("results");
+  if (!dedup.length) {
+    out.innerHTML = `<div class="empty-state">No resources match. Try a different filter.</div>`;
+    return;
+  }
+  out.innerHTML = dedup.map(r => `
+    <a href="${r.link}" target="_blank" rel="noopener" class="resource">
+      <div class="resource-text">
+        <div class="name">${r.name}${r.black_led ? '<span class="badge">Black-led</span>' : ''}</div>
+        <div class="note">${r.note}</div>
+        <div style="margin-top:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink-soft)">${r.chapterTitle}</div>
+      </div>
+      <div class="resource-actions">
+        <button class="bookmark-btn" data-link="${r.link}" data-chapter="${r.chapter}" data-name="${r.name.replace(/"/g,'&quot;')}" data-note="${r.note.replace(/"/g,'&quot;')}" data-bl="${!!r.black_led}" aria-label="Save">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+      </div>
+    </a>
+  `).join("");
+
+  out.querySelectorAll(".bookmark-btn").forEach(b => {
+    b.setAttribute("data-saved", String(window.BMT.isBookmarked(b.dataset.link)));
+    b.addEventListener("click", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      window.BMT.toggleBookmark({
+        link: b.dataset.link,
+        name: b.dataset.name,
+        note: b.dataset.note,
+        black_led: b.dataset.bl === "true",
+      }, b.dataset.chapter);
+      b.setAttribute("data-saved", String(window.BMT.isBookmarked(b.dataset.link)));
+    });
+  });
+}
+
+function render() { renderFilters(); renderResults(); }
+render();
+</script>
+</body>
+</html>

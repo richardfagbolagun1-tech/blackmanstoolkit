@@ -1,0 +1,46 @@
+# Netlify config for The Black Man's Toolkit
+# Plain static site, no build step.
+
+[build]
+  publish = "."
+  command = ""
+
+# Pretty URLs: allow /chapters/body instead of /chapters/body.html
+[[redirects]]
+  from = "/chapters/:slug"
+  to = "/chapters/:slug.html"
+  status = 200
+
+[[redirects]]
+  from = "/quiz"
+  to = "/quiz.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/resources"
+  to = "/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/bookmarks"
+  to = "/bookmarks.html"
+  status = 200
+
+# Cache static assets aggressively
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
