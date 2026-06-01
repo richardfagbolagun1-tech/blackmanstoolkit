@@ -18,14 +18,18 @@ window.TOOLKIT = {
       title: "Body",
       kicker: "Physical health",
       promise: "Looking after the body you live in.",
-      character: { name: "Leon Grant", age: 45, line: "Rebuilding the discipline to care for a body he has neglected." },
+      character: { name: "Leon Grant", line: "Rebuilding the discipline to care for a body he has neglected." },
+      testimonial: {
+        quote: "I used to push through tiredness, stress, even pain, like it made me tougher. It didn't. If something feels off, get it checked. Future you will thank you.",
+        attribution: "A man we spoke with, advising his younger self."
+      },
       hero_image: "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=2000&q=80&auto=format&fit=crop",
       portrait: "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=1200&q=80&auto=format&fit=crop",
       accent: "ochre",
       duration_min: 9,
 
       story: [
-        "Leon Grant, age 45. Leon was once the strongest man in his friendship group, an athlete in his youth who never worried about health. He used to outrun everyone on the wing, ate what he wanted, laughed off small aches. But decades of sedentary work on the laptop, takeaways at 10pm, long hours sitting in traffic, and ignoring the warning signs (the breathlessness climbing the stairs, the weight slowly settling around his middle, the headaches he blamed on stress) have caught up with him.",
+        "Leon was once the strongest man in his friendship group, an athlete in his youth who never worried about health. He used to outrun everyone on the wing, ate what he wanted, laughed off small aches. But decades of sedentary work on the laptop, takeaways at 10pm, long hours sitting in traffic, and ignoring the warning signs (the breathlessness climbing the stairs, the weight slowly settling around his middle, the headaches he blamed on stress) have caught up with him.",
         "After a routine medical check reveals high blood pressure and early signs of heart disease, Leon is shaken. The doctor is polite but firm. Leon realises he can no longer rely on past strength. His turmoil is rebuilding the discipline to care for a body he has neglected, and quietly grieving the young athlete he used to be.",
         "Leon is not an exception. He is a pattern. In the UK, Black African and Black Caribbean men carry a heavier load of hypertension, stroke, type 2 diabetes, and prostate cancer than the general population. A UK study found hypertension prevalence of 31% in Afro-Caribbean men compared with 19% in White men, even after adjusting for age and lifestyle. Black men are diagnosed with type 2 diabetes two to four times more often, often around 15 years younger than their White peers.",
         "And one of the biggest numbers every Black man in Britain needs to know: 1 in 4 Black men will be diagnosed with prostate cancer in their lifetime, compared with 1 in 8 men overall, and roughly twice as likely to die from it.",
@@ -87,14 +91,18 @@ window.TOOLKIT = {
       title: "Mind",
       kicker: "Mental and emotional health",
       promise: "Strength is not silence.",
-      character: { name: "Darius Thompson", age: 36, line: "Carrying silent storms behind a dependable face." },
-      hero_image: "https://images.unsplash.com/photo-1463453091185-61582044d556?w=2000&q=80&auto=format&fit=crop",
-      portrait: "https://images.unsplash.com/photo-1463453091185-61582044d556?w=1200&q=80&auto=format&fit=crop",
+      character: { name: "Darius Thompson", line: "Carrying silent storms behind a dependable face." },
+      testimonial: {
+        quote: "The biggest barrier is the idea that being a man means you're not susceptible to emotions, so you can't feel your feels.",
+        attribution: "From our focus groups."
+      },
+      hero_image: "assets/img/mind.jpg",
+      portrait: "assets/img/mind.jpg",
       accent: "indigo",
       duration_min: 10,
 
       story: [
-        "Darius Thompson, age 36. Darius carries the weight of years of stress silently. After losing a close friend to violence in his late twenties and navigating years of pressure to \u201Cstay strong,\u201D \u201Chold the family together,\u201D and \u201Cbe the one who made it out,\u201D he now struggles with anxiety and sleepless nights.",
+        "Darius carries the weight of years of stress silently. After losing a close friend to violence in his late twenties and navigating years of pressure to \u201Cstay strong,\u201D \u201Chold the family together,\u201D and \u201Cbe the one who made it out,\u201D he now struggles with anxiety and sleepless nights.",
         "At work he is the dependable one, the man colleagues lean on. Around friends he wears the mask of resilience, cracks the jokes, buys the round. Internally he feels overwhelmed, numb in places that used to feel alive, and some mornings it takes everything he has to get out of bed. He has not cried since the funeral.",
         "His battle is learning that mental strength is not silence; it is facing and managing the storms in his mind, and letting someone else hold the umbrella for a moment.",
         "Darius's experience is not rare, and it is not weakness. The UK evidence tells a hard story. Black people are around four times more likely than White people to be detained under the Mental Health Act, and for the \u201CAny Other Black Background\u201D group the rate is more than twelve times higher. Black Caribbean men are far more likely to arrive at mental health services through the police or criminal justice system than through a GP.",
@@ -139,12 +147,14 @@ window.TOOLKIT = {
         { name: "CALM", note: "Daily 5pm to midnight, 0800 58 58 58", link: "https://www.thecalmzone.net" },
         { name: "NHS Talking Therapies", note: "Free, self-referral", link: "https://www.nhs.uk/talk" },
         { name: "Black Minds Matter UK", note: "Free therapy for Black individuals", link: "https://blackmindsmatteruk.com", black_led: true },
-        { name: "BAATN", note: "Black, African and Asian Therapy Network", link: "https://www.baatn.org.uk", black_led: true },
+        { name: "BAATN", note: "Black, African and Asian Therapy Network. LGBTQ-affirming practitioners can be filtered.", link: "https://www.baatn.org.uk", black_led: true, lgbtq: true },
         { name: "Black Thrive Lambeth", note: "Local mental wellbeing partnership", link: "https://lambeth.blackthrive.org", black_led: true },
         { name: "Mind", note: "National mental health charity, 0300 123 3393", link: "https://www.mind.org.uk" },
         { name: "Nilaari", note: "Black-led therapy and counselling, 0117 952 5742", link: "https://nilaari.co.uk", black_led: true },
         { name: "Rethink Mental Illness", note: "0808 801 0525", link: "https://www.rethink.org" },
         { name: "Hub of Hope", note: "UK's largest mental health service finder", link: "https://hubofhope.co.uk" },
+        { name: "Switchboard LGBT+ Helpline", note: "0800 0119 100. Listening service for LGBTQ+ people, run by volunteers from the community.", link: "https://switchboard.lgbt", lgbtq: true },
+        { name: "MindOut", note: "LGBTQ+ mental health service. Online chat, advocacy, peer support.", link: "https://mindout.org.uk", lgbtq: true },
         { name: "SANEline", note: "0300 304 7000, 4:30pm to 10pm", link: "https://www.sane.org.uk" },
         { name: "Sanctuary Mental Health Ministries UK", note: "Faith and mental health course", link: "https://sanctuarymentalhealth.org/uk" },
         { name: "National Suicide Prevention Helpline UK", note: "0800 689 5652", link: "https://www.spuk.org.uk" },
@@ -157,14 +167,18 @@ window.TOOLKIT = {
       title: "Money",
       kicker: "Financial health",
       promise: "Earning well, living free.",
-      character: { name: "Andre Walker", age: 41, line: "Earning good money. Broke every payday." },
+      character: { name: "Andre Walker", line: "Earning good money. Broke every payday." },
+      testimonial: {
+        quote: "When I was not financially stable, I experienced a series of mood swings and my mental wellbeing would flow negatively at the end of each month.",
+        attribution: "A man we spoke with at the Lambeth Country Show."
+      },
       hero_image: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=2000&q=80&auto=format&fit=crop",
       portrait: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=1200&q=80&auto=format&fit=crop",
       accent: "emerald",
       duration_min: 11,
 
       story: [
-        "Andre Walker, age 41. Andre earns good money. On paper he is doing better than most, working as a construction site manager, driving a decent car, respected on site. Yet every month ends with the same anxiety: overdraft warnings, credit cards creeping back up, a boiler breakdown or a car repair that sends him straight to a payday top-up.",
+        "Andre earns good money. On paper he is doing better than most, working as a construction site manager, driving a decent car, respected on site. Yet every month ends with the same anxiety: overdraft warnings, credit cards creeping back up, a boiler breakdown or a car repair that sends him straight to a payday top-up.",
         "He grew up in a household where money came in on Friday and was gone by Monday, where asking questions about finance felt disrespectful, and where being \u201Cthe one who made it\u201D came with a permanent tab for cousins, aunties, and a mother who \u201Cjust needs a little something.\u201D He has never had a budget. He has never spoken to a financial adviser. He has never been told that money is a system you can learn, not just a storm you survive.",
         "Years of impulsive spending, helping family without boundaries, and avoiding the bank statements in the drawer have left him earning well but never building stability. His turmoil is the quiet shame of being seen as successful while feeling broke every payday.",
         "The numbers give Andre's story context. For every \u00A31 of wealth a White British household holds, a Black Caribbean household holds around 20p and a Black African household around 10p. The median property wealth of Black households in the UK is \u00A30. Home ownership sits at around 40% for Black Caribbean and 20 to 23% for Black African families, compared with 68% for White British. In London, 28% of Black African and 24% of Black Caribbean adults are over-indebted, compared with 11% of White British.",
@@ -228,14 +242,22 @@ window.TOOLKIT = {
       title: "Spirit",
       kicker: "Spiritual health and self-knowledge",
       promise: "Knowing the man you are.",
-      character: { name: "Marcus Reid", age: 33, line: "Successful on paper, asking who he is underneath." },
+      character: { name: "Marcus Reid", line: "Successful on paper, asking who he is underneath." },
+      testimonial: {
+        quote: "My faith is integral because life on planet earth is crazy. I use the scripture to encourage me, communing with other people, sharing with other people, and within that allowing myself to be vulnerable.",
+        attribution: "A brother in his late thirties.",
+        counterpoint: {
+          quote: "I just believe in karma. I'm not a religious person. I don't really believe in God or any form of deity. I just know the universe might have laws that govern it.",
+          attribution: "Another man, same conversation."
+        }
+      },
       hero_image: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=2000&q=80&auto=format&fit=crop",
       portrait: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=1200&q=80&auto=format&fit=crop",
       accent: "violet",
       duration_min: 12,
 
       story: [
-        "Marcus Reid, age 33. Marcus works in middle management at a logistics company. On paper he is successful: a steady job, a flat with a balcony, and respect at work. People from his estate ask him about jobs for their sons and he is happy to help. But privately he feels like he is living someone else's life.",
+        "Marcus works in middle management at a logistics company. On paper he is successful: a steady job, a flat with a balcony, and respect at work. People from his estate ask him about jobs for their sons and he is happy to help. But privately he feels like he is living someone else's life.",
         "His parents pushed him hard towards stability after watching cousins drift, so he buried his interest in creative work and his quiet love of community mentoring, telling himself he would come back to it later. Now, after a colleague his age suddenly dies, Marcus cannot sleep. He keeps asking the same question: who am I outside of work and obligation?",
         "He realises he has spent ten years answering everyone else's questions and almost none of his own. His turmoil is not failure; it is a life lived without self-examination.",
         "For many Black men in Britain, faith and spirituality remain a real anchor. South London alone is home to one of the densest concentrations of African Christianity anywhere in the world outside Africa. Southwark counts roughly 240 Black Majority Churches, more than all other churches in the borough combined, with Pentecostal congregations growing by 58% across 2005 to 2012 while many White congregations declined.",
@@ -285,6 +307,7 @@ window.TOOLKIT = {
         { name: "The School of Life UK", note: "Secular workshops on meaning, purpose", link: "https://www.theschooloflife.com" },
         { name: "Reach Society", note: "Black professional men sharing wisdom and mentoring", link: "https://reachsociety.com", black_led: true },
         { name: "Local libraries", note: "Free access to Black history, philosophy, self-development. Use them.", link: "https://www.gov.uk/local-library-services" },
+        { name: "House of Rainbow", note: "Faith-affirming community for LGBTQ+ people of African and Caribbean heritage.", link: "https://houseofrainbow.org", black_led: true, lgbtq: true },
       ],
     },
 
@@ -294,14 +317,18 @@ window.TOOLKIT = {
       title: "Brotherhood",
       kicker: "Brotherhood",
       promise: "Strength is shared, not solo.",
-      character: { name: "Kevin Blake", age: 38, line: "Built a life that looks impressive and contains almost no one." },
-      hero_image: "https://images.unsplash.com/photo-1546525848-3ce03ca516f6?w=2000&q=80&auto=format&fit=crop",
-      portrait: "https://images.unsplash.com/photo-1546525848-3ce03ca516f6?w=1200&q=80&auto=format&fit=crop",
+      character: { name: "Kevin Blake", line: "Built a life that looks impressive and contains almost no one." },
+      testimonial: {
+        quote: "I have built my mind to deal with problems this way, because I don't want to be a burden to others who have their own problems.",
+        attribution: "From our research. This is the thing the Vetting Card is designed to help with."
+      },
+      hero_image: "assets/img/brotherhood.jpg",
+      portrait: "assets/img/brotherhood.jpg",
       accent: "rust",
       duration_min: 10,
 
       story: [
-        "Kevin Blake, age 38. Kevin prides himself on independence. He pays his own bills, fixes his own problems, and has the kind of energy that makes other men say \u201CKev's good, he doesn't need anything.\u201D He handles disagreements with his wife by going quiet. He handles stress by going to the gym alone. He handles his father's illness by just getting on with it.",
+        "Kevin prides himself on independence. He pays his own bills, fixes his own problems, and has the kind of energy that makes other men say \u201CKev's good, he doesn't need anything.\u201D He handles disagreements with his wife by going quiet. He handles stress by going to the gym alone. He handles his father's illness by just getting on with it.",
         "Over fifteen years his friendships have shrunk to text-message check-ins and the odd pint at Christmas. The men he calls his boys do not know what is going on in his marriage, his money, or his mind.",
         "When his marriage finally collapses and he moves into a one-bed flat alone, Kevin sits on the floor of an empty living room and realises something terrifying: he has built a life that looks impressive and contains almost no one. His struggle is learning that strength among men often comes from brotherhood, not isolation.",
         "The numbers tell us Kevin is not alone, even if he feels alone. UK research consistently finds that men hold fewer close friendships than women, share less of what they are going through, and pay a heavy price when those friendships thin out. UK Household Longitudinal Survey data shows Black ethnic group respondents are around 14% chronically lonely compared with 9% of White respondents.",
@@ -361,14 +388,18 @@ window.TOOLKIT = {
       title: "Community",
       kicker: "Community leadership",
       promise: "From commentator to builder.",
-      character: { name: "Sean Bennett", age: 42, line: "Will he stay a commentator, or take responsibility?" },
-      hero_image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=2000&q=80&auto=format&fit=crop",
-      portrait: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=1200&q=80&auto=format&fit=crop",
+      character: { name: "Sean Bennett", line: "Will he stay a commentator, or take responsibility?" },
+      testimonial: {
+        quote: "I used to be part of the Black Men's Consortium based in Brixton. That group has been very instrumental in supporting me.",
+        attribution: "A man we spoke with."
+      },
+      hero_image: "assets/img/community.jpg",
+      portrait: "assets/img/community.jpg",
       accent: "carmine",
       duration_min: 11,
 
       story: [
-        "Sean Bennett, age 42. Sean grew up in the same neighbourhood he still lives in. He has watched the same cycles repeat for thirty years: bright kids drifting into trouble in their teens, the local boxing club closing, the youth centre cutting back its hours, the same bus stop where boys he used to babysit now stand looking lost.",
+        "Sean grew up in the same neighbourhood he still lives in. He has watched the same cycles repeat for thirty years: bright kids drifting into trouble in their teens, the local boxing club closing, the youth centre cutting back its hours, the same bus stop where boys he used to babysit now stand looking lost.",
         "He has always spoken passionately about it. At barbecues, in the barbershop, on his cousin's Instagram lives, in his group chat. He talks about what \u201Cthey\u201D should be doing and what \u201Cwe\u201D need to start. But he has never put himself forward to lead anything. Not the parents' group at his daughter's school, not the local community council, not the mentoring scheme his cousin runs out of his front room.",
         "When the youth centre that raised half his generation announces it is closing because there is no one to run it, Sean is forced into a corner he has been avoiding for years. Will he stay a commentator, or become someone who takes responsibility for the community around him?",
         "Sean's instinct to act is in good company. Black communities in the UK are more civically engaged than people realise. Black African adults volunteer formally at least once a month at higher rates (22%) than the England average (17%), according to the Community Life Survey 2024/25. Black people are also the ethnic group most likely to say they can influence local decisions, at 44%.",
@@ -422,6 +453,8 @@ window.TOOLKIT = {
         { name: "Black Cultural Archives", note: "Brixton, rooting your leadership in heritage", link: "https://blackculturalarchives.org", black_led: true },
         { name: "Black Pound Day", note: "First Saturday every month", link: "https://blackpoundday.uk", black_led: true },
         { name: "The Magistrates Association", note: "Becoming a magistrate", link: "https://magistrates-association.org.uk" },
+        { name: "UK Black Pride", note: "Europe's largest celebration for LGBTQ+ people of African, Asian, Caribbean, Middle Eastern and Latin American descent.", link: "https://www.ukblackpride.org.uk", black_led: true, lgbtq: true },
+        { name: "Stonewall", note: "Information, advice, and campaigning for LGBTQ+ people across the UK.", link: "https://www.stonewall.org.uk", lgbtq: true },
       ],
     },
   ],

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Field Guide | Tools | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Scripts for when your doctor is not listening. Use the language word for word. Screenshot it and keep it on your phone." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/style.css" />
+<link rel="stylesheet" href="tool.css" />
+<style>
+  body { --tool-accent: #1f6962; }
+</style>
+</head>
+<body class="tool-page-body">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <nav class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#chapters">Chapters</a>
+    <a href="../quiz.html">Where to start</a>
+    <a href="index.html">Tools</a>
+    <a href="../resources.html">Resources</a>
+    <a href="../bookmarks.html">Saved</a>
+    <a href="../about.html">About</a>
+  </nav>
+</header>
+
+<main class="tool-page" data-screen-label="Field Guide">
+  <section class="tool-hero">
+    <div class="tool-hero-inner">
+      <a class="tool-back" href="index.html">&larr; All tools</a>
+      <div class="tool-num">Tool 01</div>
+      <h1>The Field Guide.</h1>
+      <p class="tool-sub">Scripts for when your doctor is not listening.</p>
+      <p class="tool-lead">A man we spoke with put it plainly: "I felt like that was me being dismissed." Another said he had to travel to a different hospital entirely after a doctor made a mocking comment about Black men and STIs.</p>
+      <p class="tool-lead">You should not need a script to be heard by a healthcare professional. But until that changes, here is the language. Use it word for word if you need to. Screenshot this page and keep it on your phone.</p>
+    </div>
+  </section>
+
+  <section class="tool-body">
+    <div class="tool-body-inner">
+      <article class="script-block">
+        <div class="script-label">If you feel dismissed</div>
+        <blockquote>I understand you may not think this is serious. Please document in my medical notes that you are refusing this referral, and the reason why.</blockquote>
+      </article>
+      <article class="script-block">
+        <div class="script-label">If you want a clearer answer</div>
+        <blockquote>What is the differential diagnosis you are considering? What are the other possibilities you are ruling out?</blockquote>
+      </article>
+      <article class="script-block">
+        <div class="script-label">If you want a second opinion</div>
+        <blockquote>I would like a second opinion. Who can I see, and how do I make that referral happen?</blockquote>
+      </article>
+      <article class="script-block">
+        <div class="script-label">If you are not being listened to at all</div>
+        <blockquote>I need to stop you. I do not feel heard. Can we start this conversation again?</blockquote>
+      </article>
+      <article class="script-block">
+        <div class="script-label">If you are bringing someone with you</div>
+        <blockquote>This is my advocate. They are here to listen with me and to take notes. They will be in the room for the appointment.</blockquote>
+      </article>
+
+      <div class="script-section">
+        <h2>Before you walk in</h2>
+        <p>Three things to do in the waiting room:</p>
+        <ol>
+          <li>Write down the three things you want the doctor to know. In order.</li>
+          <li>Write down the one outcome you want from this visit.</li>
+          <li>Take a deep breath. You are allowed to take up time.</li>
+        </ol>
+      </div>
+
+      <div class="script-section">
+        <h2>After the appointment</h2>
+        <p>If something felt wrong, you have the right to ask for a copy of your medical notes. You also have the right to complain. The NHS Patient Advice and Liaison Service (PALS) handles complaints at every NHS hospital and GP surgery. Search "PALS" plus your hospital name.</p>
+      </div>
+
+      <div class="tool-actions">
+        <button class="btn btn-primary" id="screenshot-cta">Screenshot this page
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+        <button class="btn btn-ghost" id="share-cta">Share with a brother</button>
+        <a class="btn btn-ghost" href="../chapters/body.html">Back to Body chapter</a>
+      </div>
+
+      <p class="tool-privacy">Nothing here leaves your device. Use this when you need it.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-meta" style="border:none;padding:0">
+    <span>From Black Thrive Lambeth. Designed by The Office of Art and Technology.</span>
+    <a href="../index.html" style="color:var(--accent);text-decoration:none;font-weight:700">Back to home &rarr;</a>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/app.js"></script>
+<script>
+document.getElementById('screenshot-cta').addEventListener('click', () => {
+  alert('Take a screenshot now. On most phones: press the side button + volume down (or volume up on iPhone) at the same time.');
+});
+document.getElementById('share-cta').addEventListener('click', () => {
+  if (navigator.share) {
+    navigator.share({
+      title: 'The Field Guide',
+      text: 'Scripts for when your doctor is not listening. From the Black Man\'s Toolkit.',
+      url: location.href
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(location.href);
+    window.BMT && window.BMT.toast && window.BMT.toast('Link copied');
+  }
+});
+</script>
+</body>
+</html>

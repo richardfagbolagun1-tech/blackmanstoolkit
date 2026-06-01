@@ -6,15 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,500;1,6..72,300;1,6..72,500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit<small>Black Thrive Lambeth &middot; Office of Art &amp; Technology</small></span></a>
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
   <nav class="nav">
     <a href="index.html">Home</a>
+    <a href="index.html#chapters">Chapters</a>
     <a href="quiz.html" class="active">Where to start</a>
+    <a href="tools/index.html">Tools</a>
     <a href="resources.html">Resources</a>
     <a href="bookmarks.html">Saved</a>
     <a href="about.html">About</a>
@@ -33,7 +35,7 @@
 <script src="assets/app.js"></script>
 <script>
 const QUESTIONS = [
-  { q: "Which of these feels heaviest <em>for you</em> right now?", sub: "There is no wrong answer. Pick the one that lands.", opts: [
+  { q: "Which of these feels heaviest for you right now?", sub: "There is no wrong answer. Pick the one that lands.", opts: [
     { t: "My body is telling me something I have been ignoring", c: "body" },
     { t: "My mind feels heavy or numb, more than I'd admit out loud", c: "mind" },
     { t: "Money is a quiet stress every month", c: "money" },
@@ -41,13 +43,13 @@ const QUESTIONS = [
     { t: "I feel isolated, even around people I call my boys", c: "brotherhood" },
     { t: "I see things in my community I want to change", c: "community" },
   ]},
-  { q: "When you say <em>'I'm good'</em>, how often is it true?", sub: "Be honest with yourself.", opts: [
+  { q: "When you say 'I'm good', how often is it true?", sub: "Be honest with yourself.", opts: [
     { t: "Most of the time. Things are actually okay.", c: "spirit" },
     { t: "Some of the time. There are heavier days.", c: "mind" },
     { t: "Rarely. I am running on fumes.", c: "mind" },
     { t: "I don't really stop to ask myself.", c: "spirit" },
   ]},
-  { q: "Which one would change your life most <em>this year</em>?", sub: "If you could only pick one.", opts: [
+  { q: "Which one would change your life most this year?", sub: "If you could only pick one.", opts: [
     { t: "Better health and a body I trust", c: "body" },
     { t: "Peace of mind and rest", c: "mind" },
     { t: "Financial stability and savings", c: "money" },
@@ -55,14 +57,14 @@ const QUESTIONS = [
     { t: "Real friendships with other men", c: "brotherhood" },
     { t: "Doing something useful in my area", c: "community" },
   ]},
-  { q: "Who is the one person you could tell the <em>whole truth</em> to?", sub: "And how often do you actually do it?", opts: [
+  { q: "Who is the one person you could tell the whole truth to?", sub: "And how often do you actually do it?", opts: [
     { t: "I have a brother / friend like that, and I do tell him", c: "community" },
     { t: "I have someone, but I do not really open up", c: "brotherhood" },
     { t: "I am not sure I have anyone like that", c: "brotherhood" },
     { t: "My partner. And nobody else.", c: "brotherhood" },
     { t: "Only God / my faith", c: "spirit" },
   ]},
-  { q: "If you take <em>one step</em> after closing this page, you want it to be...", sub: "What feels most useful?", opts: [
+  { q: "If you take one step after closing this page, you want it to be...", sub: "What feels most useful?", opts: [
     { t: "Booking the medical check I have been putting off", c: "body" },
     { t: "Telling someone how I really am", c: "mind" },
     { t: "Sitting down with my actual numbers", c: "money" },
@@ -130,7 +132,7 @@ function showResult() {
   const result = document.getElementById("quiz-result");
   result.classList.add("active");
   result.innerHTML = `
-    <h2>Brother, start <em>here.</em></h2>
+    <h2>Brother, start here.</h2>
     <p>Based on what you told us, the chapter that will matter most for you, right now, is...</p>
 
     <a class="quiz-recommendation" href="chapters/${top.slug}.html" style="text-decoration:none;color:var(--ink)">

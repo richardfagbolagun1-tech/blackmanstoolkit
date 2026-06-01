@@ -6,6 +6,9 @@
     bookmarks: "bmt:bookmarks",
     journal: "bmt:journal",
     palette: "bmt:palette",
+    checkin: "bmt:checkin",     // [{at:ts, feeling:str, note:str}]
+    nudge: "bmt:nudge",         // {channel, value, day, when}
+    streakHide: "bmt:streakHide", // bool
   };
 
   function read(key, fallback) {
@@ -18,14 +21,15 @@
 
   // ---------- PALETTE ----------
   const PALETTES = [
+    { id: "navy", name: "Navy", swatches: ["#0a1f44", "#c89b3c", "#ffffff", "#4a5a7a"] },
     { id: "sankofa", name: "Sankofa", swatches: ["#8a1a1a", "#e8a93a", "#f3e9d2", "#1a0d07"] },
     { id: "brixton", name: "Brixton", swatches: ["#c7522a", "#2f5233", "#efe6d3", "#1f1815"] },
     { id: "mansa", name: "Mansa", swatches: ["#2a3a87", "#d97c3a", "#ece4d2", "#0e1428"] },
   ];
 
   function applyPalette(id) {
-    document.documentElement.setAttribute("data-palette", id || "sankofa");
-    write(STORE.palette, id || "sankofa");
+    document.documentElement.setAttribute("data-palette", id || "navy");
+    write(STORE.palette, id || "navy");
   }
 
   function buildTweaksPanel() {
@@ -72,7 +76,7 @@
   }
 
   function refreshPaletteUI() {
-    const cur = document.documentElement.getAttribute("data-palette") || "sankofa";
+    const cur = document.documentElement.getAttribute("data-palette") || "navy";
     document.querySelectorAll(".palette-option").forEach(b => {
       b.classList.toggle("active", b.dataset.palette === cur);
     });
@@ -118,6 +122,54 @@
       return true;
     }
   }
+
+  // ---------- CHECK-INS ----------
+  function getCheckins() { return read(STORE.checkin, []); }
+  function addCheckin(entry) {
+    const list = getCheckins();
+    list.push({ at: Date.now(), ...entry });
+    write(STORE.checkin, list);
+    return list;
+  }
+  function lastCheckin() {
+    const list = getCheckins();
+    return list.length ? list[list.length - 1] : null;
+  }
+
+  // ---------- STREAK ----------
+  // Streak resets if no check-in in 7 days (brief: not 1).
+  // A "day" is a unique calendar date in the local timezone.
+  function dayKey(ts) {
+    const d = new Date(ts);
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+  function getStreak() {
+    const list = getCheckins();
+    if (!list.length) return 0;
+    // Unique sorted days descending
+    const days = Array.from(new Set(list.map(e => dayKey(e.at)))).sort().reverse();
+    const now = Date.now();
+    const lastDay = new Date(days[0]).getTime();
+    // If last check-in older than 7 days, streak is 0.
+    if (now - lastDay > 7 * 24 * 60 * 60 * 1000) return 0;
+    // Count consecutive days back from the most recent.
+    let streak = 1;
+    for (let i = 1; i < days.length; i++) {
+      const a = new Date(days[i-1]).getTime();
+      const b = new Date(days[i]).getTime();
+      const diffDays = Math.round((a - b) / (24 * 60 * 60 * 1000));
+      if (diffDays === 1) streak++;
+      else break;
+    }
+    return streak;
+  }
+  function streakHidden() { return !!read(STORE.streakHide, false); }
+  function setStreakHidden(v) { write(STORE.streakHide, !!v); }
+
+  // ---------- WEEKLY NUDGE ----------
+  function getNudge() { return read(STORE.nudge, null); }
+  function setNudge(cfg) { write(STORE.nudge, cfg); }
+  function clearNudge() { write(STORE.nudge, null); }
 
   // ---------- JOURNAL ----------
   function getJournal() { return read(STORE.journal, {}); }
@@ -182,7 +234,7 @@
 
   // ---------- INIT on every page ----------
   function init() {
-    const saved = read(STORE.palette, "sankofa");
+    const saved = read(STORE.palette, "navy");
     applyPalette(saved);
     buildTweaksPanel();
 
@@ -202,5 +254,8 @@
     getJournal, saveJournal,
     share, shareWhatsApp,
     narrate, updateAudioBtns, audioState,
+    getCheckins, addCheckin, lastCheckin,
+    getStreak, streakHidden, setStreakHidden,
+    getNudge, setNudge, clearNudge,
   };
 })();

@@ -1,7 +1,78 @@
 // Chapter page renderer. Reads window.CHAPTER_SLUG, fills #chapter-root.
 (function () {
+
+  // Conversation starter scripts section (Build 6)
+  function renderScripts(slug) {
+    const pack = (window.TOOLKIT_SCRIPTS || {})[slug];
+    if (!pack || !pack.items || !pack.items.length) return "";
+    return `
+      <section id="scripts" class="chapter-section chapter-scripts">
+        <div class="section-label">Scripts \u00B7 When the words are hard to find</div>
+        <p class="scripts-intro">${pack.intro}</p>
+        <div class="scripts-deck">
+          ${pack.items.map((s, i) => `
+            <article class="script-card" data-script-i="${i}">
+              <header>
+                <span class="script-num">${String(i+1).padStart(2,'0')}</span>
+                <h4>${s.situation}</h4>
+              </header>
+              <blockquote>
+                <span class="script-mark" aria-hidden="true">&ldquo;</span>
+                <p>${s.text}</p>
+              </blockquote>
+              <button class="script-copy" data-copy="${i}" aria-label="Copy script">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+            </article>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  // PDF download + Share with a brother CTA at chapter end (Build 5a / 5c)
+  function renderChapterFooterCTA(c, slug) {
+    return `
+      <section class="chapter-takeaway" aria-label="Take this off the screen">
+        <div class="takeaway-inner">
+          <div class="takeaway-text">
+            <div class="section-label">Take this off the screen</div>
+            <h3>Carry this with you.</h3>
+            <p>Save a copy. Send it to a brother. Print it and drop it on the counter at your barbers.</p>
+          </div>
+          <div class="takeaway-actions">
+            <a class="btn btn-accent" href="../Booklet.html#${slug}" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download this chapter as PDF
+            </a>
+            <button class="btn btn-ghost" data-share-brother>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Share with a brother
+            </button>
+          </div>
+          <div class="takeaway-qr">
+            <div class="qr-anchor" id="chapter-qr" aria-hidden="true"></div>
+            <button class="qr-toggle" id="chapter-qr-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="14" y2="14.01"/><line x1="21" y1="14" x2="21" y2="14.01"/><line x1="14" y1="21" x2="14" y2="21.01"/><line x1="21" y1="21" x2="21" y2="21.01"/></svg>
+              Get the QR code for this page
+            </button>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
   const slug = window.CHAPTER_SLUG;
-  const c = window.getChapter(slug);
+  const c = (function(orig) {
+    if (!orig) return orig;
+    const fix = u => (typeof u === 'string' && u.startsWith('assets/')) ? '../' + u : u;
+    return Object.assign({}, orig, {
+      hero_image: fix(orig.hero_image),
+      portrait: fix(orig.portrait)
+    });
+  })(window.getChapter(slug));
+  // prefix chapter assets
   if (!c) {
     document.getElementById("chapter-root").innerHTML = "<p style='padding:80px;text-align:center'>Chapter not found.</p>";
     return;
@@ -34,10 +105,30 @@
         <h1>${c.title}.</h1>
         <p class="promise">${c.promise}</p>
         <div class="character-tag">
-          Meet <strong>${c.character.name}, ${c.character.age}</strong> &middot; ${c.character.line}
+          Meet <strong>${c.character.name}</strong> &middot; ${c.character.line}
         </div>
       </div>
     </section>
+
+    ${c.testimonial ? `
+    <section class="chapter-testimonial" aria-label="From our conversations">
+      <div class="testimonial-inner">
+        <div class="testimonial-label">From our conversations</div>
+        <blockquote class="testimonial-quote">
+          <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+          <p>${c.testimonial.quote}</p>
+          <cite>${c.testimonial.attribution}</cite>
+        </blockquote>
+        ${c.testimonial.counterpoint ? `
+          <blockquote class="testimonial-quote testimonial-counterpoint">
+            <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+            <p>${c.testimonial.counterpoint.quote}</p>
+            <cite>${c.testimonial.counterpoint.attribution}</cite>
+          </blockquote>
+        ` : ''}
+      </div>
+    </section>
+    ` : ''}
 
     <div class="chapter-subnav">
       <div class="subnav-links">
@@ -121,6 +212,10 @@
           `).join("")}
         </div>
       </section>
+
+      ${renderScripts(slug)}
+
+      ${renderChapterFooterCTA(c, slug)}
 
     </div>
 
@@ -228,9 +323,63 @@
       text: `${c.promise} A toolkit for Black men, from Black Thrive Lambeth.`,
     });
   });
-  document.querySelector("[data-whatsapp]").addEventListener("click", () => {
-    window.BMT.shareWhatsApp({
-      text: `${c.title}: ${c.promise} The Black Man's Toolkit, from Black Thrive Lambeth.`,
+  // Share with a brother (bottom CTA)
+  const shareBrotherBtn = document.querySelector("[data-share-brother]");
+  if (shareBrotherBtn) {
+    shareBrotherBtn.addEventListener("click", () => {
+      window.BMT.share({
+        title: `${c.title} \u00B7 The Black Man's Toolkit`,
+        text: `Hey. Thought this might be useful. From the Black Man's Toolkit, by Black Thrive Lambeth.`,
+      });
+    });
+  }
+
+  // Script copy buttons
+  document.querySelectorAll("[data-copy]").forEach(b => {
+    b.addEventListener("click", () => {
+      const i = b.dataset.copy;
+      const pack = (window.TOOLKIT_SCRIPTS || {})[slug];
+      if (!pack) return;
+      const text = pack.items[i].text;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => window.BMT.toast("Script copied. Paste it where you need it."));
+      } else {
+        window.BMT.toast(text);
+      }
     });
   });
+
+  // QR code on demand (loads qrcode.js lazily)
+  const qrBtn = document.getElementById("chapter-qr-btn");
+  const qrAnchor = document.getElementById("chapter-qr");
+  if (qrBtn && qrAnchor) {
+    qrBtn.addEventListener("click", () => {
+      if (qrAnchor.dataset.rendered === "true") {
+        qrAnchor.dataset.open = qrAnchor.dataset.open === "true" ? "false" : "true";
+        return;
+      }
+      const ensure = (cb) => {
+        if (window.QRCode) return cb();
+        const s = document.createElement("script");
+        s.src = "https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js";
+        s.onload = cb;
+        document.head.appendChild(s);
+      };
+      ensure(() => {
+        window.QRCode.toCanvas(location.href, { width: 220, margin: 1, color: { dark: "#0a1f44", light: "#fafaf7" } }, (err, canvas) => {
+          if (err) return;
+          qrAnchor.innerHTML = "";
+          qrAnchor.appendChild(canvas);
+          const dl = document.createElement("a");
+          dl.textContent = "Download PNG";
+          dl.className = "qr-dl";
+          dl.href = canvas.toDataURL("image/png");
+          dl.download = `bmt-${slug}-qr.png`;
+          qrAnchor.appendChild(dl);
+          qrAnchor.dataset.rendered = "true";
+          qrAnchor.dataset.open = "true";
+        });
+      });
+    });
+  }
 })();

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Feelings Wheel | Tools | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="When 'fine' or 'stressed' is not the truth. Tap the word that fits today." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/style.css" />
+<link rel="stylesheet" href="tool.css" />
+<style> body { --tool-accent: #b54a2a; } </style>
+</head>
+<body class="tool-page-body">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <nav class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#chapters">Chapters</a>
+    <a href="../quiz.html">Where to start</a>
+    <a href="index.html">Tools</a>
+    <a href="../resources.html">Resources</a>
+    <a href="../bookmarks.html">Saved</a>
+    <a href="../about.html">About</a>
+  </nav>
+</header>
+
+<main class="tool-page" data-screen-label="Feelings Wheel">
+  <section class="tool-hero">
+    <div class="tool-hero-inner">
+      <a class="tool-back" href="index.html">&larr; All tools</a>
+      <div class="tool-num">Tool 02</div>
+      <h1>The Feelings Wheel.</h1>
+      <p class="tool-sub">When "fine" or "stressed" is not the truth.</p>
+      <p class="tool-lead">Brothers told us finding the right word for what they actually feel is one of the hardest parts. The wheel gives you more options. Pick the word that fits today.</p>
+    </div>
+  </section>
+
+  <section class="tool-body">
+    <div class="tool-body-inner">
+
+      <div class="fw-grid" id="fw-grid">
+        <button class="fw-btn" data-emotion="dismissed">Dismissed</button>
+        <button class="fw-btn" data-emotion="invisible">Invisible</button>
+        <button class="fw-btn" data-emotion="overwhelmed">Overwhelmed</button>
+        <button class="fw-btn" data-emotion="betrayed">Betrayed</button>
+        <button class="fw-btn" data-emotion="unsupported">Unsupported</button>
+        <button class="fw-btn" data-emotion="numb">Numb</button>
+        <button class="fw-btn" data-emotion="resentful">Resentful</button>
+        <button class="fw-btn" data-emotion="lonely">Lonely</button>
+        <button class="fw-btn" data-emotion="exhausted">Exhausted</button>
+        <button class="fw-btn" data-emotion="anxious">Anxious</button>
+        <button class="fw-btn" data-emotion="hopeful">Hopeful</button>
+        <button class="fw-btn" data-emotion="proud">Proud</button>
+      </div>
+
+      <div class="fw-prompt" id="fw-prompt" style="display:none">
+        <div class="fw-picked">You picked</div>
+        <h3 id="fw-emotion">Dismissed</h3>
+        <p id="fw-text"></p>
+      </div>
+
+      <div class="script-section">
+        <h2>What to do next</h2>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px">
+          <li><strong style="color:var(--ink)">If the feeling is heavy:</strong> Go to the <a href="../chapters/mind.html" style="color:var(--tool-accent,var(--primary));font-weight:600">Mind chapter</a>, or text SHOUT to 85258.</li>
+          <li><strong style="color:var(--ink)">If you want to track it:</strong> Come back to this wheel tomorrow. Notice if the word changes.</li>
+          <li><strong style="color:var(--ink)">If you want to talk to a brother:</strong> Use the <a href="vetting-card.html" style="color:var(--tool-accent,var(--primary));font-weight:600">Vetting Card</a> to figure out who is safe to call.</li>
+        </ul>
+      </div>
+
+      <div class="tool-actions">
+        <button class="btn btn-ghost" id="share-cta">Share with a brother</button>
+        <a class="btn btn-ghost" href="../chapters/mind.html">Back to Mind chapter</a>
+      </div>
+
+      <p class="tool-privacy">Your selection stays on your device.</p>
+
+      <p style="font-size:12px;color:var(--ink-soft);opacity:0.6;margin-top:48px">Word list adapted from the Geoffrey Roberts emotion wheel and what brothers told us in our research.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-meta" style="border:none;padding:0">
+    <span>From Black Thrive Lambeth. Designed by The Office of Art and Technology.</span>
+    <a href="../index.html" style="color:var(--accent);text-decoration:none;font-weight:700">Back to home &rarr;</a>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/app.js"></script>
+<script>
+const PROMPTS = {
+  dismissed: "Who dismissed you? Was it the first time, or has it been building? Write one sentence. You do not have to send it to anyone.",
+  invisible: "Name one person who actually sees you. Send them a message today. Even just 'Thinking of you.'",
+  overwhelmed: "What is the smallest thing you could put down? Not solve. Just put down for an hour.",
+  betrayed: "Sit with it. Do not act yet. Come back to this page in 24 hours and pick again.",
+  unsupported: "Who has shown up for you before? Reach out, even if it has been a while. They will probably be glad to hear from you.",
+  numb: "Numb is information. It usually means there has been too much for too long. Pick one moment from today that mattered, write it down.",
+  resentful: "Resentment grows where boundaries did not. What boundary do you need to set, even quietly?",
+  lonely: "Loneliness is a brutal word. You are not alone in feeling it. Call one person. Even just to ask how their day was.",
+  exhausted: "What is the one thing you can stop doing this week, just for a week? Try it.",
+  anxious: "Four counts in. Six counts out. Three times. Then write down what you are anxious about, in one sentence.",
+  hopeful: "Notice the hope. Where did it come from? Write that down so you can find it again on harder days.",
+  proud: "Tell someone. Out loud. Today. You are allowed to.",
+};
+
+const grid = document.getElementById('fw-grid');
+const promptEl = document.getElementById('fw-prompt');
+const emotionEl = document.getElementById('fw-emotion');
+const textEl = document.getElementById('fw-text');
+
+// Restore
+try {
+  const saved = JSON.parse(localStorage.getItem('bmt:feeling') || 'null');
+  if (saved && saved.emotion && PROMPTS[saved.emotion]) {
+    const btn = grid.querySelector(`[data-emotion="${saved.emotion}"]`);
+    if (btn) {
+      btn.classList.add('selected');
+      emotionEl.textContent = btn.textContent;
+      textEl.textContent = PROMPTS[saved.emotion];
+      promptEl.style.display = 'block';
+    }
+  }
+} catch {}
+
+grid.addEventListener('click', e => {
+  const btn = e.target.closest('.fw-btn');
+  if (!btn) return;
+  grid.querySelectorAll('.fw-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const emotion = btn.dataset.emotion;
+  emotionEl.textContent = btn.textContent;
+  textEl.textContent = PROMPTS[emotion];
+  promptEl.style.display = 'block';
+  try { localStorage.setItem('bmt:feeling', JSON.stringify({ emotion, at: Date.now() })); } catch {}
+});
+
+document.getElementById('share-cta').addEventListener('click', () => {
+  const text = "The Feelings Wheel. When 'fine' or 'stressed' is not the truth. From the Black Man's Toolkit.";
+  if (navigator.share) navigator.share({ title: 'The Feelings Wheel', text, url: location.href }).catch(() => {});
+  else { navigator.clipboard.writeText(location.href); window.BMT && window.BMT.toast && window.BMT.toast('Link copied'); }
+});
+</script>
+</body>
+</html>

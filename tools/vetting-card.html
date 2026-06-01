@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Vetting Card | Tools | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Not everyone in your phone is the same friend. Sort the people in your life. Be honest." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/style.css" />
+<link rel="stylesheet" href="tool.css" />
+<style> body { --tool-accent: #a87a2a; } </style>
+</head>
+<body class="tool-page-body">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <nav class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#chapters">Chapters</a>
+    <a href="../quiz.html">Where to start</a>
+    <a href="index.html">Tools</a>
+    <a href="../resources.html">Resources</a>
+    <a href="../bookmarks.html">Saved</a>
+    <a href="../about.html">About</a>
+  </nav>
+</header>
+
+<main class="tool-page" data-screen-label="Vetting Card">
+  <section class="tool-hero">
+    <div class="tool-hero-inner">
+      <a class="tool-back" href="index.html">&larr; All tools</a>
+      <div class="tool-num">Tool 03</div>
+      <h1>The Vetting Card.</h1>
+      <p class="tool-sub">Not everyone in your phone is the same friend.</p>
+      <p class="tool-lead">One brother told us: "I have a small circle. That is on purpose. But sometimes that means there is nobody around when I need them."</p>
+      <p class="tool-lead">This is not about cutting people off. It is about being honest with yourself about what each person is for. Sort the people in your life. Be honest. You can come back and change it.</p>
+    </div>
+  </section>
+
+  <section class="tool-body">
+    <div class="tool-body-inner">
+
+      <form class="vc-input-row" id="vc-form" autocomplete="off">
+        <input id="vc-name" type="text" placeholder="A name, initials, or a nickname" aria-label="Name" />
+        <button type="submit">Add</button>
+      </form>
+
+      <p style="font-size:13px;color:var(--ink-soft);margin:-16px 0 24px 0">Drag a chip from one column to the other to move them. Tap the × to remove.</p>
+
+      <div class="vc-columns">
+        <div class="vc-col" data-col="pub">
+          <h3>The Pub Friend</h3>
+          <p class="vc-good">Good for: laughs, distraction, watching the match, talking about anything except the hard stuff.</p>
+          <div class="vc-chips" id="vc-pub"></div>
+          <p class="vc-empty" id="vc-pub-empty">Drag names here, or tap Add above.</p>
+        </div>
+        <div class="vc-col" data-col="vault">
+          <h3>The Vault</h3>
+          <p class="vc-good">Good for: the hard stuff. They have proven they can hold it. They have held it before.</p>
+          <div class="vc-chips" id="vc-vault"></div>
+          <p class="vc-empty" id="vc-vault-empty">Empty for now. That is okay. Most men have to build this. The <a href="../chapters/brotherhood.html" style="color:var(--tool-accent,var(--primary));font-weight:600">Brotherhood chapter</a> is where you start.</p>
+        </div>
+      </div>
+
+      <div class="script-section">
+        <h2>Questions to ask yourself</h2>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+          <li>Who do I celebrate wins with?</li>
+          <li>Who do I trust with my struggles?</li>
+          <li>When was the last time I called the person in The Vault?</li>
+          <li>Is there nobody in The Vault yet? That is information, not a failure.</li>
+        </ul>
+      </div>
+
+      <div class="tool-actions">
+        <a class="btn btn-primary" href="../chapters/brotherhood.html">Open the Brotherhood chapter
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <button class="btn btn-ghost" id="vc-clear">Clear my list</button>
+      </div>
+
+      <p class="tool-privacy">This stays on your device. Nobody sees this list, including us.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-meta" style="border:none;padding:0">
+    <span>From Black Thrive Lambeth. Designed by The Office of Art and Technology.</span>
+    <a href="../index.html" style="color:var(--accent);text-decoration:none;font-weight:700">Back to home &rarr;</a>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/app.js"></script>
+<script>
+const KEY = 'bmt:vetting';
+let state = { pub: [], vault: [] };
+try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) state = s; } catch {}
+
+function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} }
+function render() {
+  ['pub','vault'].forEach(col => {
+    const wrap = document.getElementById('vc-' + col);
+    const empty = document.getElementById('vc-' + col + '-empty');
+    wrap.innerHTML = state[col].map((n, i) => `
+      <div class="vc-chip" draggable="true" data-col="${col}" data-i="${i}">
+        <span>${n.replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}</span>
+        <button class="vc-x" aria-label="Remove" data-col="${col}" data-i="${i}">&times;</button>
+      </div>
+    `).join('');
+    empty.style.display = state[col].length ? 'none' : 'block';
+  });
+}
+render();
+
+document.getElementById('vc-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const input = document.getElementById('vc-name');
+  const name = input.value.trim();
+  if (!name) return;
+  state.pub.push(name);
+  save(); render(); input.value = '';
+});
+
+document.body.addEventListener('click', e => {
+  const x = e.target.closest('.vc-x');
+  if (!x) return;
+  const col = x.dataset.col;
+  const i = +x.dataset.i;
+  state[col].splice(i, 1);
+  save(); render();
+});
+
+// Drag & drop
+document.body.addEventListener('dragstart', e => {
+  const chip = e.target.closest('.vc-chip');
+  if (!chip) return;
+  e.dataTransfer.setData('text/plain', JSON.stringify({ col: chip.dataset.col, i: +chip.dataset.i }));
+  e.dataTransfer.effectAllowed = 'move';
+});
+document.querySelectorAll('.vc-col').forEach(col => {
+  col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('target-active'); });
+  col.addEventListener('dragleave', () => col.classList.remove('target-active'));
+  col.addEventListener('drop', e => {
+    e.preventDefault();
+    col.classList.remove('target-active');
+    const data = JSON.parse(e.dataTransfer.getData('text/plain') || '{}');
+    const target = col.dataset.col;
+    if (!data.col || data.col === target) return;
+    const [name] = state[data.col].splice(data.i, 1);
+    if (name) state[target].push(name);
+    save(); render();
+  });
+});
+
+document.getElementById('vc-clear').addEventListener('click', () => {
+  if (!confirm('Clear all names from both columns?')) return;
+  state = { pub: [], vault: [] };
+  save(); render();
+});
+</script>
+</body>
+</html>

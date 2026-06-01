@@ -2,115 +2,1205 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Resource finder | The Black Man's Toolkit</title>
+<title>Find support near you | The Black Man's Toolkit</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Enter your postcode to find Black-led and Black-friendly support in your area. UK-wide directory: health, mind, money, spirit, brotherhood, community." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,500;1,6..72,300;1,6..72,500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/style.css" />
+<template id="__bundler_thumbnail" data-bg-color="#0F1E3D">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0F1E3D"/>
+    <circle cx="600" cy="340" r="120" fill="none" stroke="#E9B872" stroke-width="14"/>
+    <circle cx="600" cy="340" r="22" fill="#E9B872"/>
+    <rect x="430" y="540" width="340" height="14" fill="#FAFAF7"/>
+    <rect x="490" y="580" width="220" height="10" fill="#FAFAF7" opacity="0.6"/>
+  </svg>
+</template>
+<style>
+/* ============================================================
+   Resource Finder. Postcode-first.
+   ============================================================ */
+.rf { padding: 0 0 88px; background: var(--bg); }
+.rf-wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(28px, 6vw, 96px); }
+
+/* ── Postcode-first hero ──────────────────────────────── */
+.rf-hero {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 140px 0 80px;
+  margin: 0 0 56px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+.rf-hero-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 clamp(28px, 6vw, 96px);
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: end;
+}
+@media (max-width: 980px) { .rf-hero-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+.rf-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  font-weight: 600; color: var(--accent); margin-bottom: 22px;
+}
+.rf-eyebrow::before { content: ""; width: 36px; height: 2px; background: var(--accent); }
+.rf-hero h1 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(48px, 7vw, 96px); line-height: 0.95;
+  letter-spacing: -0.03em; margin: 0 0 22px; max-width: 14ch;
+  color: var(--paper);
+}
+.rf-hero p.rf-lead {
+  font-size: clamp(17px, 1.4vw, 19px); line-height: 1.5;
+  color: rgba(255,255,255,0.78); max-width: 42ch; margin: 0;
+  font-weight: 400;
+  text-wrap: pretty;
+}
+
+/* Postcode card */
+.pc-card {
+  background: var(--ink); color: var(--paper);
+  border-radius: var(--r-xl);
+  padding: 36px 36px 32px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.pc-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 110% 0%, var(--primary) 0%, transparent 45%),
+              radial-gradient(circle at 0% 110%, var(--plum) 0%, transparent 50%);
+  opacity: 0.4; pointer-events: none;
+}
+.pc-card-inner { position: relative; }
+.pc-card .pc-label {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 700; color: var(--accent);
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.pc-card .pc-label svg { flex-shrink: 0; }
+.pc-card h2 {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(28px, 3vw, 40px); line-height: 1;
+  letter-spacing: -0.02em; margin: 0 0 18px;
+}
+.pc-card h2 em { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--accent); }
+.pc-form {
+  display: flex; gap: 10px; margin: 0 0 14px;
+  align-items: stretch;
+}
+.pc-form input {
+  flex: 1;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  outline: none;
+  border-radius: 999px;
+  padding: 16px 22px;
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(20px, 2.2vw, 28px);
+  letter-spacing: 0.04em;
+  color: var(--paper); text-transform: uppercase;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  min-width: 0;
+}
+.pc-form input:focus { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.12); }
+.pc-form input::placeholder { color: rgba(255,255,255,0.45); letter-spacing: 0.06em; }
+.pc-form button {
+  background: var(--paper); color: var(--ink);
+  border: none; border-radius: 999px;
+  padding: 0 28px; font-family: var(--sans);
+  font-weight: 700; font-size: 13px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.15s ease, transform 0.15s ease;
+  flex-shrink: 0;
+  min-width: 120px;
+  justify-content: center;
+}
+.pc-form button:hover { background: rgba(255,255,255,0.85); transform: translateX(2px); }
+.pc-form button svg { flex-shrink: 0; }
+.pc-hint { font-size: 13px; opacity: 0.7; margin: 0; }
+.pc-hint .examples {
+  display: inline-flex; gap: 6px; margin-left: 8px; flex-wrap: wrap;
+}
+.pc-hint .example-pc {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  padding: 4px 10px; font-family: var(--display); font-weight: 700;
+  font-size: 11px; letter-spacing: 0.08em;
+  cursor: pointer; color: var(--paper);
+}
+.pc-hint .example-pc:hover { background: rgba(255,255,255,0.85); color: var(--ink); border-color: rgba(255,255,255,0.85); }
+
+.pc-current {
+  margin-top: 14px;
+  display: flex; gap: 10px; align-items: center;
+  font-size: 13px; padding: 10px 14px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 999px;
+}
+.pc-current strong { color: var(--paper); }
+.pc-current button {
+  margin-left: auto;
+  background: none; border: 1px solid rgba(255,255,255,0.3);
+  color: var(--paper); padding: 4px 12px; border-radius: 999px;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+  cursor: pointer;
+}
+.pc-current button:hover { background: rgba(255,255,255,0.12); }
+
+/* ── Crisis band ──────────────────────────────────────── */
+.rf-crisis {
+  background: var(--paper); color: var(--ink);
+  margin: 0 0 56px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.rf-crisis-inner { padding: 28px clamp(24px, 3vw, 40px); }
+.rf-crisis-head {
+  display: block; margin-bottom: 18px;
+}
+.rf-crisis-head h2 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(20px, 2vw, 26px); line-height: 1.2;
+  letter-spacing: -0.02em; margin: 0 0 8px 0;
+  color: var(--ink);
+  text-transform: none;
+}
+.rf-crisis-head h2 .pulse {
+  display: inline-block;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--primary);
+  margin-right: 12px;
+  vertical-align: middle;
+  position: relative; top: -2px;
+  box-shadow: 0 0 0 0 var(--primary);
+  animation: rf-pulse 2s infinite;
+}
+.rf-crisis-head .note {
+  font-size: 13px; color: var(--ink-soft); max-width: 60ch; line-height: 1.4;
+  margin: 0;
+}
+@keyframes rf-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(138, 26, 26, 0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(138, 26, 26, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(138, 26, 26, 0); }
+}
+.rf-crisis-head h2 em { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--primary); }
+.rf-crisis-head h2 {}
+
+.rf-crisis-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+}
+.rf-crisis-card {
+  background: var(--bg-deep);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 4px;
+  text-decoration: none; color: var(--ink);
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+.rf-crisis-card:hover { background: var(--bg); border-color: var(--ink); transform: translateY(-2px); }
+.rf-crisis-card .name { font-family: var(--display); font-weight: 800; font-size: 15px; }
+.rf-crisis-card .when { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--primary); }
+.rf-crisis-card .number {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(18px, 2vw, 24px); letter-spacing: -0.005em;
+  margin-top: 4px;
+}
+.rf-crisis-card.emergency { background: var(--primary); color: var(--paper); border-color: var(--primary); }
+.rf-crisis-card.emergency:hover { background: var(--carmine); border-color: var(--carmine); }
+.rf-crisis-card.emergency .when { color: var(--accent); }
+
+@media (max-width: 980px) { .rf-crisis-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .rf-crisis-grid { grid-template-columns: 1fr; } }
+
+/* ── BAATN feature ──────────────────────────────────── */
+.rf-feature {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--r-xl);
+  padding: clamp(36px, 5vw, 64px) clamp(28px, 4vw, 56px);
+  margin: 0 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.rf-feature::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 100% 0%, var(--primary) 0%, transparent 45%),
+    radial-gradient(circle at 0% 100%, var(--plum) 0%, transparent 50%);
+  opacity: 0.35; pointer-events: none;
+}
+.rf-feature-inner { position: relative; max-width: 920px; }
+.rf-feature-eyebrow {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 600; color: var(--accent);
+  margin-bottom: 18px;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.rf-feature-eyebrow::before {
+  content: ""; width: 28px; height: 2px; background: var(--accent);
+}
+.rf-feature-title {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(32px, 4.4vw, 56px); line-height: 1;
+  letter-spacing: -0.025em; margin: 0 0 22px 0;
+  color: var(--paper); max-width: 18ch;
+  text-wrap: balance;
+}
+.rf-feature-lead {
+  font-size: clamp(16px, 1.4vw, 19px); line-height: 1.55;
+  color: rgba(255,255,255,0.85);
+  margin: 0 0 16px 0; max-width: 60ch;
+}
+.rf-feature-body {
+  font-size: 15px; line-height: 1.55;
+  color: rgba(255,255,255,0.78);
+  margin: 0 0 28px 0; max-width: 60ch;
+}
+.rf-feature-body strong { color: var(--paper); font-weight: 600; }
+.rf-feature-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--paper); color: var(--ink);
+  border-radius: 999px;
+  padding: 14px 26px;
+  font-family: var(--sans); font-weight: 600; font-size: 14px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.rf-feature-cta:hover { background: rgba(255,255,255,0.85); transform: translateX(2px); }
+.rf-feature-tips {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.rf-feature-tips-label {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 600; color: rgba(255,255,255,0.6);
+  margin-bottom: 14px;
+}
+.rf-feature-tips ol {
+  margin: 0; padding-left: 22px;
+  display: flex; flex-direction: column; gap: 10px;
+  max-width: 60ch;
+}
+.rf-feature-tips ol li {
+  font-size: 15px; line-height: 1.55;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── Filters + meta ──────────────────────────────────── */
+.rf-controls { display: flex; flex-direction: column; gap: 20px; }
+.rf-search-wrap { position: relative; }
+.rf-search-wrap svg.s-icon {
+  position: absolute; left: 24px; top: 50%; transform: translateY(-50%);
+  color: var(--ink-soft); pointer-events: none;
+}
+.rf-search {
+  width: 100%; font-family: var(--sans);
+  font-size: clamp(15px, 1.3vw, 17px); font-weight: 500;
+  color: var(--ink); background: var(--paper);
+  border: 2px solid var(--rule); border-radius: 999px;
+  padding: 18px 56px 18px 60px; outline: none;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.rf-search:focus { border-color: var(--ink); box-shadow: 0 0 0 4px var(--accent); }
+
+.rf-filters {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+.rf-filters .label {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  font-weight: 700; color: var(--ink-soft); margin-right: 6px;
+}
+.rf-chip {
+  font-family: var(--sans);
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 10px 16px; border-radius: 999px;
+  border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink);
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.rf-chip:hover { border-color: var(--ink); }
+.rf-chip[aria-pressed="true"] {
+  background: var(--ink); color: var(--bg); border-color: var(--ink);
+}
+.rf-chip[data-blackled="true"][aria-pressed="true"] {
+  background: var(--accent); color: var(--ink); border-color: var(--accent);
+}
+.rf-chip[data-lgbtq="true"][aria-pressed="true"] {
+  background: var(--plum); color: var(--paper); border-color: var(--plum);
+}
+.rf-chip .count {
+  background: rgba(0,0,0,0.08); font-size: 10px; padding: 2px 7px;
+  border-radius: 999px; font-weight: 700; letter-spacing: 0.04em;
+}
+.rf-chip[aria-pressed="true"] .count { background: rgba(255,255,255,0.2); color: inherit; }
+
+.rf-meta {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 14px; padding: 18px 0 12px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 700; color: var(--ink-soft);
+}
+.rf-meta strong { color: var(--ink); font-size: 14px; }
+
+/* ── Sections (local / national) ─────────────────────── */
+.rf-results { margin-top: 32px; display: flex; flex-direction: column; gap: 56px; }
+.rf-section-head {
+  display: flex; align-items: end; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap; margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--ink);
+}
+.rf-section-head .kicker {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 700; color: var(--primary); margin-bottom: 8px;
+}
+.rf-section-head h2 {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(32px, 4vw, 56px); line-height: 0.95;
+  letter-spacing: -0.025em; margin: 0; max-width: 22ch;
+}
+.rf-section-head h2 em { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--primary); }
+.rf-section-head .tally {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 700; color: var(--ink-soft);
+  background: var(--paper); border: 1px solid var(--rule);
+  padding: 8px 14px; border-radius: 999px;
+}
+
+/* Theme group */
+.rf-group { margin-top: 36px; }
+.rf-group-head {
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: end; gap: 18px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--rule);
+  margin-bottom: 18px;
+}
+.rf-group-head .num {
+  font-family: var(--display); font-weight: 800;
+  font-size: 13px; letter-spacing: 0.18em; color: var(--ink-soft);
+}
+.rf-group-head h3 {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(22px, 2.4vw, 32px); line-height: 1;
+  letter-spacing: -0.02em; margin: 0;
+}
+.rf-group-head h3 em { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--primary); }
+.rf-group-head .promise {
+  font-family: var(--serif); font-style: italic;
+  font-size: 13px; color: var(--ink-soft); display: block; margin-top: 4px;
+}
+.rf-group-head .count-tag {
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 700; color: var(--ink-soft);
+  background: var(--paper); border: 1px solid var(--rule);
+  padding: 6px 12px; border-radius: 999px;
+}
+
+/* Card grid */
+.rf-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+.rf-card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  padding: 22px;
+  display: flex; flex-direction: column; gap: 12px;
+  text-decoration: none; color: var(--ink);
+  min-height: 230px;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.rf-card:hover {
+  border-color: var(--ink); transform: translateY(-3px); box-shadow: var(--shadow-md);
+}
+.rf-card:focus-within {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(10, 31, 68, 0.15);
+}
+/* Whole-card click overlay via the title link */
+.rf-card .name a::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: inherit; z-index: 1;
+}
+.rf-card > * { position: relative; z-index: 2; }
+.rf-card .bm,
+.rf-card .phone,
+.rf-card .visit { position: relative; z-index: 3; }
+
+.rf-card.local::before {
+  content: ""; position: absolute; top: 0; left: 22px; right: 22px; height: 3px;
+  background: var(--accent-deep);
+  border-radius: 0 0 3px 3px;
+  z-index: 2;
+}
+.rf-card-top {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+}
+.rf-card .name {
+  font-family: var(--display); font-weight: 600;
+  font-size: 17px; line-height: 1.25;
+  letter-spacing: -0.01em; margin: 0; flex: 1;
+}
+.rf-card .name a { text-decoration: none; color: inherit; }
+.rf-card:hover .name a { color: var(--primary); }
+.rf-card .bm {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: transparent; border: 1px solid var(--rule);
+  cursor: pointer; color: var(--ink-soft);
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.rf-card .bm:hover { background: var(--bg-deep); color: var(--ink); border-color: var(--ink); }
+.rf-card .bm:focus-visible {
+  outline: 2px solid var(--ink); outline-offset: 2px;
+}
+.rf-card .bm[data-saved="true"] {
+  background: var(--primary); color: var(--paper); border-color: var(--primary);
+}
+.rf-card-meta {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 4px 8px;
+  font-size: 11px; letter-spacing: 0.04em;
+  font-weight: 500; color: var(--ink-soft);
+  opacity: 0.85;
+  min-height: 14px;
+}
+.rf-card .chapter-tag {
+  color: var(--ink-soft);
+}
+.rf-card .city {
+  color: var(--ink-soft);
+}
+.rf-card-meta .dot {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  display: inline-block;
+}
+.rf-card .note {
+  font-size: 14px; color: var(--ink-soft); line-height: 1.5; margin: 0;
+  text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.rf-card .phone {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--display); font-weight: 600;
+  font-size: 14px; letter-spacing: -0.005em;
+  color: var(--ink); background: var(--bg-deep);
+  border: 1px solid var(--rule); border-radius: 8px;
+  padding: 8px 14px; text-decoration: none; align-self: flex-start;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.rf-card .phone:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.rf-card .phone:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.rf-card .phone svg { color: var(--primary); flex-shrink: 0; }
+.rf-card .phone:hover svg { color: var(--accent); }
+.rf-card-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-top: auto; padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  min-height: 36px;
+}
+.rf-card .black-led {
+  font-family: var(--sans); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  background: var(--ink); color: var(--accent);
+  padding: 5px 10px; border-radius: 999px;
+}
+.rf-card .visit {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  color: var(--ink); text-decoration: none;
+  margin-left: auto;
+  transition: color 0.15s ease;
+}
+.rf-card .visit:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
+.rf-card:hover .visit { color: var(--primary); }
+.rf-card .visit svg { transition: transform 0.2s ease; }
+.rf-card:hover .visit svg { transform: translateX(3px); }
+
+@media (max-width: 900px) {
+  .rf-cards { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+}
+@media (max-width: 540px) {
+  .rf-cards { grid-template-columns: 1fr; gap: 12px; grid-auto-rows: auto; }
+  .rf-card { min-height: 0; padding: 20px; }
+}
+
+.rf-empty {
+  padding: 80px 32px; text-align: center;
+  background: var(--paper); border: 1px dashed var(--rule);
+  border-radius: var(--r-lg);
+}
+.rf-empty h4 { font-family: var(--display); font-weight: 800; font-size: 28px; letter-spacing: -0.02em; margin: 0 0 10px; }
+.rf-empty p { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink-soft); margin: 0 0 18px; }
+.rf-empty button {
+  font-family: var(--sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 12px 22px; border-radius: 999px;
+  background: var(--ink); color: var(--bg); border: none; cursor: pointer;
+}
+
+/* Bottom note */
+.rf-footer-note {
+  margin-top: 64px; padding: 36px 40px;
+  border-radius: var(--r-lg); background: var(--bg-deep);
+  border: 1px solid var(--rule);
+  display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+}
+.rf-footer-note h4 { font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; margin: 0 0 6px; }
+.rf-footer-note p { font-size: 14px; color: var(--ink-soft); margin: 0; max-width: 60ch; line-height: 1.5; }
+.rf-footer-note .btn-suggest {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 14px 22px; border-radius: 999px;
+  background: var(--ink); color: var(--bg); text-decoration: none;
+}
+.rf-footer-note .btn-suggest:hover { background: var(--primary); }
+@media (max-width: 720px) { .rf-footer-note { grid-template-columns: 1fr; } }
+
+/* UK regions row (no postcode yet) */
+.rf-regions {
+  margin: 4px 0 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+.rf-regions .region-btn {
+  text-align: left; font-family: var(--sans);
+  background: var(--paper); border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  padding: 14px 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.rf-regions .region-btn:hover { border-color: var(--ink); transform: translateY(-2px); }
+.rf-regions .region-btn .name { font-weight: 700; font-size: 15px; color: var(--ink); letter-spacing: -0.005em; }
+.rf-regions .region-btn .count { font-size: 11px; letter-spacing: 0.1em; color: var(--ink-soft); text-transform: uppercase; font-weight: 700; }
+
+.region-explore-label {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 700; color: var(--ink-soft);
+  margin: 32px 0 12px;
+}
+</style>
 </head>
 <body>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit<small>Black Thrive Lambeth &middot; Office of Art &amp; Technology</small></span></a>
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
   <nav class="nav">
     <a href="index.html">Home</a>
+    <a href="index.html#chapters">Chapters</a>
     <a href="quiz.html">Where to start</a>
+    <a href="tools/index.html">Tools</a>
     <a href="resources.html" class="active">Resources</a>
     <a href="bookmarks.html">Saved</a>
     <a href="about.html">About</a>
   </nav>
 </header>
 
-<main class="simple-page" data-screen-label="Resources">
-  <h1>UK <em>resource</em> finder.</h1>
-  <p class="lead">Free or low-cost organisations across health, money, mind, faith, brotherhood, and community. Many are Black-led.</p>
+<main class="rf" data-screen-label="Resources">
+  <div class="rf-wrap">
 
-  <div class="filter-bar" id="filter-bar"></div>
-  <div id="results-meta" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin-bottom:20px"></div>
-  <div id="results" class="resources-list"></div>
+    <!-- HERO + POSTCODE -->
+    <section class="rf-hero">
+      <div class="rf-hero-inner">
+      <div>
+        <h1>Find support near you.</h1>
+        <p class="rf-lead">Black-led and Black-friendly services across England, Scotland, Wales and Northern Ireland. Local first. National too.</p>
+      </div>
+
+      <div class="pc-card">
+        <div class="pc-card-inner">
+          <h2>Enter your postcode.</h2>
+          <form class="pc-form" id="pc-form" autocomplete="off">
+            <input id="pc-input" type="text" placeholder="e.g. SW9 8QR" maxlength="9" aria-label="Postcode" />
+            <button type="submit">
+              Find
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+          <p class="pc-hint">
+            Try
+            <span class="examples">
+              <button type="button" class="example-pc" data-pc="SW9">SW9</button>
+              <button type="button" class="example-pc" data-pc="M14">M14</button>
+              <button type="button" class="example-pc" data-pc="BS5">BS5</button>
+              <button type="button" class="example-pc" data-pc="LS6">LS6</button>
+              <button type="button" class="example-pc" data-pc="B21">B21</button>
+              <button type="button" class="example-pc" data-pc="G42">G42</button>
+              <button type="button" class="example-pc" data-pc="CF24">CF24</button>
+              <button type="button" class="example-pc" data-pc="BT9">BT9</button>
+            </span>
+          </p>
+          <div class="pc-current" id="pc-current" style="display:none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="20 6 9 17 4 12"/></svg>
+            <span id="pc-current-text"></span>
+            <button type="button" id="pc-change">Change</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- CRISIS BAND -->
+    <section class="rf-crisis" aria-label="If you need help right now">
+      <div class="rf-crisis-inner">
+        <div class="rf-crisis-head">
+          <h2><span class="pulse" aria-hidden="true"></span>If you need help right now, you do not have to wait.</h2>
+          <p class="note">Free, confidential, UK-wide. Available now.</p>
+        </div>
+        <div class="rf-crisis-grid">
+          <a class="rf-crisis-card emergency" href="tel:999">
+            <div class="when">In immediate danger</div>
+            <div class="name">Emergency</div>
+            <div class="number">999</div>
+          </a>
+          <a class="rf-crisis-card" href="tel:116123">
+            <div class="when">24 / 7 &middot; phone</div>
+            <div class="name">Samaritans</div>
+            <div class="number">116 123</div>
+          </a>
+          <a class="rf-crisis-card" href="sms:85258&amp;body=SHOUT">
+            <div class="when">24 / 7 &middot; text</div>
+            <div class="name">Shout</div>
+            <div class="number">SHOUT to 85258</div>
+          </a>
+          <a class="rf-crisis-card" href="tel:08005858858">
+            <div class="when">5pm to midnight, daily</div>
+            <div class="name">CALM</div>
+            <div class="number">0800 58 58 58</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAATN FEATURE BLOCK -->
+    <section class="rf-feature" aria-label="Find a therapist who looks like you">
+      <div class="rf-feature-inner">
+        <div class="rf-feature-eyebrow">Find a therapist</div>
+        <h2 class="rf-feature-title">Find a therapist who looks like you.</h2>
+        <p class="rf-feature-lead">Brothers told us again and again: a therapist who understands the racism conversation without you having to explain it is the difference between therapy that works and therapy that wastes your money.</p>
+        <p class="rf-feature-body"><strong>BAATN, the Black, African and Asian Therapy Network,</strong> has over 1,300 qualified therapists of Black, African, Asian, and Caribbean heritage across the UK. Filter by location, fee, specialism, language, gender. Many also signal LGBTQ-affirming practice.</p>
+        <a class="rf-feature-cta" href="https://www.baatn.org.uk/find-a-psych-therapist/" target="_blank" rel="noopener">
+          Search BAATN's directory
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+        <div class="rf-feature-tips">
+          <div class="rf-feature-tips-label">Three tips before you book</div>
+          <ol>
+            <li>Most therapists offer a free 15 minute call before the first session. Use it. You are interviewing them too.</li>
+            <li>If the first one is not right, it is not the end. Try another. This is normal.</li>
+            <li>NHS Talking Therapies is free at the point of use. Ask your GP for an IAPT referral, or search NHS Talking Therapies plus your borough.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEARCH + FILTERS -->
+    <section class="rf-controls">
+      <div class="rf-search-wrap" id="rf-search-wrap">
+        <svg class="s-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input class="rf-search" id="rf-search" type="search" placeholder="Search by name, helpline, or what you need help with..." autocomplete="off" />
+      </div>
+
+      <div class="rf-filters" id="rf-filters">
+        <span class="label">Theme</span>
+        <!-- chips injected -->
+      </div>
+
+      <div class="rf-meta" id="rf-meta"></div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="rf-results" id="rf-results"></section>
+
+    <div class="rf-footer-note">
+      <div>
+        <h4>Know a UK service that should be here?</h4>
+        <p>This directory is a living thing. If you run a Black-led service, a brilliant local mosque or church mental-health group, a peer circle, a credit union that has supported your community, send it our way.</p>
+      </div>
+      <a class="btn-suggest" href="mailto:hello@blackthrivelambeth.org?subject=Resource suggestion for The Black Man's Toolkit">Suggest a resource
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
 </main>
 
 <script src="assets/data.js"></script>
+<script src="assets/resources-data.js"></script>
 <script src="assets/app.js"></script>
 <script>
-const all = [];
-window.TOOLKIT.chapters.forEach(c => {
-  c.resources.forEach(r => all.push({ ...r, chapter: c.slug, chapterTitle: c.title, accent: c.accent }));
-});
+/* ============================================================
+   Resource Finder. Postcode-aware.
+   ============================================================ */
+(function () {
+  const PHONE_RE = /\b(?:(?:0800|0808|0345|0300|0117|0115|01823|0161|0151|0113|0114|0121|0131|0141|0191|0117|01274|01273|01902|028)[\s\-\u00A0]?\d{2,4}[\s\-\u00A0]?\d{3,4}(?:[\s\-\u00A0]?\d{2,4})?|\d{4}[\s\-]\d{3}[\s\-]\d{4}|116[\s\-\u00A0]?123|85258)\b/;
 
-let active = "all";
-let q = "";
-let blackLedOnly = false;
-
-const filters = [
-  { id: "all", label: "All" },
-  ...window.TOOLKIT.chapters.map(c => ({ id: c.slug, label: c.title })),
-];
-
-function renderFilters() {
-  const bar = document.getElementById("filter-bar");
-  bar.innerHTML = filters.map(f => `<button class="filter-chip ${active === f.id ? 'active' : ''}" data-f="${f.id}">${f.label}</button>`).join("")
-    + `<button class="filter-chip ${blackLedOnly ? 'active' : ''}" data-bl="1">Black-led only</button>`
-    + `<input class="filter-search" id="search" placeholder="Search resources..." value="${q}" />`;
-  bar.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => { active = b.dataset.f; render(); }));
-  bar.querySelector("[data-bl]").addEventListener("click", () => { blackLedOnly = !blackLedOnly; render(); });
-  const s = bar.querySelector("#search");
-  s.addEventListener("input", e => { q = e.target.value.toLowerCase(); renderResults(); });
-  setTimeout(() => s.focus(), 50);
-}
-
-function renderResults() {
-  const filtered = all.filter(r => {
-    if (active !== "all" && r.chapter !== active) return false;
-    if (blackLedOnly && !r.black_led) return false;
-    if (q && !(r.name + " " + r.note + " " + r.chapterTitle).toLowerCase().includes(q)) return false;
-    return true;
-  });
-
-  // Dedupe by link (some resources appear in multiple chapters)
-  const seen = new Set();
-  const dedup = filtered.filter(r => seen.has(r.link) ? false : (seen.add(r.link), true));
-
-  document.getElementById("results-meta").textContent = `${dedup.length} ${dedup.length === 1 ? 'resource' : 'resources'}${active !== 'all' ? ' \u00B7 ' + window.getChapter(active).title : ''}${blackLedOnly ? ' \u00B7 Black-led only' : ''}`;
-
-  const out = document.getElementById("results");
-  if (!dedup.length) {
-    out.innerHTML = `<div class="empty-state">No resources match. Try a different filter.</div>`;
-    return;
+  function parsePhone(note) {
+    const m = note && note.match(PHONE_RE);
+    return m ? m[0].trim() : null;
   }
-  out.innerHTML = dedup.map(r => `
-    <a href="${r.link}" target="_blank" rel="noopener" class="resource">
-      <div class="resource-text">
-        <div class="name">${r.name}${r.black_led ? '<span class="badge">Black-led</span>' : ''}</div>
-        <div class="note">${r.note}</div>
-        <div style="margin-top:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink-soft)">${r.chapterTitle}</div>
-      </div>
-      <div class="resource-actions">
-        <button class="bookmark-btn" data-link="${r.link}" data-chapter="${r.chapter}" data-name="${r.name.replace(/"/g,'&quot;')}" data-note="${r.note.replace(/"/g,'&quot;')}" data-bl="${!!r.black_led}" aria-label="Save">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-        </button>
-      </div>
-    </a>
-  `).join("");
+  function noteWithoutPhone(note, phone) {
+    if (!phone) return note;
+    return note.replace(phone, "").replace(/[,\s]+$/, "").replace(/^[,\s]+/, "").replace(/,\s*$/, "").trim() || "UK support service.";
+  }
+  function host(url) {
+    try { return new URL(url).hostname.replace(/^www\./, ""); }
+    catch { return url; }
+  }
+  function chapterMeta(slug) {
+    return window.TOOLKIT.chapters.find(c => c.slug === slug);
+  }
 
-  out.querySelectorAll(".bookmark-btn").forEach(b => {
-    b.setAttribute("data-saved", String(window.BMT.isBookmarked(b.dataset.link)));
-    b.addEventListener("click", e => {
-      e.preventDefault();
-      e.stopPropagation();
-      window.BMT.toggleBookmark({
-        link: b.dataset.link,
-        name: b.dataset.name,
-        note: b.dataset.note,
-        black_led: b.dataset.bl === "true",
-      }, b.dataset.chapter);
-      b.setAttribute("data-saved", String(window.BMT.isBookmarked(b.dataset.link)));
+  /* --- Build the unified dataset ----------------------------- */
+  // 1. National resources from data.js (the per-chapter ones)
+  // 2. Regional resources from resources-data.js
+  const ALL = [];
+
+  // Index of existing entries by link+name so we can merge duplicates
+  const idx = new Map();
+
+  function mergeRegions(a = [], b = []) {
+    const out = new Set([...a, ...b]);
+    return [...out];
+  }
+
+  function pushResource(r) {
+    const key = r.link + "|" + r.name;
+    const phone = r.phone || parsePhone(r.note);
+    const cleanNote = noteWithoutPhone(r.note, phone);
+    const cm = chapterMeta(r.chapter);
+    const enriched = {
+      ...r,
+      phone,
+      cleanNote,
+      host: host(r.link),
+      chapterTitle: cm ? cm.title : r.chapter,
+      chapterNum: cm ? cm.number : "",
+      chapterPromise: cm ? cm.promise : "",
+    };
+    if (idx.has(key)) {
+      // Merge with existing. Combine regions, prefer non-empty city + black_led flag.
+      const existing = idx.get(key);
+      existing.regions = mergeRegions(existing.regions, enriched.regions);
+      if ((!existing.city || existing.city === "UK-wide") && enriched.city && enriched.city !== "UK-wide") {
+        existing.city = enriched.city;
+      }
+      existing.black_led = existing.black_led || !!enriched.black_led;
+      return;
+    }
+    idx.set(key, enriched);
+    ALL.push(enriched);
+  }
+
+  // Regional FIRST so region/city info is the source of truth, then national merges in
+  (window.BMT_REGIONAL || []).forEach(r => pushResource(r));
+  window.TOOLKIT.chapters.forEach(c => {
+    c.resources.forEach(r => {
+      pushResource({
+        ...r,
+        chapter: c.slug,
+        regions: ["national"],
+        city: r.city || "UK-wide",
+      });
     });
   });
-}
 
-function render() { renderFilters(); renderResults(); }
-render();
+  /* --- STATE ------------------------------------------------ */
+  let postcode = "";
+  let region = null;
+  let regionName = "";
+  let q = "";
+  const activeChapters = new Set();
+  let blackLedOnly = false;
+  let lgbtqOnly = false;
+
+  // restore from localStorage
+  try {
+    const saved = localStorage.getItem("bmt:postcode");
+    if (saved) {
+      postcode = saved;
+      region = window.BMT_postcodeToRegion(saved);
+      regionName = region ? window.BMT_REGIONS[region].name : "";
+    }
+  } catch {}
+
+  /* --- HELPERS --------------------------------------------- */
+  function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
+
+  function inRegion(r, regionKey) {
+    if (!r.regions) return false;
+    // A resource can be both national AND tagged with specific regions.
+    // The local section shows anything explicitly tagged with this region.
+    return r.regions.includes(regionKey);
+  }
+  function isNational(r) {
+    return (r.regions || []).includes("national");
+  }
+
+  function filterCommon(r) {
+    if (activeChapters.size && !activeChapters.has(r.chapter)) return false;
+    if (blackLedOnly && !r.black_led) return false;
+    if (lgbtqOnly && !r.lgbtq) return false;
+    if (q) {
+      const hay = (r.name + " " + (r.note || "") + " " + (r.city || "") + " " + r.chapterTitle).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  }
+
+  function localResources() {
+    if (!region) return [];
+    return ALL.filter(r => inRegion(r, region) && filterCommon(r));
+  }
+  function nationalResources() {
+    // If we're showing a local section for a postcode, exclude items that also appear locally
+    // (avoid duplication in the same view)
+    return ALL.filter(r => {
+      if (!isNational(r)) return false;
+      if (region && inRegion(r, region)) return false;
+      return filterCommon(r);
+    });
+  }
+
+  /* --- RENDER: filters & meta ----------------------------- */
+  function renderFilters() {
+    const bar = document.getElementById("rf-filters");
+    const chapters = window.TOOLKIT.chapters;
+    const inner = chapters.map(c => {
+      const total = ALL.filter(r => r.chapter === c.slug).length;
+      return `<button class="rf-chip" data-chap="${c.slug}" aria-pressed="${activeChapters.has(c.slug)}">
+        <span>${escapeHtml(c.title)}</span>
+        <span class="count">${total}</span>
+      </button>`;
+    }).join("");
+    const blCount = ALL.filter(r => r.black_led).length;
+    const lgbtqCount = ALL.filter(r => r.lgbtq).length;
+    bar.innerHTML = `<span class="label">Theme</span>${inner}
+      <button class="rf-chip" data-blackled="true" aria-pressed="${blackLedOnly}">
+        <span>Black-led only</span>
+        <span class="count">${blCount}</span>
+      </button>
+      <button class="rf-chip" data-lgbtq="true" aria-pressed="${lgbtqOnly}">
+        <span>For LGBTQ+ brothers</span>
+        <span class="count">${lgbtqCount}</span>
+      </button>`;
+    bar.querySelectorAll("[data-chap]").forEach(b => {
+      b.addEventListener("click", () => {
+        const id = b.dataset.chap;
+        if (activeChapters.has(id)) activeChapters.delete(id); else activeChapters.add(id);
+        render();
+      });
+    });
+    bar.querySelector("[data-blackled]").addEventListener("click", () => {
+      blackLedOnly = !blackLedOnly;
+      render();
+    });
+    bar.querySelector("[data-lgbtq]").addEventListener("click", () => {
+      lgbtqOnly = !lgbtqOnly;
+      render();
+    });
+  }
+
+  function renderMeta() {
+    const total = ALL.length;
+    const local = region ? localResources().length : 0;
+    const nat = nationalResources().length;
+    const meta = document.getElementById("rf-meta");
+    const parts = [];
+    if (postcode && region) {
+      parts.push(`<strong>${local}</strong> near <strong>${escapeHtml(postcode)}</strong>`);
+      parts.push(`${nat} national`);
+    } else {
+      parts.push(`<strong>${nat}</strong> national services`);
+      parts.push(`${ALL.filter(r => !(r.regions || []).includes("national")).length} local across the UK`);
+    }
+    if (q) parts.push(`matching &ldquo;${escapeHtml(q)}&rdquo;`);
+    if (activeChapters.size) parts.push(`${[...activeChapters].map(s => chapterMeta(s).title).join(", ")}`);
+    if (blackLedOnly) parts.push("Black-led only");
+    if (lgbtqOnly) parts.push("LGBTQ+ inclusive");
+    meta.innerHTML = `<span>${parts.join(" &middot; ")}</span><span>${total} total &middot; UK only</span>`;
+  }
+
+  /* --- RENDER: cards -------------------------------------- */
+  function cardHTML(r, isLocal) {
+    const hasCity = r.city && r.city !== 'UK-wide';
+    return `
+      <div class="rf-card ${isLocal ? 'local' : ''}" data-link="${escapeHtml(r.link)}" data-key="${escapeHtml(r.link + '|' + r.name)}">
+        <div class="rf-card-top">
+          <h4 class="name"><a href="${escapeHtml(r.link)}" target="_blank" rel="noopener">${escapeHtml(r.name)}</a></h4>
+          <button class="bm" aria-label="Save">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+        <div class="rf-card-meta">
+          <span class="chapter-tag">${escapeHtml(r.chapterTitle)}</span>
+          ${hasCity ? `<span class="dot"></span><span class="city">${escapeHtml(r.city)}</span>` : ''}
+        </div>
+        <p class="note">${r.cleanNote}</p>
+        ${r.phone ? `<a class="phone" href="tel:${r.phone.replace(/\s/g,'')}">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          ${escapeHtml(r.phone)}
+        </a>` : ''}
+        <div class="rf-card-foot">
+          ${r.black_led ? '<span class="black-led">Black-led</span>' : ''}
+          <a class="visit" href="${escapeHtml(r.link)}" target="_blank" rel="noopener" aria-label="Visit ${escapeHtml(r.name)} website">
+            <span>Visit site</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+      </div>`;
+  }
+
+  function groupByChapter(list) {
+    return window.TOOLKIT.chapters
+      .map(c => ({ c, items: list.filter(r => r.chapter === c.slug) }))
+      .filter(g => g.items.length);
+  }
+
+  function groupHTML(g, isLocal) {
+    return `<div class="rf-group">
+      <div class="rf-group-head">
+        <span class="num">${g.c.number}</span>
+        <div>
+          <h3>${escapeHtml(g.c.title)}.</h3>
+          <span class="promise">${escapeHtml(g.c.promise)}</span>
+        </div>
+        <span class="count-tag">${g.items.length} service${g.items.length === 1 ? '' : 's'}</span>
+      </div>
+      <div class="rf-cards">${g.items.map(r => cardHTML(r, isLocal)).join('')}</div>
+    </div>`;
+  }
+
+  function sectionHTML({ kicker, title, tally, html }) {
+    return `<section>
+      <div class="rf-section-head">
+        <div>
+          ${kicker ? `<div class="kicker">${kicker}</div>` : ``}
+          <h2>${title}</h2>
+        </div>
+        <span class="tally">${tally}</span>
+      </div>
+      ${html}
+    </section>`;
+  }
+
+  function renderResults() {
+    const out = document.getElementById("rf-results");
+    const local = region ? localResources() : [];
+    const nat = nationalResources();
+
+    if (!local.length && !nat.length) {
+      out.innerHTML = `<div class="rf-empty">
+        <h4>Nothing matches that yet.</h4>
+        <p>Try a different word or clear your filters.</p>
+        <button id="rf-reset">Clear filters</button>
+      </div>`;
+      document.getElementById("rf-reset").addEventListener("click", () => {
+        q = ""; activeChapters.clear(); blackLedOnly = false; lgbtqOnly = false;
+        document.getElementById("rf-search").value = "";
+        render();
+      });
+      return;
+    }
+
+    const sections = [];
+
+    // SECTION 1: Local (only if postcode set)
+    if (postcode && region) {
+      const localTitle = local.length
+        ? `Near you in ${escapeHtml(regionName)}`
+        : `Nothing local for ${escapeHtml(postcode)}, yet`;
+      const tally = local.length
+        ? `${local.length} local`
+        : "Use national services below";
+      const inner = local.length
+        ? groupByChapter(local).map(g => groupHTML(g, true)).join("")
+        : `<div class="rf-empty" style="margin-top:0">
+            <p>We have not yet catalogued a dedicated local service for this postcode in this theme. The national services below all serve <strong>${escapeHtml(regionName)}</strong>.</p>
+            <button onclick="document.querySelector('a[href*=\\'mailto\\']').click()">Suggest a local service</button>
+          </div>`;
+      sections.push(sectionHTML({
+        kicker: "",
+        title: localTitle,
+        tally,
+        html: inner,
+      }));
+    }
+
+    // SECTION 2: National (always shown)
+    if (nat.length) {
+      sections.push(sectionHTML({
+        kicker: postcode ? "" : "National services",
+        title: postcode
+          ? `Also UK-wide. Works wherever you are.`
+          : `National services across the UK`,
+        tally: `${nat.length} national`,
+        html: groupByChapter(nat).map(g => groupHTML(g, false)).join(""),
+      }));
+    }
+
+    // SECTION 3 (when no postcode): Browse by region
+    if (!postcode) {
+      const regionCounts = Object.entries(window.BMT_REGIONS).map(([id, r]) => ({
+        id, name: r.name,
+        count: ALL.filter(x => (x.regions || []).includes(id)).length,
+      })).filter(r => r.count > 0).sort((a, b) => b.count - a.count);
+
+      sections.push(`<section>
+        <div class="rf-section-head">
+          <div>
+            <div class="kicker">Or browse by region</div>
+            <h2>Pick a part of the UK</h2>
+          </div>
+          <span class="tally">${regionCounts.length} regions</span>
+        </div>
+        <div class="rf-regions">
+          ${regionCounts.map(r => `
+            <button class="region-btn" data-region="${r.id}">
+              <span class="name">${escapeHtml(r.name)}</span>
+              <span class="count">${r.count} local</span>
+            </button>
+          `).join('')}
+        </div>
+      </section>`);
+    }
+
+    out.innerHTML = sections.join('');
+
+    // Wire bookmark buttons
+    out.querySelectorAll(".rf-card").forEach(card => {
+      const link = card.dataset.link;
+      const r = ALL.find(x => x.link === link);
+      const btn = card.querySelector(".bm");
+      btn.setAttribute("data-saved", String(window.BMT.isBookmarked(link)));
+      btn.addEventListener("click", e => {
+        e.preventDefault(); e.stopPropagation();
+        window.BMT.toggleBookmark({
+          link: r.link, name: r.name, note: r.note, black_led: !!r.black_led
+        }, r.chapter);
+        btn.setAttribute("data-saved", String(window.BMT.isBookmarked(link)));
+      });
+    });
+
+    // Wire region buttons
+    out.querySelectorAll(".region-btn").forEach(b => {
+      b.addEventListener("click", () => {
+        const id = b.dataset.region;
+        // Find a representative postcode for the region
+        const p = window.BMT_REGIONS[id].postcodes[0] + "1";
+        applyPostcode(p);
+      });
+    });
+  }
+
+  function renderPostcodeUI() {
+    const current = document.getElementById("pc-current");
+    const text = document.getElementById("pc-current-text");
+    const input = document.getElementById("pc-input");
+    if (postcode && region) {
+      current.style.display = "flex";
+      text.innerHTML = `Showing services near <strong>${escapeHtml(postcode)}</strong> &middot; <strong>${escapeHtml(regionName)}</strong>`;
+      input.value = postcode;
+    } else {
+      current.style.display = "none";
+    }
+  }
+
+  function render() {
+    renderPostcodeUI();
+    renderFilters();
+    renderMeta();
+    renderResults();
+  }
+
+  function applyPostcode(input) {
+    const code = String(input || "").trim().toUpperCase();
+    if (!code) return;
+    const r = window.BMT_postcodeToRegion(code);
+    if (!r) {
+      const el = document.getElementById("pc-input");
+      el.style.outline = "2px solid var(--accent)";
+      el.placeholder = "That doesn't look like a UK postcode";
+      el.value = "";
+      setTimeout(() => { el.style.outline = ""; el.placeholder = "e.g. SW9 8QR"; }, 2200);
+      return;
+    }
+    postcode = code;
+    region = r;
+    regionName = window.BMT_REGIONS[r].name;
+    try { localStorage.setItem("bmt:postcode", postcode); } catch {}
+    render();
+    // Scroll results into view
+    setTimeout(() => {
+      const results = document.getElementById("rf-results");
+      if (results) {
+        window.scrollTo({ top: results.offsetTop - 80, behavior: "smooth" });
+      }
+    }, 100);
+  }
+
+  function clearPostcode() {
+    postcode = ""; region = null; regionName = "";
+    try { localStorage.removeItem("bmt:postcode"); } catch {}
+    document.getElementById("pc-input").value = "";
+    render();
+  }
+
+  // Wire postcode form
+  document.getElementById("pc-form").addEventListener("submit", e => {
+    e.preventDefault();
+    applyPostcode(document.getElementById("pc-input").value);
+  });
+  document.querySelectorAll(".example-pc").forEach(b => {
+    b.addEventListener("click", () => applyPostcode(b.dataset.pc));
+  });
+  document.getElementById("pc-change").addEventListener("click", () => {
+    clearPostcode();
+    document.getElementById("pc-input").focus();
+  });
+
+  // Wire search
+  document.getElementById("rf-search").addEventListener("input", e => {
+    q = e.target.value.toLowerCase().trim();
+    renderResults();
+    renderMeta();
+  });
+
+  render();
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Tools | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Five tools for when you need something now. Use them on the bus, in the waiting room, before you walk through your front door." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/style.css" />
+<style>
+  .tools-page { background: var(--ink); color: var(--paper); padding: 0 0 96px; }
+  .tools-hero {
+    padding: 160px clamp(28px,6vw,96px) 72px;
+    max-width: 1320px; margin: 0 auto;
+  }
+  .tools-hero .kicker {
+    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+    font-weight: 600; color: var(--accent); margin-bottom: 20px;
+    display: inline-flex; align-items: center; gap: 14px;
+  }
+  .tools-hero .kicker::before { content:""; width:36px; height:2px; background: var(--accent); }
+  .tools-hero h1 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(56px, 9vw, 144px); line-height: 0.92;
+    letter-spacing: -0.035em; margin: 0 0 24px 0;
+    max-width: 12ch;
+  }
+  .tools-hero .lead {
+    font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5;
+    color: rgba(255,255,255,0.78); max-width: 60ch; margin: 0;
+    font-weight: 400;
+  }
+  .tools-grid {
+    max-width: 1320px; margin: 0 auto;
+    padding: 0 clamp(28px,6vw,96px);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  @media (min-width: 1100px) {
+    .tools-grid { grid-template-columns: repeat(5, 1fr); }
+    .tools-grid .tool-tile.big { grid-column: span 2; }
+  }
+  .tool-tile {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    padding: 32px 28px 28px;
+    background: var(--tile-bg, #2d4a3a);
+    color: var(--paper);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 0;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .tool-tile:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
+  .tool-tile:focus-visible { outline: 3px solid var(--paper); outline-offset: -4px; }
+  .tool-tile .tile-num {
+    font-family: var(--display); font-weight: 500;
+    font-size: 13px; letter-spacing: 0.16em;
+    opacity: 0.7;
+  }
+  .tool-tile h2 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(28px, 3vw, 40px); line-height: 1.02;
+    letter-spacing: -0.025em; margin: 0;
+  }
+  .tool-tile p {
+    font-size: 14px; line-height: 1.45;
+    color: rgba(255,255,255,0.85);
+    margin: 12px 0 0 0;
+    max-width: 28ch;
+  }
+  .tool-tile .arrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--sans); font-weight: 600; font-size: 12px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-top: 20px;
+  }
+  .tool-tile .arrow svg { transition: transform 0.2s ease; }
+  .tool-tile:hover .arrow svg { transform: translateX(4px); }
+  .tools-foot {
+    max-width: 1320px; margin: 64px auto 0;
+    padding: 0 clamp(28px,6vw,96px);
+    color: rgba(255,255,255,0.6);
+    font-size: 13px; line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <nav class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#chapters">Chapters</a>
+    <a href="../quiz.html">Where to start</a>
+    <a href="index.html" class="active">Tools</a>
+    <a href="../resources.html">Resources</a>
+    <a href="../bookmarks.html">Saved</a>
+    <a href="../about.html">About</a>
+  </nav>
+</header>
+
+<main class="tools-page" data-screen-label="Tools">
+  <div class="tools-hero">
+    <div class="kicker">Co-designed with brothers from Lambeth</div>
+    <h1>Tools, for now.</h1>
+    <p class="lead">Five tools for when you need something now. Use them on the bus, in the waiting room, before you walk through your front door. They were built from what brothers told us they actually needed.</p>
+  </div>
+
+  <div class="tools-grid">
+    <a class="tool-tile big" href="field-guide.html" style="--tile-bg:#1f6962">
+      <div>
+        <div class="tile-num">01</div>
+        <h2>The Field Guide.</h2>
+        <p>Scripts for when your doctor is not listening.</p>
+      </div>
+      <span class="arrow">Open
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+    <a class="tool-tile" href="feelings-wheel.html" style="--tile-bg:#b54a2a">
+      <div>
+        <div class="tile-num">02</div>
+        <h2>The Feelings Wheel.</h2>
+        <p>When you cannot find the word for what you feel.</p>
+      </div>
+      <span class="arrow">Open
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+    <a class="tool-tile" href="vetting-card.html" style="--tile-bg:#a87a2a">
+      <div>
+        <div class="tile-num">03</div>
+        <h2>The Vetting Card.</h2>
+        <p>Who is actually safe to talk to.</p>
+      </div>
+      <span class="arrow">Open
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+    <a class="tool-tile" href="de-mask.html" style="--tile-bg:#2a4a36">
+      <div>
+        <div class="tile-num">04</div>
+        <h2>The De-Mask.</h2>
+        <p>Five minutes to take the armour off before you get home.</p>
+      </div>
+      <span class="arrow">Open
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+    <a class="tool-tile" href="value-sheet.html" style="--tile-bg:#8c4a5e">
+      <div>
+        <div class="tile-num">05</div>
+        <h2>The Value Sheet.</h2>
+        <p>Net worth is not self worth.</p>
+      </div>
+      <span class="arrow">Open
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+  </div>
+
+  <div class="tools-foot">
+    Built from 42 in-person conversations at the Lambeth Country Show and several focus groups. Nothing you write here leaves your device.
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-meta" style="border:none;padding:0">
+    <span>From Black Thrive Lambeth. Designed by The Office of Art and Technology.</span>
+    <a href="../index.html" style="color:var(--accent);text-decoration:none;font-weight:700">Back to home &rarr;</a>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

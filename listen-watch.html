@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Listen &amp; watch | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Podcasts, videos and books by Black voices. Curated, not autoplayed." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+<style>
+.lw-hero {
+  background: var(--ink); color: var(--paper);
+  padding: 140px clamp(28px, 6vw, 96px) 96px;
+}
+.lw-hero-inner { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: end; }
+@media (max-width: 880px) { .lw-hero-inner { grid-template-columns: 1fr; } }
+.lw-hero h1 { font-family: var(--display); font-weight: 500; font-size: clamp(56px, 8vw, 120px); line-height: 0.92; letter-spacing: -0.03em; margin: 0; max-width: 12ch; }
+.lw-hero .lead { font-family: var(--serif); font-style: italic; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.4; max-width: 42ch; margin: 0; color: rgba(255,255,255,0.85); }
+.lw-hero .kicker {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent);
+  margin: 0 0 28px 0;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.lw-hero .kicker::before { content:""; width:36px; height:2px; background: var(--accent); }
+
+.lw-tabs {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--paper); border-bottom: 1px solid var(--rule);
+  padding: 22px clamp(28px, 6vw, 96px);
+  display: flex; gap: 8px; flex-wrap: wrap;
+  max-width: 1320px; margin: 0 auto;
+}
+.lw-tab {
+  font-family: var(--sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 12px 22px; border-radius: 999px;
+  border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.lw-tab:hover { border-color: var(--ink); }
+.lw-tab[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.lw-tab .tab-count {
+  display: inline-block; margin-left: 10px; padding: 2px 8px;
+  background: rgba(0,0,0,0.08); border-radius: 999px; font-size: 10px;
+}
+.lw-tab[aria-current="true"] .tab-count { background: rgba(255,255,255,0.18); }
+
+.lw-section { padding: clamp(64px, 8vw, 96px) clamp(28px, 6vw, 96px); border-bottom: 1px solid var(--rule); }
+.lw-section:last-of-type { border-bottom: none; }
+.lw-section.hidden { display: none; }
+.lw-inner { max-width: 1320px; margin: 0 auto; }
+.lw-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 48px; }
+@media (max-width: 880px) { .lw-head { grid-template-columns: 1fr; gap: 16px; } }
+.lw-head .num { font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: 0.28em; color: var(--accent); margin: 0 0 14px 0; text-transform: uppercase; }
+.lw-head h2 { font-family: var(--display); font-weight: 500; font-size: clamp(40px, 5.5vw, 72px); line-height: 0.95; letter-spacing: -0.025em; margin: 0; max-width: 14ch; }
+.lw-head p { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 1.8vw, 21px); line-height: 1.45; color: var(--ink-soft); margin: 0; max-width: 44ch; }
+
+.lw-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
+.lw-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 28px 30px 24px;
+  text-decoration: none; color: var(--ink);
+  display: flex; flex-direction: column; gap: 14px;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+.lw-card:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 12px 32px -16px rgba(10,31,68,0.2); }
+.lw-card .lw-kind {
+  font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.lw-card .lw-title {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(22px, 2.4vw, 28px); line-height: 1.05; letter-spacing: -0.018em;
+  margin: 0;
+}
+.lw-card .lw-by {
+  font-family: var(--serif); font-style: italic; font-size: 15px;
+  color: var(--ink-soft); margin: 0;
+}
+.lw-card .lw-note {
+  font-family: var(--sans); font-size: 14px; line-height: 1.5;
+  color: var(--ink); margin: 0;
+}
+.lw-card .lw-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto; padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.lw-card .lw-foot .src { color: var(--ink-soft); }
+.lw-card .lw-foot .visit { color: var(--ink); display: inline-flex; align-items: center; gap: 6px; }
+.lw-card .black-led {
+  position: absolute; top: 14px; right: 14px;
+  font-family: var(--sans); font-size: 9px; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  background: var(--ink); color: var(--accent);
+  padding: 4px 9px; border-radius: 999px;
+}
+
+.lw-empty {
+  padding: 60px 0;
+  text-align: center;
+  font-family: var(--serif); font-style: italic;
+  color: var(--ink-soft); font-size: 18px;
+}
+
+.lw-suggest {
+  margin-top: 48px;
+  padding: clamp(32px, 4vw, 56px);
+  background: var(--bg-deep); border: 1px solid var(--rule);
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: center;
+}
+@media (max-width: 880px) { .lw-suggest { grid-template-columns: 1fr; } }
+.lw-suggest h3 { font-family: var(--display); font-weight: 500; font-size: clamp(28px, 3vw, 36px); line-height: 1; letter-spacing: -0.02em; margin: 0 0 8px; max-width: 20ch; }
+.lw-suggest p { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink-soft); margin: 0; max-width: 44ch; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="index.html#chapters">Chapters</a>
+    <a href="quiz.html">Where to start</a>
+    <a href="tools/index.html">Tools</a>
+    <a href="resources.html">Resources</a>
+    <a href="bookmarks.html">Saved</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<section class="lw-hero" data-screen-label="Listen &amp; watch hero">
+  <div class="lw-hero-inner">
+    <div>
+      <p class="kicker">Relatable voices, in the formats you actually use</p>
+      <h1>Listen and watch.</h1>
+    </div>
+    <p class="lead">A small library of podcasts, channels and books by Black voices, on the questions in this toolkit. Curated. Not autoplayed. Click out, listen on your terms.</p>
+  </div>
+</section>
+
+<nav class="lw-tabs" aria-label="Filter by format">
+  <button class="lw-tab" data-tab="all" aria-current="true">All <span class="tab-count" id="count-all"></span></button>
+  <button class="lw-tab" data-tab="podcast">Podcasts <span class="tab-count" id="count-podcast"></span></button>
+  <button class="lw-tab" data-tab="watch">Watch <span class="tab-count" id="count-watch"></span></button>
+  <button class="lw-tab" data-tab="book">Read <span class="tab-count" id="count-book"></span></button>
+</nav>
+
+<main id="lw-main">
+
+<section class="lw-section" data-section="podcast" data-screen-label="Podcasts">
+  <div class="lw-inner">
+    <div class="lw-head">
+      <div>
+        <p class="num">01 &middot; Podcasts</p>
+        <h2>For the commute, the gym, the long drive.</h2>
+      </div>
+      <p>Honest conversations from Black creators on faith, mental health, money, identity and the everyday weight. UK first where we can find it, then beyond.</p>
+    </div>
+    <div class="lw-grid" id="grid-podcast"></div>
+  </div>
+</section>
+
+<section class="lw-section" data-section="watch" data-screen-label="Watch">
+  <div class="lw-inner">
+    <div class="lw-head">
+      <div>
+        <p class="num">02 &middot; Watch</p>
+        <h2>YouTube channels and talks worth your time.</h2>
+      </div>
+      <p>Short and long-form. Channels that go deep on identity, culture, mental health, and the things men hold quietly. Pick one, sit with it.</p>
+    </div>
+    <div class="lw-grid" id="grid-watch"></div>
+  </div>
+</section>
+
+<section class="lw-section" data-section="book" data-screen-final data-screen-label="Read">
+  <div class="lw-inner">
+    <div class="lw-head">
+      <div>
+        <p class="num">03 &middot; Read</p>
+        <h2>Books for the brother who wants more than a paragraph.</h2>
+      </div>
+      <p>The shelf. Pick up one. Read at your pace. Pass it on when you are done.</p>
+    </div>
+    <div class="lw-grid" id="grid-book"></div>
+
+    <div class="lw-suggest">
+      <div>
+        <h3>Got a recommendation we missed?</h3>
+        <p>This is a starter library. We want it to be a real one. Send us a podcast, channel, or book that helped you, and we will read or listen before we add it.</p>
+      </div>
+      <div>
+        <a class="btn btn-accent" href="mailto:hello@blackthrivelambeth.com?subject=Listen%20%26%20watch%20recommendation&amp;body=Hi%2C%0A%0AThis%20is%20worth%20adding%3A%0A%0ATitle%3A%0AFormat%20(podcast%20%2F%20channel%20%2F%20book)%3A%0ALink%3A%0AWhy%20it%20mattered%20to%20me%3A%0A%0AThanks.">
+          Suggest something
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4>The toolkit</h4>
+      <p class="footer-bigword">Built with Black men, for Black men. From Lambeth, to everywhere.</p>
+      <p style="font-size:13px;opacity:.75;line-height:1.6;max-width:38ch">This toolkit is for all Black men. Queer brothers, trans brothers, brothers of every faith and none.</p>
+    </div>
+    <div>
+      <h4>Take it off the screen</h4>
+      <ul>
+        <li><a href="print.html">Pocket pack &amp; PDFs</a></li>
+        <li><a href="listen-watch.html">Listen &amp; watch</a></li>
+        <li><a href="Booklet.html">The booklet</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Find us</h4>
+      <ul>
+        <li><a href="about.html">About this work</a></li>
+        <li><a href="mailto:hello@blackthrivelambeth.com">Get in touch</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>If you need help now</h4>
+      <ul>
+        <li><a href="tel:116123">Samaritans 116 123</a></li>
+        <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
+        <li><a href="tel:08005858 58">CALM 0800 58 58 58</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <span>&copy; 2025 Black Thrive Lambeth</span>
+    <span>Designed by The Office of Art and Technology</span>
+  </div>
+</footer>
+
+<script>
+const LW = {
+  podcast: [
+    { title: "Brown Skin Boys", by: "UK", note: "Reflections on faith, mental health, and Black British manhood. Search wherever you get podcasts.", link: "https://open.spotify.com/search/Brown%20Skin%20Boys", src: "Spotify / Apple", black_led: true },
+    { title: "The Receipts Podcast", by: "UK", note: "Not Black-male led, but candid conversations from Black British creators that men listen to.", link: "https://thereceiptspodcast.com", src: "Independent", black_led: true },
+    { title: "About Race with Reni Eddo-Lodge", by: "Reni Eddo-Lodge", note: "Essential context for the racism conversation in Britain.", link: "https://www.aboutracepodcast.com/", src: "Independent", black_led: true },
+    { title: "Therapy for Black Men", by: "Joy Harden Bradford &amp; network", note: "US-based but the principles travel. Sister show to Therapy for Black Girls.", link: "https://therapyforblackmen.org/podcast/", src: "USA", black_led: true },
+    { title: "Black Gals Livin\u2019", by: "UK", note: "Cultural context, friendship, mental health, humour. Men listen too.", link: "https://podcasts.apple.com/gb/podcast/black-gals-livin/id1452116054", src: "UK", black_led: true },
+    { title: "Sista Brunch", by: "UK", note: "Conversations that move easily between joy and depth.", link: "https://open.spotify.com/search/Sista%20Brunch", src: "Spotify", black_led: true },
+  ],
+  watch: [
+    { title: "Jouelzy", by: "Jouelzy", note: "Cultural commentary, mental health threads, education.", link: "https://www.youtube.com/@Jouelzy", src: "YouTube", black_led: true },
+    { title: "Esther the Wonderer", by: "Esther", note: "Faith, identity, and growth. UK voice.", link: "https://www.youtube.com/@estherthewonderer", src: "YouTube", black_led: true },
+    { title: "Yvette Adwoa Ohene", by: "Yvette Adwoa Ohene", note: "UK Black mental health.", link: "https://www.youtube.com/results?search_query=Yvette+Adwoa+Ohene", src: "YouTube", black_led: true },
+    { title: "What it is like to be a Black man in the West", by: "TED archive", note: "A short talk worth twenty minutes of your time. Search the TED archive.", link: "https://www.ted.com/search?q=black+man+in+the+west", src: "TED" },
+    { title: "The Receipts on YouTube", by: "The Receipts", note: "Long-form video conversations from the podcast crew.", link: "https://www.youtube.com/@TheReceiptsPodcast", src: "YouTube", black_led: true },
+  ],
+  book: [
+    { title: "Self-Care for Black Men", by: "Jor-El Caraballo", note: "Practical, written by a Black male therapist. Short chapters, real exercises.", link: "https://www.waterstones.com/book/self-care-for-black-men/jor-el-caraballo/9781507219546", src: "Waterstones", black_led: true },
+    { title: "I Am Not Your Negro", by: "James Baldwin &amp; Raoul Peck", note: "Baldwin's unfinished manuscript, threaded through Peck's documentary.", link: "https://www.waterstones.com/book/i-am-not-your-negro/james-baldwin/raoul-peck/9780525434696", src: "Waterstones", black_led: true },
+    { title: "Black, Listed", by: "Jeffrey Boakye", note: "Black British identity, A to Z, sharp and funny.", link: "https://www.waterstones.com/book/black-listed/jeffrey-boakye/9780349700588", src: "Waterstones", black_led: true },
+    { title: "Natives", by: "Akala", note: "Race and class in the ruins of empire. UK essential.", link: "https://www.waterstones.com/book/natives/akala/9781473661233", src: "Waterstones", black_led: true },
+    { title: "Why I am No Longer Talking to White People About Race", by: "Reni Eddo-Lodge", note: "The book that broke the conversation open in the UK.", link: "https://www.waterstones.com/book/why-im-no-longer-talking-to-white-people-about-race/reni-eddo-lodge/9781408870587", src: "Waterstones", black_led: true },
+    { title: "The Good Immigrant", by: "Nikesh Shukla (ed.)", note: "Essays from Black and brown writers on what it means to live here.", link: "https://www.waterstones.com/book/the-good-immigrant/nikesh-shukla/9781783523955", src: "Waterstones" },
+  ],
+};
+
+const KIND_LABEL = { podcast: "Podcast", watch: "Channel", book: "Book" };
+
+function cardHTML(item, kind) {
+  return `
+    <a class="lw-card" href="${item.link}" target="_blank" rel="noopener">
+      ${item.black_led ? `<span class="black-led">Black-led</span>` : ``}
+      <span class="lw-kind">${KIND_LABEL[kind]}</span>
+      <p class="lw-title">${item.title}</p>
+      <p class="lw-by">${item.by}</p>
+      <p class="lw-note">${item.note}</p>
+      <div class="lw-foot">
+        <span class="src">${item.src}</span>
+        <span class="visit">Open
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+    </a>
+  `;
+}
+
+function render() {
+  ["podcast","watch","book"].forEach(k => {
+    const el = document.getElementById("grid-" + k);
+    el.innerHTML = LW[k].map(i => cardHTML(i, k)).join("");
+    document.getElementById("count-" + k).textContent = LW[k].length;
+  });
+  document.getElementById("count-all").textContent = LW.podcast.length + LW.watch.length + LW.book.length;
+}
+
+function setTab(t) {
+  document.querySelectorAll(".lw-tab").forEach(b => b.setAttribute("aria-current", String(b.dataset.tab === t)));
+  document.querySelectorAll(".lw-section").forEach(s => {
+    const show = t === "all" || s.dataset.section === t;
+    s.classList.toggle("hidden", !show);
+  });
+}
+
+document.querySelectorAll(".lw-tab").forEach(b => {
+  b.addEventListener("click", () => setTab(b.dataset.tab));
+});
+
+render();
+setTab("all");
+</script>
+</body>
+</html>

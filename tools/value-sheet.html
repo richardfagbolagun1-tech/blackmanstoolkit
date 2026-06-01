@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Value Sheet | Tools | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Net worth is not self worth. Three questions to separate what you have from who you are." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/style.css" />
+<link rel="stylesheet" href="tool.css" />
+<style> body { --tool-accent: #8c4a5e; } </style>
+</head>
+<body class="tool-page-body">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <nav class="nav">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#chapters">Chapters</a>
+    <a href="../quiz.html">Where to start</a>
+    <a href="index.html">Tools</a>
+    <a href="../resources.html">Resources</a>
+    <a href="../bookmarks.html">Saved</a>
+    <a href="../about.html">About</a>
+  </nav>
+</header>
+
+<main class="tool-page" data-screen-label="Value Sheet">
+  <section class="tool-hero">
+    <div class="tool-hero-inner">
+      <a class="tool-back" href="index.html">&larr; All tools</a>
+      <div class="tool-num">Tool 05</div>
+      <h1>The Value Sheet.</h1>
+      <p class="tool-sub">Net worth is not self worth.</p>
+      <p class="tool-lead">One man told us: "When I was not financially stable, my mental wellbeing would flow negatively at the end of each month." Another: "If I am broke it could even affect your mental." Money and mood are linked. We are not pretending they are not.</p>
+      <p class="tool-lead">But you are not your bank balance. The way through is to separate what you have from who you are.</p>
+      <p class="tool-lead">Three questions. Write whatever comes. There are no wrong answers.</p>
+    </div>
+  </section>
+
+  <section class="tool-body">
+    <div class="tool-body-inner">
+
+      <div class="value-prompt">
+        <div class="q-num">Question 01</div>
+        <h3>What do you contribute that money cannot measure?</h3>
+        <p class="q-help">Think about presence, mentorship, the time you listen, the calls you take, the lifts you give, the way you show up at funerals. Write three things.</p>
+        <textarea id="vs-1" placeholder="Take your time. Saved as you write."></textarea>
+      </div>
+
+      <div class="value-prompt">
+        <div class="q-num">Question 02</div>
+        <h3>Who would say you have made their life better, and why?</h3>
+        <p class="q-help">Not who paid you. Who loves you. Write a name and a reason.</p>
+        <textarea id="vs-2" placeholder="One name. One reason. That is enough to start."></textarea>
+      </div>
+
+      <div class="value-prompt">
+        <div class="q-num">Question 03</div>
+        <h3>If your income halved tomorrow, what would still be true about you?</h3>
+        <p class="q-help">Be honest. Some things would change. But what would not?</p>
+        <textarea id="vs-3" placeholder="What stays. What you carry. What is yours."></textarea>
+      </div>
+
+      <div class="tool-actions">
+        <button class="btn btn-primary" id="vs-save">Save my answers
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+        <button class="btn btn-ghost" id="vs-clear">Clear</button>
+        <a class="btn btn-ghost" href="../chapters/money.html">Open Money chapter</a>
+      </div>
+
+      <p class="tool-privacy">Your answers stay on your device. Nobody sees them, including us.</p>
+
+      <div class="script-section">
+        <h2>Next step.</h2>
+        <p>Now that the self-worth piece is named, the <a href="../chapters/money.html" style="color:var(--tool-accent,var(--primary));font-weight:600">Money chapter</a> has the practical stuff: budgeting, debt, employment support, Lambeth-specific services.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-meta" style="border:none;padding:0">
+    <span>From Black Thrive Lambeth. Designed by The Office of Art and Technology.</span>
+    <a href="../index.html" style="color:var(--accent);text-decoration:none;font-weight:700">Back to home &rarr;</a>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/app.js"></script>
+<script>
+const KEY = 'bmt:value-sheet';
+const fields = ['vs-1','vs-2','vs-3'];
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch {}
+
+fields.forEach(id => {
+  const el = document.getElementById(id);
+  if (state[id]) el.value = state[id];
+  el.addEventListener('input', () => {
+    state[id] = el.value;
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {}
+  });
+});
+
+document.getElementById('vs-save').addEventListener('click', () => {
+  fields.forEach(id => state[id] = document.getElementById(id).value);
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {}
+  window.BMT && window.BMT.toast && window.BMT.toast('Saved on your device.');
+});
+
+document.getElementById('vs-clear').addEventListener('click', () => {
+  if (!confirm('Clear all three answers?')) return;
+  fields.forEach(id => { document.getElementById(id).value = ''; });
+  state = {};
+  try { localStorage.removeItem(KEY); } catch {}
+});
+</script>
+</body>
+</html>
