@@ -9,6 +9,8 @@
     checkin: "bmt:checkin",     // [{at:ts, feeling:str, note:str}]
     nudge: "bmt:nudge",         // {channel, value, day, when}
     streakHide: "bmt:streakHide", // bool
+    steps: "bmt:steps",         // [{at, type, amount, label, once}]
+    challenges: "bmt:challenges", // { id: doneTimestamp }
   };
 
   function read(key, fallback) {
@@ -44,7 +46,7 @@
     panel.className = "tweaks-panel";
     panel.innerHTML = `
       <h5>Tweaks <button aria-label="close">&times;</button></h5>
-      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:10px;opacity:.65">Colour palette</div>
+      <div style="font-size:11px;letter-spacing:0.02em;text-transform:none;font-weight:700;margin-bottom:10px;opacity:.65">Colour palette</div>
       <div class="palette-options">
         ${PALETTES.map(p => `
           <button class="palette-option" data-palette="${p.id}">
@@ -101,6 +103,7 @@
     const p = read(STORE.progress, {});
     p[slug] = { done: true, at: Date.now() };
     write(STORE.progress, p);
+    awardSteps("read", 12, "Read the " + slug + " chapter", "read:" + slug);
   }
   function getProgress() { return read(STORE.progress, {}); }
 
@@ -118,6 +121,7 @@
     } else {
       list.push({ ...resource, chapter: chapterSlug, savedAt: Date.now() });
       write(STORE.bookmarks, list);
+      awardSteps("save", 3, "Saved a resource", "save:" + resource.link);
       toast("Saved for later");
       return true;
     }
@@ -129,6 +133,8 @@
     const list = getCheckins();
     list.push({ at: Date.now(), ...entry });
     write(STORE.checkin, list);
+    // One step award per calendar day, so it rewards the habit not the refresh.
+    awardSteps("checkin", 6, "Checked in", "checkin:" + dayKey(Date.now()));
     return list;
   }
   function lastCheckin() {
@@ -166,6 +172,59 @@
   function streakHidden() { return !!read(STORE.streakHide, false); }
   function setStreakHidden(v) { write(STORE.streakHide, !!v); }
 
+  // ---------- STEPS (engagement points) ----------
+  // The site's own language: "take the first step". Points are Steps.
+  // Earned for real, honest actions, never for idle clicking.
+  function getStepsLedger() { return read(STORE.steps, []); }
+  function getSteps() { return getStepsLedger().reduce((n, e) => n + (e.amount || 0), 0); }
+  // once: a dedupe key. If supplied and already present, the award is skipped.
+  function awardSteps(type, amount, label, once) {
+    const ledger = getStepsLedger();
+    if (once && ledger.some(e => e.once === once)) return false;
+    ledger.push({ at: Date.now(), type, amount, label, once: once || null });
+    write(STORE.steps, ledger);
+    return true;
+  }
+
+  // Tiers. Names borrow from the toolkit's own vocabulary of showing up.
+  const TIERS = [
+    { name: "First step",  min: 0 },
+    { name: "Showing up",  min: 60 },
+    { name: "Building",    min: 160 },
+    { name: "Steady",      min: 340 },
+    { name: "Anchored",    min: 640 },
+  ];
+  function getTier(total) {
+    const t = (typeof total === "number") ? total : getSteps();
+    let cur = TIERS[0], next = null;
+    for (let i = 0; i < TIERS.length; i++) {
+      if (t >= TIERS[i].min) { cur = TIERS[i]; next = TIERS[i + 1] || null; }
+    }
+    return { current: cur, next, total: t };
+  }
+
+  // ---------- CHALLENGES ----------
+  // Each is one honest, doable action drawn from the chapter advice.
+  // The man checks it off himself. Trust over surveillance.
+  function getChallengeState() { return read(STORE.challenges, {}); }
+  function isChallengeDone(id) { return !!getChallengeState()[id]; }
+  function toggleChallenge(id, label, steps) {
+    const st = getChallengeState();
+    if (st[id]) {
+      delete st[id];
+      write(STORE.challenges, st);
+      // remove its step award
+      const ledger = getStepsLedger().filter(e => e.once !== "challenge:" + id);
+      write(STORE.steps, ledger);
+      return false;
+    }
+    st[id] = Date.now();
+    write(STORE.challenges, st);
+    awardSteps("challenge", steps || 20, label || "Challenge done", "challenge:" + id);
+    return true;
+  }
+  function challengesDoneCount() { return Object.keys(getChallengeState()).length; }
+
   // ---------- WEEKLY NUDGE ----------
   function getNudge() { return read(STORE.nudge, null); }
   function setNudge(cfg) { write(STORE.nudge, cfg); }
@@ -188,7 +247,7 @@
       return;
     }
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(fullUrl).then(() => toast("Link copied. Send it to a brother."));
+      navigator.clipboard.writeText(fullUrl).then(() => toast("Link copied. Send it to someone."));
       return;
     }
     toast(fullUrl);
@@ -232,11 +291,55 @@
     });
   }
 
+  // ---------- NAV INJECTION ----------
+  // Add the "Your steps" link to nav, and "Your steps" + "Find your circle"
+  // to the footer Tools list on every page, without editing each file. Idempotent.
+  function injectStepsLink() {
+    const inSub = /\/(chapters|tools)\//.test(location.pathname);
+    const prefix = inSub ? "../" : "";
+    const stepsHref = prefix + "progress.html";
+    const circleHref = prefix + "circle.html";
+    const isHere = /progress\.html$/.test(location.pathname);
+
+    // Top nav: just the steps link
+    const nav = document.querySelector(".site-header .nav");
+    if (nav && !nav.querySelector('a[href$="progress.html"]')) {
+      const a = document.createElement("a");
+      a.href = stepsHref;
+      a.textContent = "Your steps";
+      if (isHere) a.className = "active";
+      const saved = nav.querySelector('a[href$="bookmarks.html"]');
+      if (saved) nav.insertBefore(a, saved); else nav.appendChild(a);
+    }
+
+    // Footer Tools list: steps + circle
+    document.querySelectorAll(".site-footer .footer-grid ul").forEach(ul => {
+      const savedLink = ul.querySelector('a[href$="bookmarks.html"]');
+      if (!savedLink) return;
+      const savedLi = savedLink.closest("li");
+      if (!ul.querySelector('a[href$="circle.html"]')) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = circleHref; a.textContent = "Find your circle";
+        li.appendChild(a);
+        savedLi.parentNode.insertBefore(li, savedLi);
+      }
+      if (!ul.querySelector('a[href$="progress.html"]')) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = stepsHref; a.textContent = "Your steps";
+        li.appendChild(a);
+        savedLi.parentNode.insertBefore(li, savedLi);
+      }
+    });
+  }
+
   // ---------- INIT on every page ----------
   function init() {
     const saved = read(STORE.palette, "navy");
     applyPalette(saved);
-    buildTweaksPanel();
+    injectStepsLink();
+    // Colour palette tweaks panel removed.
 
     if (window.speechSynthesis) {
       window.speechSynthesis.onvoiceschanged = () => {};
@@ -257,5 +360,7 @@
     getCheckins, addCheckin, lastCheckin,
     getStreak, streakHidden, setStreakHidden,
     getNudge, setNudge, clearNudge,
+    getSteps, getStepsLedger, awardSteps, getTier, TIERS,
+    getChallengeState, isChallengeDone, toggleChallenge, challengesDoneCount,
   };
 })();

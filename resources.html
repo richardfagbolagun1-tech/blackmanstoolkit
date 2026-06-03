@@ -48,7 +48,7 @@
 
 .rf-eyebrow {
   display: inline-flex; align-items: center; gap: 14px;
-  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.02em; text-transform: none;
   font-weight: 600; color: var(--accent); margin-bottom: 22px;
 }
 .rf-eyebrow::before { content: ""; width: 36px; height: 2px; background: var(--accent); }
@@ -82,7 +82,7 @@
 }
 .pc-card-inner { position: relative; }
 .pc-card .pc-label {
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.02em; text-transform: none;
   font-weight: 700; color: var(--accent);
   display: inline-flex; align-items: center; gap: 10px;
   margin-bottom: 14px;
@@ -93,7 +93,7 @@
   font-size: clamp(28px, 3vw, 40px); line-height: 1;
   letter-spacing: -0.02em; margin: 0 0 18px;
 }
-.pc-card h2 em { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--accent); }
+.pc-card h2 em { font-family: var(--serif); font-style: normal; font-weight: 300; color: var(--accent); }
 .pc-form {
   display: flex; gap: 10px; margin: 0 0 14px;
   align-items: stretch;
@@ -107,19 +107,19 @@
   padding: 16px 22px;
   font-family: var(--display); font-weight: 700;
   font-size: clamp(20px, 2.2vw, 28px);
-  letter-spacing: 0.04em;
-  color: var(--paper); text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--paper); text-transform: none;
   transition: border-color 0.15s ease, background 0.15s ease;
   min-width: 0;
 }
 .pc-form input:focus { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.12); }
-.pc-form input::placeholder { color: rgba(255,255,255,0.45); letter-spacing: 0.06em; }
+.pc-form input::placeholder { color: rgba(255,255,255,0.45); letter-spacing: 0.01em; }
 .pc-form button {
   background: var(--paper); color: var(--ink);
   border: none; border-radius: 999px;
-  padding: 0 28px; font-family: var(--sans);
+  padding: 0 28px; font-family: var(--display);
   font-weight: 700; font-size: 13px;
-  letter-spacing: 0.14em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
   cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
   transition: background 0.15s ease, transform 0.15s ease;
   flex-shrink: 0;
@@ -145,6 +145,7 @@
 .pc-current {
   margin-top: 14px;
   display: flex; gap: 10px; align-items: center;
+  font-family: var(--display);
   font-size: 13px; padding: 10px 14px;
   background: rgba(255,255,255,0.10);
   border: 1px solid rgba(255,255,255,0.25);
@@ -155,7 +156,8 @@
   margin-left: auto;
   background: none; border: 1px solid rgba(255,255,255,0.3);
   color: var(--paper); padding: 4px 12px; border-radius: 999px;
-  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+  font-family: var(--display);
+  font-size: 10px; letter-spacing: 0.02em; text-transform: none; font-weight: 700;
   cursor: pointer;
 }
 .pc-current button:hover { background: rgba(255,255,255,0.12); }
@@ -190,7 +192,7 @@
   animation: rf-pulse 2s infinite;
 }
 .rf-crisis-head .note {
-  font-size: 13px; color: var(--ink-soft); max-width: 60ch; line-height: 1.4;
+  font-size: 16px; color: var(--ink-soft); max-width: 60ch; line-height: 1.45;
   margin: 0;
 }
 @keyframes rf-pulse {
@@ -198,7 +200,7 @@
   70% { box-shadow: 0 0 0 12px rgba(138, 26, 26, 0); }
   100% { box-shadow: 0 0 0 0 rgba(138, 26, 26, 0); }
 }
-.rf-crisis-head h2 em { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--primary); }
+.rf-crisis-head h2 em { font-family: var(--serif); font-style: normal; font-weight: 300; color: var(--primary); }
 .rf-crisis-head h2 {}
 
 .rf-crisis-grid {
@@ -215,7 +217,7 @@
 }
 .rf-crisis-card:hover { background: var(--bg); border-color: var(--ink); transform: translateY(-2px); }
 .rf-crisis-card .name { font-family: var(--display); font-weight: 800; font-size: 15px; }
-.rf-crisis-card .when { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--primary); }
+.rf-crisis-card .when { font-size: 10px; letter-spacing: 0.02em; text-transform: none; font-weight: 700; color: var(--primary); }
 .rf-crisis-card .number {
   font-family: var(--display); font-weight: 800;
   font-size: clamp(18px, 2vw, 24px); letter-spacing: -0.005em;
@@ -245,9 +247,28 @@
     radial-gradient(circle at 0% 100%, var(--plum) 0%, transparent 50%);
   opacity: 0.35; pointer-events: none;
 }
-.rf-feature-inner { position: relative; max-width: 920px; }
+.rf-feature-grid {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: clamp(36px, 4vw, 64px);
+  align-items: stretch;
+}
+@media (max-width: 900px) { .rf-feature-grid { grid-template-columns: 1fr; gap: 32px; } }
+.rf-feature-media {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  min-height: 100%;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+.rf-feature-media img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  min-height: 360px;
+}
+@media (max-width: 900px) { .rf-feature-media img { min-height: 280px; max-height: 420px; } }
+.rf-feature-inner { position: relative; max-width: none; }
 .rf-feature-eyebrow {
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.02em; text-transform: none;
   font-weight: 600; color: var(--accent);
   margin-bottom: 18px;
   display: inline-flex; align-items: center; gap: 14px;
@@ -290,7 +311,7 @@
   border-top: 1px solid rgba(255,255,255,0.18);
 }
 .rf-feature-tips-label {
-  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.02em; text-transform: none;
   font-weight: 600; color: rgba(255,255,255,0.6);
   margin-bottom: 14px;
 }
@@ -305,7 +326,7 @@
 }
 
 /* ── Filters + meta ──────────────────────────────────── */
-.rf-controls { display: flex; flex-direction: column; gap: 20px; }
+.rf-controls { display: flex; flex-direction: column; gap: 28px; }
 .rf-search-wrap { position: relative; }
 .rf-search-wrap svg.s-icon {
   position: absolute; left: 24px; top: 50%; transform: translateY(-50%);
@@ -313,32 +334,34 @@
 }
 .rf-search {
   width: 100%; font-family: var(--sans);
-  font-size: clamp(15px, 1.3vw, 17px); font-weight: 500;
+  font-size: clamp(16px, 1.3vw, 18px); font-weight: 500;
   color: var(--ink); background: var(--paper);
-  border: 2px solid var(--rule); border-radius: 999px;
-  padding: 18px 56px 18px 60px; outline: none;
+  border: 1.5px solid var(--rule); border-radius: 999px;
+  padding: 22px 56px 22px 60px; outline: none;
+  box-shadow: 0 6px 22px rgba(10,31,68,0.08);
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
+.rf-search::placeholder { color: var(--ink-soft); }
 .rf-search:focus { border-color: var(--ink); box-shadow: 0 0 0 4px var(--accent); }
 
 .rf-filters {
   display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
 }
 .rf-filters .label {
-  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-  font-weight: 700; color: var(--ink-soft); margin-right: 6px;
+  font-size: 13px; letter-spacing: 0;
+  font-weight: 600; color: var(--ink-soft); margin-right: 8px;
 }
 .rf-chip {
   font-family: var(--sans);
-  font-size: 12px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 10px 16px; border-radius: 999px;
-  border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink);
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0; text-transform: none;
+  padding: 9px 16px; border-radius: 999px;
+  border: 1px solid var(--rule); background: var(--paper); color: var(--ink-soft);
   cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
   white-space: nowrap;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
-.rf-chip:hover { border-color: var(--ink); }
+.rf-chip:hover { border-color: var(--ink); color: var(--ink); }
 .rf-chip[aria-pressed="true"] {
   background: var(--ink); color: var(--bg); border-color: var(--ink);
 }
@@ -349,22 +372,20 @@
   background: var(--plum); color: var(--paper); border-color: var(--plum);
 }
 .rf-chip .count {
-  background: rgba(0,0,0,0.08); font-size: 10px; padding: 2px 7px;
-  border-radius: 999px; font-weight: 700; letter-spacing: 0.04em;
+  display: none;
 }
 .rf-chip[aria-pressed="true"] .count { background: rgba(255,255,255,0.2); color: inherit; }
 
 .rf-meta {
-  display: flex; justify-content: space-between; align-items: baseline;
-  gap: 14px; padding: 18px 0 12px;
-  border-bottom: 1px solid var(--rule);
-  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
-  font-weight: 700; color: var(--ink-soft);
+  display: flex; justify-content: flex-start; align-items: baseline;
+  gap: 14px; padding: 8px 0 14px;
+  font-size: 13px; letter-spacing: 0; text-transform: none;
+  font-weight: 500; color: var(--ink-soft);
 }
-.rf-meta strong { color: var(--ink); font-size: 14px; }
+.rf-meta strong { color: var(--ink); font-weight: 600; font-size: 13px; }
 
 /* ── Sections (local / national) ─────────────────────── */
-.rf-results { margin-top: 32px; display: flex; flex-direction: column; gap: 56px; }
+.rf-results { margin-top: 48px; display: flex; flex-direction: column; gap: 56px; }
 .rf-section-head {
   display: flex; align-items: end; justify-content: space-between;
   gap: 24px; flex-wrap: wrap; margin-bottom: 24px;
@@ -372,7 +393,7 @@
   border-bottom: 2px solid var(--ink);
 }
 .rf-section-head .kicker {
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.02em; text-transform: none;
   font-weight: 700; color: var(--primary); margin-bottom: 8px;
 }
 .rf-section-head h2 {
@@ -380,12 +401,12 @@
   font-size: clamp(32px, 4vw, 56px); line-height: 0.95;
   letter-spacing: -0.025em; margin: 0; max-width: 22ch;
 }
-.rf-section-head h2 em { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--primary); }
+.rf-section-head h2 em { font-family: var(--serif); font-style: normal; font-weight: 300; color: var(--primary); }
 .rf-section-head .tally {
-  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  font-weight: 700; color: var(--ink-soft);
-  background: var(--paper); border: 1px solid var(--rule);
-  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; letter-spacing: 0; text-transform: none;
+  font-weight: 500; color: var(--ink-soft);
+  background: transparent; border: none;
+  padding: 0; border-radius: 0;
 }
 
 /* Theme group */
@@ -398,20 +419,20 @@
 }
 .rf-group-head .num {
   font-family: var(--display); font-weight: 800;
-  font-size: 13px; letter-spacing: 0.18em; color: var(--ink-soft);
+  font-size: 13px; letter-spacing: 0.02em; color: var(--ink-soft);
 }
 .rf-group-head h3 {
   font-family: var(--display); font-weight: 800;
   font-size: clamp(22px, 2.4vw, 32px); line-height: 1;
   letter-spacing: -0.02em; margin: 0;
 }
-.rf-group-head h3 em { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--primary); }
+.rf-group-head h3 em { font-family: var(--serif); font-style: normal; font-weight: 300; color: var(--primary); }
 .rf-group-head .promise {
-  font-family: var(--serif); font-style: italic;
+  font-family: var(--serif); font-style: normal;
   font-size: 13px; color: var(--ink-soft); display: block; margin-top: 4px;
 }
 .rf-group-head .count-tag {
-  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.02em; text-transform: none;
   font-weight: 700; color: var(--ink-soft);
   background: var(--paper); border: 1px solid var(--rule);
   padding: 6px 12px; border-radius: 999px;
@@ -533,7 +554,7 @@
 }
 .rf-card .black-led {
   font-family: var(--sans); font-size: 9px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
   background: var(--ink); color: var(--accent);
   padding: 5px 10px; border-radius: 999px;
 }
@@ -563,10 +584,10 @@
   border-radius: var(--r-lg);
 }
 .rf-empty h4 { font-family: var(--display); font-weight: 800; font-size: 28px; letter-spacing: -0.02em; margin: 0 0 10px; }
-.rf-empty p { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink-soft); margin: 0 0 18px; }
+.rf-empty p { font-family: var(--serif); font-style: normal; font-size: 17px; color: var(--ink-soft); margin: 0 0 18px; }
 .rf-empty button {
   font-family: var(--sans); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
   padding: 12px 22px; border-radius: 999px;
   background: var(--ink); color: var(--bg); border: none; cursor: pointer;
 }
@@ -583,7 +604,7 @@
 .rf-footer-note .btn-suggest {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--sans); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
   padding: 14px 22px; border-radius: 999px;
   background: var(--ink); color: var(--bg); text-decoration: none;
 }
@@ -607,10 +628,10 @@
 }
 .rf-regions .region-btn:hover { border-color: var(--ink); transform: translateY(-2px); }
 .rf-regions .region-btn .name { font-weight: 700; font-size: 15px; color: var(--ink); letter-spacing: -0.005em; }
-.rf-regions .region-btn .count { font-size: 11px; letter-spacing: 0.1em; color: var(--ink-soft); text-transform: uppercase; font-weight: 700; }
+.rf-regions .region-btn .count { font-size: 11px; letter-spacing: 0.02em; color: var(--ink-soft); text-transform: none; font-weight: 700; }
 
 .region-explore-label {
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.02em; text-transform: none;
   font-weight: 700; color: var(--ink-soft);
   margin: 32px 0 12px;
 }
@@ -618,9 +639,8 @@
 </head>
 <body>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span><span class="brand-by">by <img class="brand-bt-logo" src="assets/img/black-thrive-white.png" alt="Black Thrive Lambeth" /></span></a>
   <nav class="nav">
-    <a href="index.html">Home</a>
     <a href="index.html#chapters">Chapters</a>
     <a href="quiz.html">Where to start</a>
     <a href="tools/index.html">Tools</a>
@@ -651,19 +671,6 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </form>
-          <p class="pc-hint">
-            Try
-            <span class="examples">
-              <button type="button" class="example-pc" data-pc="SW9">SW9</button>
-              <button type="button" class="example-pc" data-pc="M14">M14</button>
-              <button type="button" class="example-pc" data-pc="BS5">BS5</button>
-              <button type="button" class="example-pc" data-pc="LS6">LS6</button>
-              <button type="button" class="example-pc" data-pc="B21">B21</button>
-              <button type="button" class="example-pc" data-pc="G42">G42</button>
-              <button type="button" class="example-pc" data-pc="CF24">CF24</button>
-              <button type="button" class="example-pc" data-pc="BT9">BT9</button>
-            </span>
-          </p>
           <div class="pc-current" id="pc-current" style="display:none;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="20 6 9 17 4 12"/></svg>
             <span id="pc-current-text"></span>
@@ -708,8 +715,8 @@
 
     <!-- BAATN FEATURE BLOCK -->
     <section class="rf-feature" aria-label="Find a therapist who looks like you">
+      <div class="rf-feature-grid">
       <div class="rf-feature-inner">
-        <div class="rf-feature-eyebrow">Find a therapist</div>
         <h2 class="rf-feature-title">Find a therapist who looks like you.</h2>
         <p class="rf-feature-lead">Brothers told us again and again: a therapist who understands the racism conversation without you having to explain it is the difference between therapy that works and therapy that wastes your money.</p>
         <p class="rf-feature-body"><strong>BAATN, the Black, African and Asian Therapy Network,</strong> has over 1,300 qualified therapists of Black, African, Asian, and Caribbean heritage across the UK. Filter by location, fee, specialism, language, gender. Many also signal LGBTQ-affirming practice.</p>
@@ -725,6 +732,10 @@
             <li>NHS Talking Therapies is free at the point of use. Ask your GP for an IAPT referral, or search NHS Talking Therapies plus your borough.</li>
           </ol>
         </div>
+      </div>
+      <div class="rf-feature-media">
+        <img src="images/therapy-session.jpg" alt="A black man in conversation with his therapist in a calm, sunlit living room" loading="lazy" />
+      </div>
       </div>
     </section>
 
@@ -857,6 +868,12 @@
     }
   } catch {}
 
+  // Pre-filter from ?theme= (e.g. linked from Find your circle)
+  try {
+    const t = new URLSearchParams(location.search).get("theme");
+    if (t && window.TOOLKIT.chapters.some(c => c.slug === t)) activeChapters.add(t);
+  } catch {}
+
   /* --- HELPERS --------------------------------------------- */
   function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
 
@@ -942,16 +959,15 @@
     const parts = [];
     if (postcode && region) {
       parts.push(`<strong>${local}</strong> near <strong>${escapeHtml(postcode)}</strong>`);
-      parts.push(`${nat} national`);
+      parts.push(`${nat} more across the UK`);
     } else {
-      parts.push(`<strong>${nat}</strong> national services`);
-      parts.push(`${ALL.filter(r => !(r.regions || []).includes("national")).length} local across the UK`);
+      parts.push(`<strong>${total}</strong> organisations across the UK`);
     }
     if (q) parts.push(`matching &ldquo;${escapeHtml(q)}&rdquo;`);
     if (activeChapters.size) parts.push(`${[...activeChapters].map(s => chapterMeta(s).title).join(", ")}`);
     if (blackLedOnly) parts.push("Black-led only");
     if (lgbtqOnly) parts.push("LGBTQ+ inclusive");
-    meta.innerHTML = `<span>${parts.join(" &middot; ")}</span><span>${total} total &middot; UK only</span>`;
+    meta.innerHTML = `<span>${parts.join(" &middot; ")}</span>`;
   }
 
   /* --- RENDER: cards -------------------------------------- */
@@ -993,10 +1009,8 @@
   function groupHTML(g, isLocal) {
     return `<div class="rf-group">
       <div class="rf-group-head">
-        <span class="num">${g.c.number}</span>
         <div>
           <h3>${escapeHtml(g.c.title)}.</h3>
-          <span class="promise">${escapeHtml(g.c.promise)}</span>
         </div>
         <span class="count-tag">${g.items.length} service${g.items.length === 1 ? '' : 's'}</span>
       </div>
@@ -1202,5 +1216,46 @@
   render();
 })();
 </script>
+<footer class="site-footer">
+  <div class="footer-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div>
+      <h4>Chapters</h4>
+      <ul>
+        <li><a href="chapters/body.html">Body</a></li>
+        <li><a href="chapters/mind.html">Mind</a></li>
+        <li><a href="chapters/money.html">Money</a></li>
+        <li><a href="chapters/spirit.html">Spirit</a></li>
+        <li><a href="chapters/brotherhood.html">Brotherhood</a></li>
+        <li><a href="chapters/community.html">Community</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="quiz.html">Where to start quiz</a></li>
+        <li><a href="tools/index.html">In-the-moment tools</a></li>
+        <li><a href="resources.html">Resource finder</a></li>
+        <li><a href="listen-watch.html">Listen &amp; watch</a></li>
+        <li><a href="print.html">Print &amp; pocket cards</a></li>
+        <li><a href="bookmarks.html">Saved for later</a></li>
+        <li><a href="lgbtq.html">For LGBTQ+ brothers</a></li>
+        <li><a href="about.html">About this work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>If you need help now</h4>
+      <ul>
+        <li><a href="tel:116123">Samaritans 116 123</a></li>
+        <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
+        <li><a href="tel:0800585858">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:999">Emergency 999</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <span>&copy; 2026 Black Thrive Lambeth</span>
+    <span>Designed by The Office of Art and Technology</span>
+  </div>
+</footer>
 </body>
 </html>

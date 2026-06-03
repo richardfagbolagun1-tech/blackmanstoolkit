@@ -13,11 +13,10 @@
           ${pack.items.map((s, i) => `
             <article class="script-card" data-script-i="${i}">
               <header>
-                <span class="script-num">${String(i+1).padStart(2,'0')}</span>
+                <span class="script-num">${i + 1}</span>
                 <h4>${s.situation}</h4>
               </header>
               <blockquote>
-                <span class="script-mark" aria-hidden="true">&ldquo;</span>
                 <p>${s.text}</p>
               </blockquote>
               <button class="script-copy" data-copy="${i}" aria-label="Copy script">
@@ -33,33 +32,20 @@
 
   // PDF download + Share with a brother CTA at chapter end (Build 5a / 5c)
   function renderChapterFooterCTA(c, slug) {
-    return `
-      <section class="chapter-takeaway" aria-label="Take this off the screen">
-        <div class="takeaway-inner">
-          <div class="takeaway-text">
-            <div class="section-label">Take this off the screen</div>
-            <h3>Carry this with you.</h3>
-            <p>Save a copy. Send it to a brother. Print it and drop it on the counter at your barbers.</p>
-          </div>
-          <div class="takeaway-actions">
-            <a class="btn btn-accent" href="../Booklet.html#${slug}" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download this chapter as PDF
-            </a>
-            <button class="btn btn-ghost" data-share-brother>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-              Share with a brother
-            </button>
-          </div>
-          <div class="takeaway-qr">
-            <div class="qr-anchor" id="chapter-qr" aria-hidden="true"></div>
-            <button class="qr-toggle" id="chapter-qr-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="14" y2="14.01"/><line x1="21" y1="14" x2="21" y2="14.01"/><line x1="14" y1="21" x2="14" y2="21.01"/><line x1="21" y1="21" x2="21" y2="21.01"/></svg>
-              Get the QR code for this page
-            </button>
-          </div>
+    const circleCTA = slug === "brotherhood" ? `
+      <a class="chapter-circle-cta" href="../circle.html">
+        <div class="cc-text">
+          <div class="cc-eyebrow">Do not just read this. Act on it.</div>
+          <h3>Find your circle.</h3>
+          <p>Walk into a men's group that already exists, or start your own five-man circle. A guide, a message to send, and the real groups.</p>
         </div>
-      </section>
+        <span class="cc-arrow">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    ` : "";
+    return `
+      ${circleCTA}
     `;
   }
 
@@ -97,23 +83,15 @@
       <div class="hero-img" style="background-image:url('${c.hero_image}')"></div>
       <div class="hero-grain"></div>
       <div class="chapter-hero-content">
-        <div class="chapter-meta-row">
-          <span class="num">${c.number} &middot; ${c.kicker}</span>
-          <span style="opacity:.8">${c.duration_min} min read</span>
-          <span style="opacity:.6">Story \u00B7 Reflect \u00B7 Act \u00B7 Resources</span>
-        </div>
-        <h1>${c.title}.</h1>
+        <h1>${c.title}</h1>
         <p class="promise">${c.promise}</p>
-        <div class="character-tag">
-          Meet <strong>${c.character.name}</strong> &middot; ${c.character.line}
-        </div>
+        <p class="character-tag">Meet <strong>${c.character.name.split(" ")[0]}</strong>, who is ${c.character.line}.</p>
       </div>
     </section>
 
     ${c.testimonial ? `
     <section class="chapter-testimonial" aria-label="From our conversations">
       <div class="testimonial-inner">
-        <div class="testimonial-label">From our conversations</div>
         <blockquote class="testimonial-quote">
           <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
           <p>${c.testimonial.quote}</p>
@@ -144,7 +122,7 @@
         <button class="icon-btn" data-share title="Share this chapter" aria-label="Share">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
         </button>
-        <button class="icon-btn" data-whatsapp title="Send to a brother on WhatsApp" aria-label="Send on WhatsApp">
+        <button class="icon-btn" data-whatsapp title="Send to someone on WhatsApp" aria-label="Send on WhatsApp">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         </button>
       </div>
@@ -153,11 +131,10 @@
     <div class="chapter-body">
 
       <section id="story" class="chapter-section">
-        <div class="section-label">Story \u00B7 ${c.character.name.split(" ")[0]}'s story</div>
         <div class="story-grid">
           ${c.story.map(p => `<p>${p}</p>`).join("")}
         </div>
-        <blockquote class="pull-quote">${c.pull_quote}</blockquote>
+        ${c.pull_quote ? `<blockquote class="pull-quote">${c.pull_quote}</blockquote>` : ""}
         <div class="chapter-stats">
           ${c.stats.map(s => `
             <div class="stat">
@@ -169,9 +146,9 @@
       </section>
 
       <section id="reflect" class="chapter-section">
-        <div class="section-label">Reflect \u00B7 Questions to sit with</div>
-        <h2 style="font-family:var(--display);font-weight:800;font-size:clamp(34px,4vw,56px);line-height:.95;letter-spacing:-.025em;margin:0 0 16px 0;max-width:18ch">Tap a question to write your own answer.</h2>
-        <p style="font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink-soft);max-width:48ch;margin:0 0 36px 0">Your notes are saved on your device only. No account, no sign-in, no one is reading this but you.</p>
+        <div class="section-label">Questions to sit with</div>
+        <p style="font-family:var(--display);font-weight:600;font-size:clamp(19px,1.7vw,22px);line-height:1.3;letter-spacing:-.01em;color:var(--ink);margin:0 0 8px 0">Tap a question to write your own answer.</p>
+        <p style="font-family:var(--serif);font-style:normal;font-size:16px;color:var(--ink-soft);margin:0 0 36px 0">Your notes are saved on your device only. No account, no sign-in, no one is reading this but you.</p>
         <ol class="questions-list" id="questions-list">
           ${c.questions.map((q, i) => `
             <li data-q="${i}">
@@ -183,19 +160,32 @@
       </section>
 
       <section id="act" class="chapter-section">
-        <div class="section-label">Act \u00B7 What ${c.character.name.split(" ")[0]} (and you) can actually do</div>
+        <div class="section-label">What to actually do</div>
         <div class="actions-list">
-          ${c.actions.map(a => `
+          ${c.actions.map((a, i) => {
+            const txt = (a.p || "").trim();
+            const m = txt.match(/^([\s\S]*?[.!?])(\s+)([\s\S]+)$/);
+            const lead = m ? m[1] : txt;
+            const rest = m ? m[3] : "";
+            return `
             <div class="action-card">
-              <h4>${a.h}</h4>
-              <p>${a.p}</p>
+              <div class="action-num">${i + 1}</div>
+              <div class="action-main">
+                <h4>${a.h}</h4>
+                ${lead ? `<p class="action-lead">${lead}</p>` : ""}
+                ${rest ? `
+                  <div class="action-rest" id="act-rest-${i}" hidden><p>${rest}</p></div>
+                  <button class="action-toggle" type="button" aria-expanded="false" aria-controls="act-rest-${i}">Show full advice</button>
+                ` : ""}
+              </div>
             </div>
-          `).join("")}
+          `;
+          }).join("")}
         </div>
       </section>
 
       <section id="resources" class="chapter-section">
-        <div class="section-label">Resources \u00B7 Free or low-cost UK organisations</div>
+        <div class="section-label">Free or low-cost UK organisations</div>
         <div class="resources-list" id="resources-list">
           ${c.resources.map((r, i) => `
             <a href="${r.link}" target="_blank" rel="noopener" class="resource" data-r="${i}">
@@ -222,14 +212,14 @@
     <nav class="chapter-nav">
       ${prev ? `
         <a class="prev" href="${prev.slug}.html">
-          <div class="label">&larr; Previous chapter \u00B7 ${prev.number}</div>
+          <div class="label">&larr; Previous chapter</div>
           <h4>${prev.title}.</h4>
           <p>${prev.promise}</p>
         </a>
       ` : `<a class="prev" href="../index.html"><div class="label">&larr; Back to home</div><h4>The directory.</h4><p>Six chapters, one toolkit.</p></a>`}
       ${next ? `
         <a class="next" href="${next.slug}.html">
-          <div class="label">Next chapter \u00B7 ${next.number} &rarr;</div>
+          <div class="label">Next chapter &rarr;</div>
           <h4>${next.title}.</h4>
           <p>${next.promise}</p>
         </a>
@@ -237,9 +227,44 @@
     </nav>
 
     <footer class="site-footer">
-      <div class="footer-meta" style="border:none;padding:0">
-        <span>From Black Thrive Lambeth. Designed by The Office of Art and Technology.</span>
-        <a href="../index.html" style="color:var(--accent);text-decoration:none;font-weight:700">Back to home &rarr;</a>
+      <div class="footer-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div>
+          <h4>Chapters</h4>
+          <ul>
+            <li><a href="../chapters/body.html">Body</a></li>
+            <li><a href="../chapters/mind.html">Mind</a></li>
+            <li><a href="../chapters/money.html">Money</a></li>
+            <li><a href="../chapters/spirit.html">Spirit</a></li>
+            <li><a href="../chapters/brotherhood.html">Brotherhood</a></li>
+            <li><a href="../chapters/community.html">Community</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Tools</h4>
+          <ul>
+            <li><a href="../quiz.html">Where to start quiz</a></li>
+            <li><a href="../tools/index.html">In-the-moment tools</a></li>
+            <li><a href="../resources.html">Resource finder</a></li>
+            <li><a href="../listen-watch.html">Listen &amp; watch</a></li>
+            <li><a href="../print.html">Print &amp; pocket cards</a></li>
+            <li><a href="../bookmarks.html">Saved for later</a></li>
+            <li><a href="../lgbtq.html">For LGBTQ+ brothers</a></li>
+            <li><a href="../about.html">About this work</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>If you need help now</h4>
+          <ul>
+            <li><a href="tel:116123">Samaritans 116 123</a></li>
+            <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
+            <li><a href="tel:0800585858">CALM 0800 58 58 58</a></li>
+            <li><a href="tel:999">Emergency 999</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Black Thrive Lambeth</span>
+        <span>Designed by The Office of Art and Technology</span>
       </div>
     </footer>
   `;
@@ -271,6 +296,18 @@
       if (!el) return;
       const y = el.getBoundingClientRect().top + window.scrollY - 140;
       window.scrollTo({ top: y, behavior: "smooth" });
+    });
+  });
+
+  // "What to actually do" — show full advice toggles
+  document.querySelectorAll(".action-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = document.getElementById(btn.getAttribute("aria-controls"));
+      if (!target) return;
+      const open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      target.hidden = open;
+      btn.textContent = open ? "Show full advice" : "Show less";
     });
   });
 

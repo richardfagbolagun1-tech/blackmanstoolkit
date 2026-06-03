@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Your steps | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="A quiet record of what you have actually done. No account, no one watching. The reward is the showing up." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+<style>
+  .pr { background: var(--bg); padding: 0 0 96px; }
+  .pr-wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 96px); }
+
+  /* Hero */
+  .pr-hero {
+    background: var(--ink); color: var(--paper);
+    padding: 140px 0 64px; position: relative; overflow: hidden;
+  }
+  .pr-hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle at 100% 0%, rgba(200,155,60,0.28) 0%, transparent 42%),
+                radial-gradient(circle at 0% 110%, rgba(42,30,88,0.5) 0%, transparent 50%);
+  }
+  .pr-hero-inner { position: relative; max-width: 1180px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 96px); }
+  .pr-hero h1 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(40px, 5.6vw, 80px); line-height: 0.98; letter-spacing: -0.025em;
+    margin: 0 0 18px; max-width: none;
+  }
+  .pr-hero .lead {
+    font-size: clamp(17px, 1.6vw, 21px); line-height: 1.5; color: rgba(255,255,255,0.82);
+    max-width: 56ch; margin: 0; text-wrap: pretty;
+  }
+
+  /* Stat row */
+  .pr-stats {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 14px;
+    margin-top: 44px;
+  }
+  @media (max-width: 760px) { .pr-stats { grid-template-columns: 1fr; } }
+  .pr-stat {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 18px; padding: 26px 28px;
+  }
+  .pr-stat .big { font-family: var(--display); font-weight: 500; font-size: clamp(40px, 5vw, 60px); line-height: 1; letter-spacing: -0.02em; color: var(--accent); }
+  .pr-stat .k { font-size: 14px; font-weight: 700; margin-top: 10px; }
+  .pr-stat .d { font-size: 13px; color: rgba(255,255,255,0.72); margin-top: 4px; line-height: 1.45; }
+  /* tier progress */
+  .pr-tierbar { margin-top: 16px; }
+  .pr-tierbar .track { height: 8px; border-radius: 99px; background: rgba(255,255,255,0.16); overflow: hidden; }
+  .pr-tierbar .fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.6s cubic-bezier(.2,.7,.2,1); }
+  .pr-tierbar .lab { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.72); margin-top: 8px; font-weight: 600; }
+
+  /* Section */
+  .pr-sec { padding-top: clamp(56px, 7vw, 88px); }
+  .pr-sec-head { margin-bottom: 14px; }
+  .pr-sec-head .kicker { font-size: 12px; font-weight: 700; color: var(--accent-deep); letter-spacing: 0.02em; margin-bottom: 12px; }
+  .pr-sec-head h2 { font-family: var(--display); font-weight: 500; font-size: clamp(28px, 3.6vw, 48px); line-height: 1; letter-spacing: -0.025em; margin: 0 0 14px; max-width: 22ch; }
+  .pr-sec-head p { font-size: 17px; color: var(--ink-soft); max-width: 62ch; margin: 0; text-wrap: pretty; }
+
+  /* Milestones */
+  .pr-miles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 30px; }
+  @media (max-width: 760px) { .pr-miles { grid-template-columns: repeat(2, 1fr); } }
+  .pr-mile { background: var(--paper); border: 1px solid var(--rule); border-radius: 16px; padding: 22px 24px; }
+  .pr-mile .n { font-family: var(--display); font-weight: 500; font-size: 38px; line-height: 1; letter-spacing: -0.02em; color: var(--ink); }
+  .pr-mile .l { font-size: 13.5px; color: var(--ink-soft); margin-top: 8px; line-height: 1.4; }
+
+  /* Challenges */
+  .pr-chal-group { margin-top: 34px; }
+  .pr-chal-head { display: flex; align-items: baseline; gap: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--ink); margin-bottom: 14px; }
+  .pr-chal-head h3 { font-family: var(--display); font-weight: 500; font-size: clamp(20px, 2.2vw, 28px); letter-spacing: -0.02em; margin: 0; }
+  .pr-chal-head .done-tag { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+  .pr-chal {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 16px 18px; border: 1px solid var(--rule); border-radius: 14px;
+    background: var(--paper); margin-bottom: 10px; cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .pr-chal:hover { border-color: var(--ink); }
+  .pr-chal.is-done { background: var(--bg-deep); border-color: rgba(31,109,74,0.4); }
+  .pr-chal .chkbox {
+    width: 26px; height: 26px; flex-shrink: 0; margin-top: 1px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .pr-chal .body { flex: 1; }
+  .pr-chal .txt { font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+  .pr-chal.is-done .txt { color: var(--ink-soft); }
+  .pr-chal .meta { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .pr-chal .steps { font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em; color: var(--accent-deep); background: rgba(200,155,60,0.13); border-radius: 99px; padding: 4px 11px; }
+  .pr-chal .go { font-size: 12px; font-weight: 700; color: var(--ink-soft); text-decoration: none; }
+  .pr-chal .go:hover { color: var(--ink); }
+
+  /* Closing note */
+  .pr-note {
+    margin-top: clamp(56px, 7vw, 80px);
+    background: var(--bg-deep); border: 1px solid var(--rule);
+    border-radius: 22px; padding: clamp(32px, 4vw, 52px);
+  }
+  .pr-note h3 { font-family: var(--display); font-weight: 500; font-size: clamp(22px, 2.6vw, 34px); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 16px; max-width: 24ch; }
+  .pr-note p { font-size: 16px; color: var(--ink-soft); max-width: 64ch; margin: 0 0 14px; text-wrap: pretty; }
+  .pr-note .row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+
+  .pr-reset { background: none; border: none; color: var(--ink-soft); font-family: var(--sans); font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; margin-top: 28px; }
+  .pr-reset:hover { color: var(--carmine); }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span><span class="brand-by">by <img class="brand-bt-logo" src="assets/img/black-thrive-white.png" alt="Black Thrive Lambeth" /></span></a>
+  <nav class="nav">
+    <a href="index.html#chapters">Chapters</a>
+    <a href="quiz.html">Where to start</a>
+    <a href="tools/index.html">Tools</a>
+    <a href="resources.html">Resources</a>
+    <a href="bookmarks.html">Saved</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="pr" data-screen-label="Your steps">
+  <section class="pr-hero" data-screen-label="Steps hero">
+    <div class="pr-hero-inner">
+      <h1 id="pr-headline">A quiet record of what you have done.</h1>
+      <p class="lead">No account. No one watching. This lives on your device only. The point is not to win anything. It is to see, on the hard days, that you have been showing up for yourself.</p>
+      <div class="pr-stats">
+        <div class="pr-stat">
+          <div class="big"><span id="pr-steps">0</span></div>
+          <div class="k">Steps earned</div>
+          <div class="d" id="pr-tier-name">First step</div>
+          <div class="pr-tierbar">
+            <div class="track"><div class="fill" id="pr-fill" style="width:0%"></div></div>
+            <div class="lab"><span id="pr-tier-cur">First step</span><span id="pr-tier-next"></span></div>
+          </div>
+        </div>
+        <div class="pr-stat">
+          <div class="big" id="pr-streak">0</div>
+          <div class="k">Day streak</div>
+          <div class="d">Check in on the home page to keep it alive. It holds for a week.</div>
+        </div>
+        <div class="pr-stat">
+          <div class="big" id="pr-chal-count">0</div>
+          <div class="k">Actions taken</div>
+          <div class="d">Real things done, not pages viewed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pr-wrap">
+    <section class="pr-sec">
+      <div class="pr-sec-head">
+        <div class="kicker">Where the steps came from</div>
+        <h2>Your milestones</h2>
+      </div>
+      <div class="pr-miles" id="pr-miles"></div>
+    </section>
+
+    <section class="pr-sec">
+      <div class="pr-sec-head">
+        <div class="kicker">Small acts, on purpose</div>
+        <h2>Challenges</h2>
+        <p>Eighteen honest, doable things, lifted straight from the chapters. Tick one off when you have actually done it. You are the only judge here, so be honest. That is the whole point.</p>
+        <p style="margin-top:14px">Low on energy today? You do not need a single one of these, and you do not need a streak. Open the <a href="tools/feelings-wheel.html" style="color:var(--accent-deep);font-weight:600">Feelings Wheel</a> or the <a href="tools/de-mask.html" style="color:var(--accent-deep);font-weight:600">De-Mask</a> instead, and come back when you have more in the tank.</p>
+      </div>
+      <div id="pr-challenges"></div>
+    </section>
+
+    <div class="pr-note">
+      <h3>The reward is the thing you did. Nothing else.</h3>
+      <p>We are not going to dangle vouchers or points you can cash in. The men we spoke with were clear that effort already goes unrecognised in their lives. So this is the recognition: a record, kept by you and for you, of every real step you took.</p>
+      <p>Read a chapter, you earn steps. Check in, you earn steps. Do one of the eighteen things, you earn steps. Refreshing the page earns nothing. The number only moves when you do.</p>
+      <div class="row">
+        <a class="btn btn-primary" href="index.html#chapters">Read a chapter
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="quiz.html">Not sure where to start</a>
+      </div>
+      <br/>
+      <button class="pr-reset" id="pr-reset">Reset my steps and challenges</button>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div>
+      <h4>Chapters</h4>
+      <ul>
+        <li><a href="chapters/body.html">Body</a></li>
+        <li><a href="chapters/mind.html">Mind</a></li>
+        <li><a href="chapters/money.html">Money</a></li>
+        <li><a href="chapters/spirit.html">Spirit</a></li>
+        <li><a href="chapters/brotherhood.html">Brotherhood</a></li>
+        <li><a href="chapters/community.html">Community</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="quiz.html">Where to start quiz</a></li>
+        <li><a href="tools/index.html">In-the-moment tools</a></li>
+        <li><a href="resources.html">Resource finder</a></li>
+        <li><a href="listen-watch.html">Listen &amp; watch</a></li>
+        <li><a href="print.html">Print &amp; pocket cards</a></li>
+        <li><a href="progress.html">Your steps</a></li>
+        <li><a href="bookmarks.html">Saved for later</a></li>
+        <li><a href="about.html">About this work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>If you need help now</h4>
+      <ul>
+        <li><a href="tel:116123">Samaritans 116 123</a></li>
+        <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
+        <li><a href="tel:0800585858">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:999">Emergency 999</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <span>&copy; 2026 Black Thrive Lambeth</span>
+    <span>Designed by The Office of Art and Technology</span>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/engage-data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  const B = window.BMT;
+  const chapters = window.TOOLKIT.chapters;
+  const challenges = window.BMT_CHALLENGES;
+
+  const tick = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+  // Two self-contained icons. Green is baked into the checked SVG's own fill,
+  // so the state never depends on a background rule resolving.
+  const ICON_EMPTY = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#9aa6bf" stroke-width="2"/></svg>`;
+  const ICON_DONE = `<svg width="26" height="26" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="#1f6d4a"/><path d="M7.5 12.4l3 3 6-6.4" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+  function chapterTitle(slug) {
+    const c = chapters.find(x => x.slug === slug);
+    return c ? c.title : slug;
+  }
+
+  // Paint a challenge row's checkbox directly, so it never depends on the
+  // cascade resolving an attribute/class state inside this embedded page.
+  function paintChal(el, done) {
+    el.classList.toggle("is-done", done);
+    el.dataset.done = String(done);
+    const box = el.querySelector(".chkbox");
+    if (box) box.innerHTML = done ? ICON_DONE : ICON_EMPTY;
+  }
+
+  function renderHeader() {
+    const total = B.getSteps();
+    const tier = B.getTier(total);
+    document.getElementById("pr-steps").textContent = total;
+    document.getElementById("pr-tier-name").textContent = "Level: " + tier.current.name;
+    document.getElementById("pr-tier-cur").textContent = tier.current.name;
+    document.getElementById("pr-streak").textContent = B.getStreak();
+    document.getElementById("pr-chal-count").textContent = B.challengesDoneCount();
+
+    const fill = document.getElementById("pr-fill");
+    const nextLab = document.getElementById("pr-tier-next");
+    if (tier.next) {
+      const span = tier.next.min - tier.current.min;
+      const into = total - tier.current.min;
+      const pct = Math.max(4, Math.min(100, Math.round((into / span) * 100)));
+      fill.style.width = pct + "%";
+      nextLab.textContent = (tier.next.min - total) + " to " + tier.next.name;
+    } else {
+      fill.style.width = "100%";
+      nextLab.textContent = "Top level. Keep going.";
+    }
+
+    // Headline shifts with progress
+    const hl = document.getElementById("pr-headline");
+    if (total === 0) hl.textContent = "Your record starts the moment you do.";
+    else if (tier.next) hl.textContent = "You are showing up. Keep the record honest.";
+    else hl.textContent = "Look how far you have come.";
+  }
+
+  function renderMilestones() {
+    const prog = B.getProgress();
+    const read = chapters.filter(c => prog[c.slug] && prog[c.slug].done).length;
+    const checkins = B.getCheckins().length;
+    const saved = B.getBookmarks().length;
+    const done = B.challengesDoneCount();
+    const miles = [
+      { n: read + " / 6", l: "Chapters read" },
+      { n: done, l: "Challenges completed" },
+      { n: checkins, l: "Check-ins logged" },
+      { n: saved, l: "Resources saved" },
+    ];
+    document.getElementById("pr-miles").innerHTML = miles.map(m =>
+      `<div class="pr-mile"><div class="n">${m.n}</div><div class="l">${m.l}</div></div>`
+    ).join("");
+  }
+
+  function renderChallenges() {
+    const wrap = document.getElementById("pr-challenges");
+    wrap.innerHTML = chapters.map(c => {
+      const items = challenges.filter(ch => ch.chapter === c.slug);
+      if (!items.length) return "";
+      const doneN = items.filter(ch => B.isChallengeDone(ch.id)).length;
+      return `
+        <div class="pr-chal-group">
+          <div class="pr-chal-head">
+            <h3>${c.title}.</h3>
+            <span class="done-tag">${doneN} of ${items.length} done</span>
+          </div>
+          ${items.map(ch => `
+            <div class="pr-chal${B.isChallengeDone(ch.id) ? ' is-done' : ''}" data-id="${ch.id}" data-done="${B.isChallengeDone(ch.id)}">
+              <span class="chkbox">${ICON_EMPTY}</span>
+              <div class="body">
+                <div class="txt">${ch.text}</div>
+                <div class="meta">
+                  <span class="steps">+${ch.steps} steps</span>
+                  <a class="go" href="chapters/${c.slug}.html">Read the ${c.title} chapter &rarr;</a>
+                </div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }).join("");
+
+    wrap.querySelectorAll(".pr-chal").forEach(el => {
+      paintChal(el, B.isChallengeDone(el.dataset.id));
+      el.addEventListener("click", e => {
+        if (e.target.closest("a")) return; // let the chapter link work
+        const id = el.dataset.id;
+        const ch = challenges.find(x => x.id === id);
+        const nowDone = B.toggleChallenge(id, ch.text, ch.steps);
+        paintChal(el, nowDone);
+        B.toast(nowDone ? `Logged. +${ch.steps} steps.` : "Unticked.");
+        renderHeader();
+        renderMilestones();
+        // update the group's done tag
+        const group = el.closest(".pr-chal-group");
+        const items = group.querySelectorAll(".pr-chal");
+        const done = group.querySelectorAll(".pr-chal.is-done").length;
+        group.querySelector(".done-tag").textContent = `${done} of ${items.length} done`;
+      });
+    });
+  }
+
+  document.getElementById("pr-reset").addEventListener("click", () => {
+    if (!confirm("This clears your steps and ticked challenges on this device. Your saved resources and journal stay. Continue?")) return;
+    try {
+      localStorage.removeItem("bmt:steps");
+      localStorage.removeItem("bmt:challenges");
+    } catch {}
+    renderHeader(); renderMilestones(); renderChallenges();
+    B.toast("Steps reset.");
+  });
+
+  renderHeader();
+  renderMilestones();
+  renderChallenges();
+})();
+</script>
+</body>
+</html>

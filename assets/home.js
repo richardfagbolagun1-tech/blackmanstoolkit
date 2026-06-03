@@ -50,14 +50,14 @@
     section.setAttribute("data-screen-label", "Check-in");
     section.innerHTML = `
       <div class="checkin-inner">
-        <div>
-          <h2>How are you today, brother?</h2>
+        <div class="checkin-main">
+        <div class="checkin-text">
+          <h2>How are you today?</h2>
           <p class="lede">Two minutes. One question. No login.</p>
           <p class="privacy">Everything you write stays on your device. Nobody sees this, including us.</p>
         </div>
         <div class="checkin-card">
           <div class="checkin-row">
-            <span class="num">01</span>
             <div class="label-block">
               <p class="title">How are you feeling right now?</p>
               <p class="note">Opens the Feelings Wheel.</p>
@@ -69,7 +69,6 @@
           </div>
           <div class="checkin-row" style="flex-direction:column;align-items:stretch;gap:0">
             <div style="display:flex;gap:16px;align-items:center;width:100%">
-              <span class="num">02</span>
               <div class="label-block">
                 <p class="title">What is on your mind?</p>
                 <p class="note">One sentence. Saves to your private journal.</p>
@@ -77,7 +76,7 @@
             </div>
             <textarea class="checkin-textarea" id="ci-note" placeholder="Be honest. Type freely. Saved as you write."></textarea>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:12px;flex-wrap:wrap">
-              <span style="font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink-soft)" id="ci-status">Not saved yet</span>
+              <span style="font-family:var(--sans);font-size:22px;letter-spacing:0;text-transform:none;font-weight:700;color:var(--ink-soft)" id="ci-status">Not saved yet</span>
               <button class="go" id="ci-save">Log today</button>
             </div>
           </div>
@@ -87,6 +86,10 @@
               ${recentChips}
             </div>
           ` : ""}
+        </div>
+        </div>
+        <div class="checkin-media">
+          <img src="assets/img/checkin.jpg" alt="A hand-painted sign that reads how are you these days" />
         </div>
       </div>
     `;
@@ -202,12 +205,26 @@
 
     const head = document.querySelector(".section-head");
     if (!head) return;
+    let segs = "";
+    for (let i = 0; i < total; i++) {
+      segs += `<span class="seg${i < visited ? " on" : ""}"></span>`;
+    }
     const strip = document.createElement("div");
     strip.className = "progress-strip";
+    const steps = window.BMT.getSteps ? window.BMT.getSteps() : 0;
+    const tier = window.BMT.getTier ? window.BMT.getTier(steps).current.name : "";
     strip.innerHTML = `
-      <span class="count">${visited} of ${total} chapters visited</span>
-      <span class="bar" style="--p:${pct}%"></span>
-      <span>${pct}%</span>
+      <div class="progress-top">
+        <span class="count">${visited} of ${total} chapters visited</span>
+        <span class="pct">${pct}%</span>
+      </div>
+      <div class="progress-segs">${segs}</div>
+      <a class="progress-steps" href="progress.html">
+        <span><strong>${steps}</strong> steps${tier ? ` &middot; ${tier}` : ""}</span>
+        <span class="go">Your steps
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
     `;
     head.insertBefore(strip, head.firstChild);
   }
@@ -218,7 +235,6 @@
   function start() {
     mountStreak();
     mountCheckin();
-    mountNudge();
     mountProgress();
   }
   if (document.readyState === "loading") {

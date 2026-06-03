@@ -18,10 +18,10 @@
 .print-hero-inner { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: end; }
 @media (max-width: 880px) { .print-hero-inner { grid-template-columns: 1fr; } }
 .print-hero h1 { font-family: var(--display); font-weight: 500; font-size: clamp(56px, 8vw, 120px); line-height: 0.92; letter-spacing: -0.03em; margin: 0; max-width: 14ch; }
-.print-hero .lead { font-family: var(--serif); font-style: italic; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.4; max-width: 40ch; margin: 0; color: rgba(255,255,255,0.85); }
+.print-hero .lead { font-family: var(--serif); font-style: normal; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.4; max-width: 40ch; margin: 0; color: rgba(255,255,255,0.85); }
 .print-hero .kicker {
   font-family: var(--sans); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent);
+  letter-spacing: 0.02em; text-transform: none; color: var(--accent);
   margin: 0 0 28px 0;
   display: inline-flex; align-items: center; gap: 14px;
 }
@@ -33,8 +33,8 @@
 .ps-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 56px; }
 @media (max-width: 880px) { .ps-head { grid-template-columns: 1fr; gap: 16px; } }
 .ps-head h2 { font-family: var(--display); font-weight: 500; font-size: clamp(40px, 5.5vw, 72px); line-height: 0.95; letter-spacing: -0.025em; margin: 0; max-width: 14ch; }
-.ps-head p { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 1.8vw, 21px); line-height: 1.45; color: var(--ink-soft); margin: 0; max-width: 44ch; }
-.ps-head .num { font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: 0.28em; color: var(--accent); margin: 0 0 18px 0; text-transform: uppercase; }
+.ps-head p { font-family: var(--serif); font-style: normal; font-size: clamp(18px, 1.8vw, 21px); line-height: 1.45; color: var(--ink-soft); margin: 0; max-width: 44ch; }
+.ps-head .num { font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: 0.02em; color: var(--accent); margin: 0 0 18px 0; text-transform: none; }
 
 .pocket-grid {
   display: grid;
@@ -62,7 +62,7 @@
 .pocket-card[data-tone="rose"] { background: linear-gradient(155deg, #8b3a4d 0%, #3d161e 100%); }
 .pocket-card .pc-num {
   font-family: var(--display); font-weight: 800;
-  font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; opacity: 0.7;
+  font-size: 11px; letter-spacing: 0.02em; text-transform: none; opacity: 0.7;
 }
 .pocket-card .pc-title {
   font-family: var(--display); font-weight: 500;
@@ -70,13 +70,13 @@
   margin: 16px 0 6px;
 }
 .pocket-card .pc-sub {
-  font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1.3;
+  font-family: var(--serif); font-style: normal; font-size: 15px; line-height: 1.3;
   margin: 0 0 14px; opacity: 0.85;
 }
 .pocket-card .pc-actions { display: flex; align-items: center; justify-content: space-between; }
 .pocket-card .pc-print {
   font-family: var(--sans); font-size: 10px; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
   background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
   color: inherit; padding: 7px 12px; border-radius: 999px;
   cursor: pointer;
@@ -96,9 +96,9 @@
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
 .pdf-row:hover { border-color: var(--ink); transform: translateY(-2px); }
-.pdf-row .row-num { font-family: var(--display); font-weight: 800; font-size: 11px; letter-spacing: 0.24em; color: var(--ink-soft); }
+.pdf-row .row-num { font-family: var(--display); font-weight: 800; font-size: 11px; letter-spacing: 0.02em; color: var(--ink-soft); }
 .pdf-row .row-title { font-family: var(--display); font-weight: 500; font-size: 22px; letter-spacing: -0.01em; margin: 4px 0 0; }
-.pdf-row .row-sub { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--ink-soft); margin: 2px 0 0; }
+.pdf-row .row-sub { font-family: var(--serif); font-style: normal; font-size: 14px; color: var(--ink-soft); margin: 2px 0 0; }
 .pdf-row svg { flex-shrink: 0; color: var(--ink); }
 
 .order-block {
@@ -109,7 +109,7 @@
 }
 @media (max-width: 880px) { .order-block { grid-template-columns: 1fr; } }
 .order-block h3 { font-family: var(--display); font-weight: 500; font-size: clamp(28px, 3vw, 36px); line-height: 1; letter-spacing: -0.02em; margin: 0 0 12px 0; max-width: 18ch; }
-.order-block p { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink-soft); margin: 0; max-width: 44ch; }
+.order-block p { font-family: var(--serif); font-style: normal; font-size: 17px; color: var(--ink-soft); margin: 0; max-width: 44ch; }
 
 /* QR generator block */
 .qr-builder {
@@ -131,7 +131,7 @@
 .qr-builder .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
 .qr-builder .row button {
   font-family: var(--sans); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
   padding: 12px 18px; border-radius: 999px;
   background: var(--paper); border: 1.5px solid var(--rule); color: var(--ink);
   cursor: pointer;
@@ -150,9 +150,8 @@
 </head>
 <body>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span><span class="brand-by">by <img class="brand-bt-logo" src="assets/img/black-thrive-white.png" alt="Black Thrive Lambeth" /></span></a>
   <nav class="nav">
-    <a href="index.html">Home</a>
     <a href="index.html#chapters">Chapters</a>
     <a href="quiz.html">Where to start</a>
     <a href="tools/index.html">Tools</a>
@@ -178,7 +177,7 @@
   <div class="ps-inner">
     <div class="ps-head">
       <div>
-        <p class="num">01 &middot; The Pocket Pack</p>
+        <p class="num">1 &middot; The Pocket Pack</p>
         <h2>Five cards. One wallet.</h2>
       </div>
       <p>Each card is credit-card sized. Print double-sided, cut along the dotted line, slip them in your wallet. The scripts go where you need them, not where the wifi is.</p>
@@ -186,7 +185,7 @@
 
     <div class="pocket-grid" id="pocket-grid">
       <a class="pocket-card" data-tone="teal" href="tools/field-guide.html">
-        <span class="pc-num">Card 01</span>
+        <span class="pc-num">Card 1</span>
         <div>
           <p class="pc-title">The Field Guide.</p>
           <p class="pc-sub">Six scripts for when your doctor is not listening.</p>
@@ -197,7 +196,7 @@
         </div>
       </a>
       <a class="pocket-card" data-tone="terracotta" href="tools/feelings-wheel.html">
-        <span class="pc-num">Card 02</span>
+        <span class="pc-num">Card 2</span>
         <div>
           <p class="pc-title">The Feelings Wheel.</p>
           <p class="pc-sub">When fine or stressed is not the truth. Print, fold, keep.</p>
@@ -208,7 +207,7 @@
         </div>
       </a>
       <a class="pocket-card" data-tone="mustard" href="tools/vetting-card.html">
-        <span class="pc-num">Card 03</span>
+        <span class="pc-num">Card 3</span>
         <div>
           <p class="pc-title">The Vetting Card.</p>
           <p class="pc-sub">Pub friend on one side. Vault on the other. Write in by hand.</p>
@@ -219,7 +218,7 @@
         </div>
       </a>
       <a class="pocket-card" data-tone="green" href="tools/de-mask.html">
-        <span class="pc-num">Card 04</span>
+        <span class="pc-num">Card 4</span>
         <div>
           <p class="pc-title">The De-Mask.</p>
           <p class="pc-sub">Five minutes to take the armour off before you walk in.</p>
@@ -230,7 +229,7 @@
         </div>
       </a>
       <a class="pocket-card" data-tone="rose" href="tools/value-sheet.html">
-        <span class="pc-num">Card 05</span>
+        <span class="pc-num">Card 5</span>
         <div>
           <p class="pc-title">The Value Sheet.</p>
           <p class="pc-sub">Net worth is not self worth. Three questions, one card.</p>
@@ -256,7 +255,7 @@
   <div class="ps-inner">
     <div class="ps-head">
       <div>
-        <p class="num">02 &middot; Chapter PDFs</p>
+        <p class="num">2 &middot; Chapter PDFs</p>
         <h2>One chapter, one PDF. Beautiful enough that a barber would put it on his counter.</h2>
       </div>
       <p>Each chapter as a self-contained booklet. Open in a new tab and use your browser's print menu to save as PDF or print directly.</p>
@@ -269,17 +268,17 @@
   <div class="ps-inner">
     <div class="ps-head">
       <div>
-        <p class="num">03 &middot; QR codes</p>
+        <p class="num">3 &middot; QR codes</p>
         <h2>For the mirror at the barbers. For the noticeboard.</h2>
       </div>
       <p>Generate a QR code for any page on the toolkit. Print it, stick it where people will see it. They scan, they land on the page. No app needed.</p>
     </div>
     <div class="qr-builder">
       <div class="qr-out" id="qr-out">
-        <div style="font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700">Your QR will appear here</div>
+        <div style="font-family:var(--sans);font-size:11px;letter-spacing:0.02em;text-transform:none;color:var(--ink-soft);font-weight:700">Your QR will appear here</div>
       </div>
       <div>
-        <label style="font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);display:block;margin-bottom:8px">URL to encode</label>
+        <label style="font-family:var(--sans);font-size:11px;letter-spacing:0.02em;text-transform:none;font-weight:700;color:var(--ink-soft);display:block;margin-bottom:8px">URL to encode</label>
         <input id="qr-url" type="text" value="" placeholder="https://blackmanstoolkit.netlify.app/" />
         <div class="row">
           <button class="primary" id="qr-gen">Generate QR</button>
@@ -295,7 +294,7 @@
   <div class="ps-inner">
     <div class="order-block">
       <div>
-        <p style="font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin:0 0 12px">04 &middot; Order printed copies</p>
+        <p style="font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:0.02em;text-transform:none;color:var(--accent);margin:0 0 12px">4 &middot; Order printed copies</p>
         <h3>Want a stack for your barbershop, your church, your community centre?</h3>
         <p>Black Thrive Lambeth will send a box your way for free, while stocks last.</p>
       </div>
@@ -312,25 +311,29 @@
 </main>
 
 <footer class="site-footer">
-  <div class="footer-grid">
+  <div class="footer-grid" style="grid-template-columns:repeat(3,1fr)">
     <div>
-      <h4>The toolkit</h4>
-      <p class="footer-bigword">Built with Black men, for Black men. From Lambeth, to everywhere.</p>
-      <p style="font-size:13px;opacity:.75;line-height:1.6;max-width:38ch">This toolkit is for all Black men. Queer brothers, trans brothers, brothers of every faith and none.</p>
-    </div>
-    <div>
-      <h4>Take it off the screen</h4>
+      <h4>Chapters</h4>
       <ul>
-        <li><a href="print.html">Pocket pack &amp; PDFs</a></li>
-        <li><a href="listen-watch.html">Listen &amp; watch</a></li>
-        <li><a href="Booklet.html">The booklet</a></li>
+        <li><a href="chapters/body.html">Body</a></li>
+        <li><a href="chapters/mind.html">Mind</a></li>
+        <li><a href="chapters/money.html">Money</a></li>
+        <li><a href="chapters/spirit.html">Spirit</a></li>
+        <li><a href="chapters/brotherhood.html">Brotherhood</a></li>
+        <li><a href="chapters/community.html">Community</a></li>
       </ul>
     </div>
     <div>
-      <h4>Find us</h4>
+      <h4>Tools</h4>
       <ul>
+        <li><a href="quiz.html">Where to start quiz</a></li>
+        <li><a href="tools/index.html">In-the-moment tools</a></li>
+        <li><a href="resources.html">Resource finder</a></li>
+        <li><a href="listen-watch.html">Listen &amp; watch</a></li>
+        <li><a href="print.html">Print &amp; pocket cards</a></li>
+        <li><a href="bookmarks.html">Saved for later</a></li>
+        <li><a href="lgbtq.html">For LGBTQ+ brothers</a></li>
         <li><a href="about.html">About this work</a></li>
-        <li><a href="mailto:hello@blackthrivelambeth.com">Get in touch</a></li>
       </ul>
     </div>
     <div>
@@ -338,12 +341,13 @@
       <ul>
         <li><a href="tel:116123">Samaritans 116 123</a></li>
         <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
-        <li><a href="tel:08005858 58">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:0800585858">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:999">Emergency 999</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-meta">
-    <span>&copy; 2025 Black Thrive Lambeth</span>
+    <span>&copy; 2026 Black Thrive Lambeth</span>
     <span>Designed by The Office of Art and Technology</span>
   </div>
 </footer>
@@ -394,12 +398,12 @@
         out.innerHTML = "";
         out.appendChild(canvas);
         const small = document.createElement("div");
-        small.style.cssText = "font-family:var(--sans);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;text-align:center;max-width:200px;word-break:break-word";
+        small.style.cssText = "font-family:var(--sans);font-size:10px;letter-spacing:0.02em;text-transform:none;color:var(--ink-soft);font-weight:700;text-align:center;max-width:200px;word-break:break-word";
         small.textContent = value;
         out.appendChild(small);
         const dl = document.createElement("a");
         dl.textContent = "Download PNG";
-        dl.style.cssText = "font-family:var(--sans);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--accent);padding-bottom:2px";
+        dl.style.cssText = "font-family:var(--sans);font-size:10px;letter-spacing:0.02em;text-transform:none;color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--accent);padding-bottom:2px";
         dl.href = canvas.toDataURL("image/png");
         dl.download = "bmt-qr.png";
         out.appendChild(dl);

@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Find your circle | The Black Man's Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Brotherhood is built, not owed. Walk into a room that already exists, or start your own five-man circle. A guide and the real groups." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+<style>
+  .ci { background: var(--bg); padding: 0 0 96px; }
+  .ci-wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 96px); }
+
+  .ci-hero { background: var(--ink); color: var(--paper); padding: 140px 0 64px; position: relative; overflow: hidden; }
+  .ci-hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle at 100% 0%, rgba(177,58,42,0.30) 0%, transparent 44%),
+                radial-gradient(circle at 0% 110%, rgba(140,74,31,0.45) 0%, transparent 52%);
+  }
+  .ci-hero-inner { position: relative; max-width: 1180px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 96px); }
+  .ci-eyebrow { display: inline-flex; align-items: center; gap: 14px; font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; margin-bottom: 22px; white-space: nowrap; }
+  .ci-eyebrow::before { content: ""; width: 38px; height: 2px; background: var(--accent); }
+  .ci-hero h1 { font-family: var(--logo); font-weight: 700; font-size: clamp(44px, 7vw, 96px); line-height: 0.95; letter-spacing: -0.03em; margin: 0 0 20px; max-width: 15ch; }
+  .ci-hero .lead { font-size: clamp(17px, 1.6vw, 22px); line-height: 1.5; color: rgba(255,255,255,0.85); max-width: 56ch; margin: 0; text-wrap: pretty; }
+  .ci-hero .quote { margin: 30px 0 0; font-size: 16px; color: rgba(255,255,255,0.7); border-left: 3px solid var(--accent); padding-left: 18px; max-width: 52ch; }
+
+  /* Two paths */
+  .ci-paths { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: -40px; position: relative; z-index: 3; }
+  @media (max-width: 820px) { .ci-paths { grid-template-columns: 1fr; margin-top: 28px; } }
+  .ci-path { background: var(--paper); border: 1px solid var(--rule); border-radius: 22px; padding: 32px 32px 28px; box-shadow: var(--shadow-md); text-decoration: none !important; color: var(--ink); }
+  .ci-path h2, .ci-path p, .ci-path .k, .ci-path .jump { text-decoration: none !important; }
+  .ci-path .k { font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--accent-deep); margin-bottom: 12px; }
+  .ci-path h2 { font-family: var(--logo); font-weight: 700; font-size: clamp(24px, 2.8vw, 34px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 0 12px; }
+  .ci-path p { font-size: 15.5px; color: var(--ink-soft); margin: 0 0 20px; text-wrap: pretty; }
+  .ci-path .jump { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--ink); text-decoration: none; }
+  .ci-path .jump svg { transition: transform 0.15s ease; }
+  .ci-path .jump:hover svg { transform: translateX(3px); }
+
+  .ci-sec { padding-top: clamp(56px, 7vw, 88px); }
+  .ci-sec-head { margin-bottom: 28px; }
+  .ci-sec-head .kicker { font-size: 12px; font-weight: 700; color: var(--accent-deep); letter-spacing: 0.02em; margin-bottom: 12px; }
+  .ci-sec-head h2 { font-family: var(--logo); font-weight: 700; font-size: clamp(28px, 3.6vw, 48px); line-height: 1; letter-spacing: -0.025em; margin: 0 0 14px; max-width: 22ch; }
+  .ci-sec-head p { font-size: 17px; color: var(--ink-soft); max-width: 64ch; margin: 0; text-wrap: pretty; }
+
+  /* Group cards */
+  .ci-groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .ci-group { display: flex; flex-direction: column; gap: 12px; background: var(--paper); border: 1px solid var(--rule); border-radius: 16px; padding: 24px; text-decoration: none; color: var(--ink); transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease; }
+  .ci-group:hover { border-color: var(--ink); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .ci-group .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .ci-group .tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em; padding: 4px 10px; border-radius: 999px; background: var(--bg-deep); color: var(--ink-soft); white-space: nowrap; }
+  .ci-group .tag.turnup { background: rgba(31,109,74,0.12); color: var(--leaf); }
+  .ci-group .tag.blackled { background: var(--ink); color: var(--accent); }
+  .ci-group h3 { font-family: var(--logo); font-weight: 700; font-size: 21px; line-height: 1.05; letter-spacing: -0.015em; margin: 0; }
+  .ci-group p { font-size: 14.5px; color: var(--ink-soft); margin: 0; line-height: 1.5; flex: 1; }
+  .ci-group .foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid var(--rule); margin-top: 4px; }
+  .ci-group .when { font-size: 12px; font-weight: 700; color: var(--ink); }
+  .ci-group .visit { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--accent-deep); }
+  .ci-group .visit svg { transition: transform 0.15s ease; }
+  .ci-group:hover .visit svg { transform: translateX(3px); }
+
+  .ci-more { margin-top: 20px; }
+
+  /* Start-your-own guide */
+  .ci-build { background: var(--ink); color: var(--paper); border-radius: 24px; padding: clamp(32px, 4vw, 56px); margin-top: 28px; position: relative; overflow: hidden; }
+  .ci-build::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 0% 0%, rgba(200,155,60,0.22) 0%, transparent 42%); }
+  .ci-build-inner { position: relative; }
+  .ci-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+  @media (max-width: 820px) { .ci-steps { grid-template-columns: 1fr; } }
+  .ci-step { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); border-radius: 16px; padding: 24px; }
+  .ci-step .n { font-family: var(--logo); font-weight: 700; font-size: 34px; line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
+  .ci-step h4 { font-family: var(--logo); font-weight: 700; font-size: 18px; margin: 14px 0 8px; letter-spacing: -0.01em; }
+  .ci-step p { font-size: 14.5px; color: rgba(255,255,255,0.78); margin: 0; line-height: 1.5; }
+
+  .ci-rules { margin-top: 28px; padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.18); }
+  .ci-rules .lab { font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: rgba(255,255,255,0.6); margin-bottom: 14px; }
+  .ci-rules ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; max-width: 60ch; }
+  .ci-rules ol li { font-size: 16px; line-height: 1.5; color: rgba(255,255,255,0.9); }
+  .ci-rules ol li b { color: var(--paper); }
+
+  .ci-invite { margin-top: 30px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.16); border-radius: 16px; padding: 24px; }
+  .ci-invite .lab { font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+  .ci-invite .msg { font-size: 15px; line-height: 1.55; color: rgba(255,255,255,0.92); margin: 0 0 18px; }
+  .ci-invite .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .ci-invite button { display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; font-family: var(--sans); font-weight: 700; font-size: 13px; border-radius: 999px; padding: 12px 20px; }
+  .ci-invite .copy { background: var(--paper); color: var(--ink); }
+  .ci-invite .wa { background: #1f6d4a; color: #fff; }
+
+  .ci-note { margin-top: clamp(48px,6vw,72px); background: var(--bg-deep); border: 1px solid var(--rule); border-radius: 22px; padding: clamp(28px,4vw,44px); }
+  .ci-note h3 { font-family: var(--logo); font-weight: 700; font-size: clamp(20px,2.4vw,30px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 14px; max-width: 26ch; }
+  .ci-note p { font-size: 16px; color: var(--ink-soft); margin: 0 0 12px; max-width: 64ch; text-wrap: pretty; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span><span class="brand-by">by <img class="brand-bt-logo" src="assets/img/black-thrive-white.png" alt="Black Thrive Lambeth" /></span></a>
+  <nav class="nav">
+    <a href="index.html#chapters">Chapters</a>
+    <a href="quiz.html">Where to start</a>
+    <a href="tools/index.html">Tools</a>
+    <a href="resources.html">Resources</a>
+    <a href="bookmarks.html">Saved</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="ci" data-screen-label="Find your circle">
+  <section class="ci-hero" data-screen-label="Circle hero">
+    <div class="ci-hero-inner">
+      <div class="ci-eyebrow">Brotherhood</div>
+      <h1>Find your circle.</h1>
+      <p class="lead">Most men do not lack the need for brothers. They lack a room to walk into. Here are rooms that already exist, and a way to build your own when none of them fit.</p>
+      <p class="quote">Brotherhood is not a feeling you are owed. It is a thing you build, on purpose, week by week.</p>
+    </div>
+  </section>
+
+  <div class="ci-wrap">
+    <div class="ci-paths">
+      <a class="ci-path" href="#join">
+        <div class="k">The fast way</div>
+        <h2>Walk into one that already exists.</h2>
+        <p>Free, confidential men's groups meet every week across the UK. No referral, no booking. You only speak if you want to.</p>
+        <span class="jump">See the groups
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+      <a class="ci-path" href="#build">
+        <div class="k">The lasting way</div>
+        <h2>Start your own five-man circle.</h2>
+        <p>The most life-saving brotherhoods in the country have no website and no funding. Four men, three rules, one honest hour. Here is how.</p>
+        <span class="jump">Learn how
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <section class="ci-sec" id="join">
+      <div class="ci-sec-head">
+        <div class="kicker">Rooms that already exist</div>
+        <h2>Just turn up.</h2>
+        <p>These run on a regular schedule and welcome new men every week. The ones marked turn up need no booking at all. Yes, even if you are the only Black face in the room the first time. The room gets more diverse the more we walk in.</p>
+      </div>
+      <div class="ci-groups" id="ci-groups"></div>
+      <div class="ci-more">
+        <a class="btn btn-primary" href="resources.html?theme=brotherhood">Find Black-led men's groups near you
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <section class="ci-sec" id="build">
+      <div class="ci-sec-head">
+        <div class="kicker">When none of them fit</div>
+        <h2>Build your own.</h2>
+        <p>You do not need a venue, a charity, or a name. You need four other men and a promise to be honest. This is lifted straight from the Brotherhood chapter, made into a plan.</p>
+      </div>
+
+      <div class="ci-build">
+        <div class="ci-build-inner">
+          <div class="ci-steps">
+            <div class="ci-step">
+              <div class="n">1</div>
+              <h4>Pick four men.</h4>
+              <p>Not your closest four necessarily. Four who might also be holding too much. A cousin, an old friend, a colleague, a man from the gym or the mosque or the church.</p>
+            </div>
+            <div class="ci-step">
+              <div class="n">2</div>
+              <h4>Agree the three rules.</h4>
+              <p>Say them out loud at the first meeting so everyone knows the deal. They are what turns a group chat into a brotherhood.</p>
+            </div>
+            <div class="ci-step">
+              <div class="n">3</div>
+              <h4>Meet, even small.</h4>
+              <p>Once a week in the chat, once a month in a kitchen. It feels strange the first three times. Then it becomes the most important hour of your month.</p>
+            </div>
+          </div>
+
+          <div class="ci-rules">
+            <div class="lab">The three ground rules</div>
+            <ol>
+              <li><b>We check in once a week.</b> Even just a number out of ten. Silence is allowed, disappearing is not.</li>
+              <li><b>We tell the truth.</b> No performing. No I'm good when you are not. One true thing beats an hour of jokes.</li>
+              <li><b>What is said here stays here.</b> Nothing gets used against anyone, ever. That is what makes it safe.</li>
+            </ol>
+          </div>
+
+          <div class="ci-invite">
+            <div class="lab">A message to start it. Send it to four men today.</div>
+            <p class="msg" id="ci-msg">Oi. I want to start a small thing. Five of us, checking in on each other once a week, telling the truth, nothing leaves the group. No pressure, no big speeches. Just men actually being real for once. You in?</p>
+            <div class="row">
+              <button class="copy" id="ci-copy">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy the message
+              </button>
+              <button class="wa" id="ci-wa">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                Send on WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ci-note">
+      <h3>If walking in feels like too much today, that is allowed.</h3>
+      <p>You do not have to do the hardest version first. Telling one man one true thing is a circle of two. That counts. Start there, and widen it when you are ready.</p>
+      <p>If tonight is heavy, you never have to wait. Samaritans are free on 116 123, any hour. CALM is on 0800 58 58 58, 5pm to midnight.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div>
+      <h4>Chapters</h4>
+      <ul>
+        <li><a href="chapters/body.html">Body</a></li>
+        <li><a href="chapters/mind.html">Mind</a></li>
+        <li><a href="chapters/money.html">Money</a></li>
+        <li><a href="chapters/spirit.html">Spirit</a></li>
+        <li><a href="chapters/brotherhood.html">Brotherhood</a></li>
+        <li><a href="chapters/community.html">Community</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="quiz.html">Where to start quiz</a></li>
+        <li><a href="tools/index.html">In-the-moment tools</a></li>
+        <li><a href="circle.html">Find your circle</a></li>
+        <li><a href="resources.html">Resource finder</a></li>
+        <li><a href="listen-watch.html">Listen &amp; watch</a></li>
+        <li><a href="print.html">Print &amp; pocket cards</a></li>
+        <li><a href="bookmarks.html">Saved for later</a></li>
+        <li><a href="about.html">About this work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>If you need help now</h4>
+      <ul>
+        <li><a href="tel:116123">Samaritans 116 123</a></li>
+        <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
+        <li><a href="tel:0800585858">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:999">Emergency 999</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <span>&copy; 2026 Black Thrive Lambeth</span>
+    <span>Designed by The Office of Art and Technology</span>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  const GROUPS = [
+    { name: "Andy's Man Club", when: "Mondays 7pm", turnup: true, blackled: false,
+      note: "Free peer-support groups for men 18+ at 270+ UK locations. No referral, no charge. Around 5,800 men attend each week.",
+      link: "https://andysmanclub.co.uk" },
+    { name: "Talk Club", when: "Weekly", turnup: true, blackled: false,
+      note: "Talking and listening clubs built around one question: how are you, out of ten? Over 100 groups across the UK.",
+      link: "https://talkclub.org" },
+    { name: "100 Black Men of London", when: "Programmes", turnup: false, blackled: true,
+      note: "Black professional men, mentoring and brotherhood. You do not have to translate yourself before you are heard.",
+      link: "https://100bmol.org.uk" },
+    { name: "The Black Men's Consortium", when: "Regular meets", turnup: false, blackled: true,
+      note: "London-based, intergenerational peer group for Black men. Built for exactly this.",
+      link: "https://theblackmensconsortium.com" },
+    { name: "UK Men's Sheds", when: "Weekly", turnup: true, blackled: false,
+      note: "Community workshops where friendships are built shoulder to shoulder, making and fixing things together.",
+      link: "https://menssheds.org.uk" },
+    { name: "Lions Barber Collective", when: "Find a barber", turnup: false, blackled: false,
+      note: "Trains UK barbers to spot the signs of poor mental health. Ask if your local barbershop is part of it.",
+      link: "https://www.thelionsbarbercollective.com" },
+  ];
+
+  const tagFor = g => {
+    let t = "";
+    if (g.turnup) t += `<span class="tag turnup">Just turn up</span>`;
+    if (g.blackled) t += `<span class="tag blackled">Black-led</span>`;
+    if (!g.turnup && !g.blackled) t += `<span class="tag">Get in touch</span>`;
+    return t;
+  };
+
+  document.getElementById("ci-groups").innerHTML = GROUPS.map(g => `
+    <a class="ci-group" href="${g.link}" target="_blank" rel="noopener">
+      <div class="tags">${tagFor(g)}</div>
+      <h3>${g.name}</h3>
+      <p>${g.note}</p>
+      <div class="foot">
+        <span class="when">${g.when}</span>
+        <span class="visit">Open
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </span>
+      </div>
+    </a>
+  `).join("");
+
+  const msg = document.getElementById("ci-msg").textContent.trim();
+  document.getElementById("ci-copy").addEventListener("click", () => {
+    if (navigator.clipboard) navigator.clipboard.writeText(msg).then(() => window.BMT.toast("Message copied. Send it to four men."));
+    else window.BMT.toast(msg);
+  });
+  document.getElementById("ci-wa").addEventListener("click", () => {
+    window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
+  });
+})();
+</script>
+</body>
+</html>

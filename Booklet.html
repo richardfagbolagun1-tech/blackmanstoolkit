@@ -1,0 +1,1363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Black Man's Toolkit · Booklet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A1F44;
+    --ink-2:#1F3A78;
+    --ink-soft:#5A6A8C;
+    --paper:#FFFFFF;
+    --rule:rgba(10,31,68,.16);
+    --rule-strong:rgba(10,31,68,.55);
+    --accent:#C89B3C;
+
+    --page-w:148mm;
+    --page-h:210mm;
+
+    /* universal safe margin grid */
+    --m-top:20mm;
+    --m-bot:18mm;
+    --m-out:18mm;   /* outside */
+    --m-in:20mm;    /* binding side */
+    --gutter:6mm;
+  }
+
+  @page{ size:148mm 210mm; margin:0; }
+  @media print {
+    html,body{ background:white; }
+    .stage{ background:none; padding:0; }
+    .spread{ display:contents; box-shadow:none !important; }
+    .page{ margin:0 !important; box-shadow:none !important; page-break-after:always; }
+    .controls,.viewer-note,.section-tag{ display:none !important; }
+    .spread .page::before{ display:none !important; }
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:#1a1a1a;
+    color:var(--ink);
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-feature-settings:"liga","kern","onum";
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .stage{
+    padding:36px 24px 96px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:24px;
+  }
+
+  /* single-page stacked view */
+  .spread{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    background:transparent;
+    box-shadow:none;
+  }
+  .spread .page{
+    box-shadow:0 24px 60px -20px rgba(0,0,0,.55), 0 6px 18px rgba(0,0,0,.30);
+  }
+
+  /* ===== Base page (universal safe margin grid) ===== */
+  .page{
+    width:var(--page-w);
+    height:var(--page-h);
+    background:var(--paper);
+    position:relative;
+    overflow:hidden;
+    color:var(--ink);
+    font-size:9.5pt;
+    line-height:1.5;
+    display:grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "header"
+      "body"
+      "footer";
+  }
+  /* uniform symmetric margins for single-page layout */
+  .page.recto, .page.verso{ padding:var(--m-top) var(--m-out) var(--m-bot) var(--m-out); }
+
+  .page > .p-header{ grid-area:header; }
+  .page > .p-body{
+    grid-area:body;
+    min-height:0;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .page > .p-footer{
+    grid-area:footer;
+    padding-top:6mm;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+  }
+  .page > .p-footer .folio{
+    font-family:"JetBrains Mono", monospace;
+    font-size:7pt;
+    color:var(--ink-soft);
+    letter-spacing:.1em;
+  }
+  .page > .p-footer .footnote{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:500;
+    font-size:7pt;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  /* single-page view: no gutter shadow needed */
+
+  /* ===== Header bar ===== */
+  .p-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:500;
+    font-size:7pt;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    padding-bottom:5mm;
+    border-bottom:0.5px solid var(--rule);
+  }
+  .p-header.empty{ border-bottom:0; padding-bottom:0; min-height:0; }
+  .p-header .h-meta{ font-family:"JetBrains Mono", monospace; letter-spacing:.1em; }
+
+  /* ===== Type system ===== */
+  .eyebrow{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:500;
+    font-size:7.5pt;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .eyebrow.accent{ color:var(--accent); }
+  .mono{ font-family:"JetBrains Mono", monospace; font-size:7pt; letter-spacing:.06em; }
+  .rule{ height:1px; background:var(--rule); border:0; margin:0; }
+  .rule-strong{ height:1.5px; background:var(--rule-strong); border:0; margin:0; }
+  .rule-accent{ height:3px; background:var(--accent); border:0; width:36mm; }
+
+  p.body{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-size:9.5pt;
+    line-height:1.5;
+    text-wrap:pretty;
+    hyphens:auto;
+    margin:0 0 3mm;
+  }
+  p.body.lede{ font-size:10.5pt; line-height:1.45; }
+
+  .h-display{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:200;
+    letter-spacing:-0.035em;
+    line-height:.95;
+    color:var(--ink);
+    margin:0;
+  }
+  .h-display b{ font-weight:800; }
+  .h-display i{ font-style:italic; font-weight:300; }
+
+  .h-section-title{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:700;
+    font-size:24pt;
+    line-height:1;
+    letter-spacing:-0.025em;
+    margin:0;
+    color:var(--ink);
+  }
+
+  .dropcap::first-letter{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:700;
+    font-size:36pt;
+    line-height:.78;
+    float:left;
+    padding:4pt 5pt 0 0;
+    color:var(--ink);
+  }
+
+  .pullquote{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:300;
+    font-size:15pt;
+    line-height:1.15;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+    text-wrap:balance;
+    margin:0;
+  }
+  .pullquote .mark{ color:var(--accent); font-weight:600; }
+
+  /* ===== Section header pattern (consistent across all body pages) ===== */
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:3mm;
+  }
+  .section-head .lhs{ display:flex; flex-direction:column; gap:1.5mm; }
+  .section-head .label{ font-family:'EB Garamond', Garamond, "Times New Roman", serif; font-weight:500; font-size:7.5pt; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); }
+  .section-head .title{ font-family:'EB Garamond', Garamond, "Times New Roman", serif; font-weight:600; font-size:13pt; letter-spacing:-0.01em; color:var(--ink); }
+  .section-head .rhs{ font-family:"JetBrains Mono",monospace; font-size:7pt; color:var(--ink-soft); letter-spacing:.08em; }
+
+  .body-pad{ margin-top:6mm; flex:1; min-height:0; display:flex; flex-direction:column; }
+
+  /* ===== COVER ===== */
+  .cover{ display:block; padding:0; overflow:hidden; position:relative; background:#E8E8E6; }
+  .cover-inner{
+    width:100%; height:100%;
+    padding:30mm 22mm;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    background:#E8E8E6;
+  }
+  .cover .titlewrap{
+    font-family:"Outfit", sans-serif;
+    font-weight:600;
+    font-size:62pt;
+    line-height:.95;
+    letter-spacing:-0.035em;
+    color:var(--ink);
+  }
+  .cover .titlewrap span{
+    display:block;
+    font-weight:600;
+    font-style:normal;
+    font-size:inherit;
+  }
+
+  /* ===== TITLE PAGE ===== */
+  .title-page-body{ display:grid; grid-template-rows:auto 1fr auto; height:100%; }
+  .title-page-body .center{ align-self:center; }
+  .title-page-body .titlewrap{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:200;
+    line-height:.92;
+    letter-spacing:-0.04em;
+    color:var(--ink);
+    font-size:38pt;
+  }
+  .title-page-body .titlewrap .the{ display:block; font-weight:300; font-size:32pt; opacity:.85; }
+  .title-page-body .titlewrap .bm{ display:block; font-style:italic; font-weight:300; }
+  .title-page-body .titlewrap .tk{ display:block; font-weight:800; }
+
+  /* ===== Colophon ===== */
+  .meta-grid{
+    display:grid; grid-template-columns:30mm 1fr; gap:3mm 6mm;
+    font-size:8.5pt; line-height:1.5;
+  }
+  .meta-grid dt{ font-family:'EB Garamond', Garamond, "Times New Roman", serif; font-weight:500; font-size:7pt; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
+  .meta-grid dd{ margin:0; font-family:'EB Garamond', Garamond, "Times New Roman", serif; }
+
+  /* ===== Contents ===== */
+  .toc-list{ display:grid; gap:0; }
+  .toc-row{
+    display:grid;
+    grid-template-columns:14mm 1fr auto;
+    align-items:baseline;
+    gap:5mm;
+    padding:3mm 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .toc-row .num{ font-family:"JetBrains Mono",monospace; font-size:8pt; color:var(--accent); letter-spacing:.05em; }
+  .toc-row .chap{ font-family:'EB Garamond', Garamond, "Times New Roman", serif; font-weight:600; font-size:13pt; letter-spacing:-0.015em; color:var(--ink); }
+  .toc-row .chap small{
+    display:block;
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-size:8pt; font-weight:400; color:var(--ink-soft);
+    margin-top:1mm; font-style:italic; line-height:1.3; letter-spacing:0;
+    max-width:84mm; text-wrap:pretty;
+  }
+  .toc-row .pg{ font-family:"JetBrains Mono",monospace; font-size:9pt; color:var(--ink); font-weight:500; }
+
+  .toc-row.aux .chap{ font-size:12pt; font-weight:500; }
+
+  /* ===== Chapter opener ===== */
+  .opener-body{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    padding-bottom:70mm; /* reserve space for absolutely-positioned image */
+  }
+  .opener-body .opener-label{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:500;
+    font-size:9pt;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:4mm;
+  }
+  .opener-body .opener-title{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:800;
+    font-size:54pt;
+    line-height:.9;
+    letter-spacing:-0.045em;
+    margin:3mm 0 0;
+    color:var(--ink);
+  }
+  .opener-body .opener-rule{
+    width:36mm; height:3px; background:var(--accent); border:0;
+    margin:6mm 0;
+  }
+  .opener-body .opener-quote{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:12pt;
+    line-height:1.35;
+    letter-spacing:-0.005em;
+    color:var(--ink);
+    text-wrap:balance;
+    max-width:108mm;
+    margin:0 0 6mm;
+  }
+  .opener-body .opener-summary{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:400;
+    font-size:8.5pt;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    line-height:1.7;
+    margin:0;
+  }
+  .opener-body .opener-summary b{ font-weight:700; color:var(--ink); }
+  .opener-body .opener-image{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    width:var(--page-w);
+    height:64mm;
+    background:#0A1F44;
+    overflow:hidden;
+    z-index:1;
+  }
+  .opener-body .opener-image::before{
+    content:"";
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    background-image:var(--bg);
+    filter:grayscale(1) contrast(1.05);
+  }
+  .opener-body .opener-image::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,31,68,.20) 0%, rgba(10,31,68,.55) 100%);
+    mix-blend-mode:multiply;
+  }
+  .opener-body .opener-image .caption-row{
+    position:absolute; left:18mm; right:18mm; bottom:12mm;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    z-index:2;
+    color:#fff;
+  }
+  .opener-body .opener-image .caption-row .nm{ font-family:'EB Garamond', Garamond, "Times New Roman", serif; font-weight:600; font-size:14pt; letter-spacing:-0.005em; }
+  .opener-body .opener-image .caption-row .cap{ font-family:"JetBrains Mono",monospace; font-size:7pt; letter-spacing:.1em; text-transform:uppercase; opacity:.85; }
+
+  /* ===== Essay typography ===== */
+  .essay-body p.body{ font-size:10pt; line-height:1.55; }
+  .essay-body p.body + p.body{ margin-top:0; }
+  .essay-body p.body.indent + p.body.indent{ text-indent:1.2em; margin-top:0; }
+
+  /* ===== Stats ===== */
+  .stats-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:5mm; }
+  .stats-grid .stat{ border-top:2px solid var(--ink); padding-top:3mm; }
+  .stats-grid .stat .n{ font-family:'EB Garamond', Garamond, "Times New Roman", serif; font-weight:700; font-size:26pt; line-height:1; letter-spacing:-0.04em; color:var(--ink); }
+  .stats-grid .stat .lbl{ font-size:8pt; line-height:1.4; color:var(--ink-2); margin-top:2.5mm; font-family:'EB Garamond', Garamond, "Times New Roman", serif; }
+
+  /* ===== Questions ===== */
+  .q-list{ display:grid; gap:0; counter-reset:q; margin:0; padding:0; list-style:none; }
+  .q-list li{
+    counter-increment:q;
+    display:grid;
+    grid-template-columns:11mm 1fr;
+    gap:3mm;
+    padding:2.5mm 0;
+    border-bottom:1px solid var(--rule);
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:400;
+    font-size:9.5pt;
+    line-height:1.35;
+    letter-spacing:-0.005em;
+    text-wrap:pretty;
+  }
+  .q-list li::before{
+    content: counter(q,decimal-leading-zero);
+    font-family:"JetBrains Mono",monospace;
+    font-size:8pt;
+    font-weight:400;
+    color:var(--accent);
+    padding-top:1.5mm;
+    letter-spacing:.04em;
+  }
+  .q-list li:last-child{ border-bottom:0; }
+
+  /* ===== Actions ===== */
+  .a-list{ display:grid; gap:0; }
+  .a-list .item{
+    padding:2.5mm 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .a-list .item:last-child{ border-bottom:0; }
+  .a-list .head{ display:grid; grid-template-columns:11mm 1fr; gap:3mm; align-items:baseline; }
+  .a-list .n{
+    font-family:"JetBrains Mono",monospace;
+    font-size:7.5pt;
+    color:var(--accent);
+    letter-spacing:.04em;
+  }
+  .a-list .t{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:600;
+    font-size:10pt;
+    letter-spacing:-0.01em;
+    line-height:1.2;
+    color:var(--ink);
+  }
+  .a-list .d{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-size:8.5pt;
+    line-height:1.4;
+    margin:1mm 0 0 14mm;
+    color:var(--ink-2);
+  }
+
+  /* ===== Directory ===== */
+  .dir{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    column-gap:6mm;
+    row-gap:0;
+  }
+  .dir .group{ break-inside:avoid; padding:3mm 0 4mm; border-bottom:1px solid var(--rule); }
+  .dir .group:nth-last-child(-n+3){ border-bottom:0; }
+  .dir .group .ghead{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:700;
+    font-size:9pt;
+    letter-spacing:-0.005em;
+    color:var(--ink);
+    margin-bottom:2mm;
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1.5px solid var(--ink);
+    padding-bottom:1mm;
+  }
+  .dir .group .ghead .num{
+    font-family:"JetBrains Mono",monospace;
+    font-size:7pt; color:var(--accent); letter-spacing:.06em;
+  }
+  .dir .group .item{
+    margin-bottom:1.8mm;
+  }
+  .dir .group .item .nm{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:600;
+    font-size:8pt;
+    letter-spacing:-0.005em;
+    color:var(--ink);
+    line-height:1.2;
+  }
+  .dir .group .item .nm .bl{
+    display:inline-block;
+    font-family:"JetBrains Mono",monospace;
+    font-size:5pt;
+    color:var(--accent);
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    vertical-align:1px;
+    margin-left:1.5mm;
+  }
+  .dir .group .item .ds{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:7pt;
+    color:var(--ink-2);
+    line-height:1.3;
+    margin-top:0.3mm;
+  }
+  .dir .group .item{ margin-bottom:1.5mm; }
+
+  /* ===== Crisis page (full navy) ===== */
+  .crisis{
+    background:var(--ink);
+    color:var(--paper);
+    padding:var(--m-top) var(--m-in) var(--m-bot) var(--m-out);
+    grid-template-rows: auto 1fr auto;
+  }
+  .crisis.recto{ padding:var(--m-top) var(--m-out) var(--m-bot) var(--m-in); }
+  .crisis .p-header{ color:rgba(255,255,255,.7); border-bottom-color:rgba(255,255,255,.18); }
+  .crisis h2.h-display{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:200;
+    font-size:38pt;
+    line-height:.95;
+    letter-spacing:-0.035em;
+    margin:0;
+    color:#fff;
+  }
+  .crisis h2.h-display b{ font-weight:800; }
+  .crisis .lede{ color:rgba(255,255,255,.85); font-family:'EB Garamond', Garamond, "Times New Roman", serif; font-style:italic; font-size:11.5pt; line-height:1.45; max-width:100mm; }
+  .crisis .lines{ display:grid; gap:0; }
+  .crisis .line-row{
+    display:grid; grid-template-columns:1fr auto; gap:5mm;
+    padding:2.5mm 0;
+    border-bottom:1px solid rgba(255,255,255,.18);
+    align-items:baseline;
+  }
+  .crisis .line-row:last-child{ border-bottom:0; }
+  .crisis .line-row .n{ font-family:'EB Garamond', Garamond, "Times New Roman", serif; font-weight:600; font-size:11pt; letter-spacing:-0.01em; color:#fff; }
+  .crisis .line-row .d{ font-family:'EB Garamond', Garamond, "Times New Roman", serif; font-size:8.5pt; opacity:.75; margin-top:0.5mm; max-width:80mm; line-height:1.35; font-style:italic; }
+  .crisis .line-row .num{ font-family:"JetBrains Mono",monospace; font-size:11pt; color:#E8D9C2; letter-spacing:.04em; }
+  .crisis .p-footer .folio{ color:rgba(255,255,255,.6); }
+  .crisis .p-footer .footnote{ color:rgba(255,255,255,.65); }
+
+  /* ===== Back cover (full navy) ===== */
+  .back{
+    background:var(--ink);
+    color:var(--paper);
+    padding:0;
+    display:block;
+    overflow:hidden;
+  }
+  .back .back-inner{
+    width:100%; height:100%;
+    padding:20mm 18mm;
+    display:grid; grid-template-rows:auto 1fr auto;
+  }
+  .back .top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    font-family:"JetBrains Mono", monospace;
+    font-size:7.5pt; letter-spacing:.18em; text-transform:uppercase;
+    color:rgba(255,255,255,.65);
+    line-height:1.6;
+  }
+  .back .pull{
+    align-self:center;
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-weight:200;
+    font-size:24pt; line-height:1.1; letter-spacing:-0.025em;
+    max-width:108mm;
+    color:#fff;
+    text-wrap:balance;
+  }
+  .back .pull b{ font-weight:700; }
+  .back .pull i{ font-style:italic; font-weight:300; }
+  .back .pull p{ margin:0 0 5mm; }
+  .back .pull .strap{
+    font-family:'EB Garamond', Garamond, "Times New Roman", serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:11pt;
+    color:rgba(255,255,255,.85);
+    line-height:1.45;
+    margin-top:5mm;
+  }
+  .back .bot{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-top:2px solid rgba(255,255,255,.35);
+    padding-top:5mm;
+    font-family:"JetBrains Mono", monospace;
+    font-size:7.5pt; letter-spacing:.18em; text-transform:uppercase;
+    color:rgba(255,255,255,.65);
+    line-height:1.6;
+  }
+
+  /* ===== Inside-front plate (full-bleed portrait, p.2) ===== */
+  .plate-page{ display:block; padding:0; overflow:hidden; }
+  .plate-page .plate-img{
+    width:100%; height:100%;
+    background:#0A1F44 center/cover no-repeat;
+    background-image:var(--bg);
+    position:relative;
+  }
+  .plate-page .plate-img::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,31,68,.25) 0%, rgba(10,31,68,.55) 100%);
+  }
+  .plate-page .plate-caption{
+    position:absolute;
+    left:16mm; right:16mm; bottom:12mm;
+    color:#fff;
+    font-family:'EB Garamond', Garamond, serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:13pt;
+    line-height:1.35;
+    text-wrap:balance;
+    z-index:2;
+    max-width:108mm;
+  }
+  .plate-page .plate-meta{
+    position:absolute;
+    left:16mm; top:14mm;
+    color:rgba(255,255,255,.85);
+    font-family:"JetBrains Mono", monospace;
+    font-size:7pt;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    z-index:2;
+  }
+
+  /* ===== Side image for foreword / closing ===== */
+  .side-img{
+    width:100%;
+    aspect-ratio: 4/3;
+    background:#0A1F44 center/cover no-repeat;
+    background-image:var(--bg);
+    margin:6mm 0;
+    position:relative;
+  }
+  .side-img.tall{ aspect-ratio:3/4; }
+  .side-img::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,31,68,.05), rgba(10,31,68,.15));
+  }
+  .img-caption{
+    font-family:"JetBrains Mono", monospace;
+    font-size:6.5pt;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:2mm;
+  }
+  .viewer-note{
+    color:#9b9b9b; font-family:"JetBrains Mono",monospace; font-size:11px;
+    letter-spacing:.06em; text-transform:uppercase; padding:6px 12px;
+  }
+  .section-tag{
+    color:#666; font-family:"JetBrains Mono",monospace; font-size:10px;
+    letter-spacing:.12em; text-transform:uppercase; margin:24px 0 -6px;
+  }
+  .blank{ background:var(--paper); }
+</style>
+</head>
+<body>
+<div class="stage">
+<div class="viewer-note">The Black Man's Toolkit · 48pp A5 · 148 × 210 mm · Press Cmd/Ctrl+P to export PDF</div>
+
+<!-- root container; spreads will be injected -->
+<div id="book"></div>
+</div>
+
+<script>
+/* =====================================================================
+   CONTENT
+   ===================================================================== */
+
+const CHAPTERS = [
+  {
+    n:'01', name:'Body', kicker:'Physical health',
+    character:{name:'Leon Grant', line:'Rebuilding the discipline to care for a body he has neglected.'},
+    quote:"Leon's story is about the body catching up with us. The question is whether we catch up with it first.",
+    image:'images/portrait-leon.jpg',
+    essay:[
+      "Leon Grant was once the strongest man in his friendship group. An athlete in his youth who never worried about health, he used to outrun everyone on the wing, ate what he wanted, laughed off small aches.",
+      "Decades of sedentary work, takeaways at 10pm, long hours sitting in traffic, and ignoring the warning signs (the breathlessness climbing the stairs, the weight settling around his middle, the headaches he blamed on stress) have caught up with him. A routine medical check reveals high blood pressure and early signs of heart disease. Leon is shaken.",
+      "Leon is not an exception. He is a pattern. In the UK, Black African and Black Caribbean men carry a heavier load of hypertension, stroke, type 2 diabetes, and prostate cancer than the general population. A UK study found hypertension prevalence of 31% in Afro-Caribbean men compared with 19% in White men.",
+      "Black men are diagnosed with type 2 diabetes two to four times more often, often around 15 years younger than their White peers. One number every Black man in Britain needs to know: 1 in 4 Black men will be diagnosed with prostate cancer in their lifetime, compared with 1 in 8 men overall."
+    ],
+    stats:[
+      {n:'1 in 4', l:'Black men diagnosed with prostate cancer in their lifetime, vs 1 in 8 overall.'},
+      {n:'31%', l:'Hypertension prevalence in Afro-Caribbean men vs 19% in White men.'},
+      {n:'2 to 4×', l:'More likely to be diagnosed with type 2 diabetes, often 15 years earlier.'}
+    ],
+    questions:[
+      'When was the last time you had a proper check-up, not because you were ill, but because you wanted to know where you stand?',
+      'What warning signs from your own body have you been explaining away as "just stress" or "getting older"?',
+      'Who in your family has had heart trouble, high blood pressure, diabetes, or prostate cancer, and does your GP actually know that history?',
+      'If you had to describe your diet and movement over the last seven days honestly, what would it sound like?',
+      'What stops you from going to the doctor: time, fear, a bad past experience, pride, or something else?',
+      'If you were talking to your younger son, nephew, or mentee, what advice would you give that you are not giving yourself?',
+      'What is one small thing you could start this week that your fifty-five-year-old self would thank you for?'
+    ],
+    actions:[
+      {t:'Book the NHS Health Check.', d:'Free, ages 40 to 74 in England, every five years. Twenty minutes. Blood pressure, cholesterol, weight, risk of heart disease, stroke, diabetes, kidney disease.'},
+      {t:'Talk to your GP about prostate cancer from age 45.', d:'Most NHS guidance says 50, but for Black men the risk starts earlier. Prostate Cancer UK\'s free Risk Checker tells you whether to ask about a PSA blood test.'},
+      {t:'Move your body daily, even when you do not feel like it.', d:'A brisk thirty minutes most days. NHS Couch to 5K is free. Parkrun is free, every Saturday at 9am. Bring your son or a mate.'},
+      {t:'Take high blood pressure seriously.', d:'It is called the silent killer for a reason. Know your numbers. If above 140/90 consistently, work with your GP.'},
+      {t:'Respect the plate, and build a GP relationship.', d:'Portion sizes, oil, salt, fried over grilled. And: if you have experienced racism or dismissal, you are not imagining it. You are still entitled to bring an advocate and request a second opinion.'}
+    ],
+    resources:[
+      {n:'NHS Health Check', d:'Free, ages 40 to 74'},
+      {n:'Prostate Cancer UK', d:'0800 074 8383'},
+      {n:'British Heart Foundation', d:'0808 802 1234'},
+      {n:'Caribbean & African Health Network', d:'Weekly Health Hour with Black doctors', black_led:true},
+      {n:'Black Men\'s Health UK', d:'Black-led health information', black_led:true},
+      {n:'NHS Couch to 5K', d:'Free beginner running app'}
+    ]
+  },
+  {
+    n:'02', name:'Mind', kicker:'Mental and emotional health',
+    character:{name:'Darius Thompson', line:'Carrying silent storms behind a dependable face.'},
+    quote:'The way forward is not to perform more strength. It is to redefine what strength means.',
+    image:'images/portrait-darius.jpg',
+    essay:[
+      "Darius Thompson carries the weight of years of stress silently. After losing a close friend to violence in his late twenties and navigating years of pressure to stay strong, hold the family together, and be the one who made it out, he now struggles with anxiety and sleepless nights.",
+      "At work he is the dependable one, the man colleagues lean on. Around friends he wears the mask of resilience, cracks the jokes, buys the round. Internally he feels overwhelmed, numb in places that used to feel alive, and some mornings it takes everything he has to get out of bed. He has not cried since the funeral.",
+      "His battle is learning that mental strength is not silence. It is facing and managing the storms in his mind, and letting someone else hold the umbrella for a moment.",
+      "Darius is not rare, and he is not weak. The UK evidence tells a hard story. Black people are around four times more likely than White people to be detained under the Mental Health Act. Black men in England are around five times more likely to be diagnosed with schizophrenia than White men, a figure that reflects real distress but also systemic misreading of Black men in crisis."
+    ],
+    stats:[
+      {n:'4×', l:'More likely than White people to be detained under the Mental Health Act.'},
+      {n:'5×', l:'More likely to be diagnosed with schizophrenia than White men in England.'},
+      {n:'1 in 5', l:'Black men in inpatient care did not know who to contact for out-of-hours crisis help.'}
+    ],
+    questions:[
+      "When you say \"I'm good\" to someone who asks how you are, how often is it actually true?",
+      "Who is the one person you could tell the whole truth to right now, and what is stopping you from picking up the phone?",
+      "What emotions did the men who raised you allow themselves to show, and which ones did they hide?",
+      "When was the last time you slept properly, laughed properly, or felt something close to peace?",
+      "If a younger brother came to you tomorrow saying what you are not saying, what would you tell him?",
+      "Where does your faith, spirituality, or sense of meaning sit in all of this?",
+      "What does \"strong\" actually mean to you, and who taught you that definition?"
+    ],
+    actions:[
+      {t:'Name what you are feeling, even clumsily.', d:'You do not need therapy-speak. "I feel heavy." "I feel far away from myself." Putting language on a feeling is the first step to managing it.'},
+      {t:'Tell one person the truth.', d:'Not the whole room. One trusted person: a brother, a cousin, a barber, a pastor, an uncle. Men heal in conversation with men who are doing the work.'},
+      {t:'Use NHS Talking Therapies, and self-refer.', d:'You do not need a GP letter. Self-refer directly for free CBT or counselling. Push if you need to. Ask to see someone else if the first does not fit.'},
+      {t:'Consider therapy with a Black therapist.', d:'Black Minds Matter UK funds free therapy with accredited Black therapists. BAATN has the UK\'s largest directory.'},
+      {t:'In a crisis, you do not have to suffer alone.', d:'Samaritans 116 123. Text SHOUT to 85258. CALM 0800 58 58 58. 999 if immediate danger to life.'}
+    ],
+    resources:[
+      {n:'Samaritans', d:'24/7, 116 123'},
+      {n:'Shout', d:'24/7 text support, text SHOUT to 85258'},
+      {n:'CALM', d:'Daily 5pm to midnight, 0800 58 58 58'},
+      {n:'Black Minds Matter UK', d:'Free therapy for Black individuals', black_led:true},
+      {n:'BAATN', d:'Black, African and Asian Therapy Network', black_led:true},
+      {n:'NHS Talking Therapies', d:'Free, self-referral'}
+    ]
+  },
+  {
+    n:'03', name:'Money', kicker:'Financial health',
+    character:{name:'Andre Walker', line:'Earning good money. Broke every payday.'},
+    quote:'Money is a system you can learn, not just a storm you survive.',
+    image:'images/portrait-andre.jpg',
+    essay:[
+      "Andre Walker earns good money. On paper he is doing better than most: a construction site manager, a decent car, respected on site. Yet every month ends with the same anxiety: overdraft warnings, credit cards creeping up, a boiler breakdown that sends him to a payday top-up.",
+      "He grew up in a household where money came in on Friday and was gone by Monday, where asking questions about finance felt disrespectful, and where being the one who made it came with a permanent tab for cousins, aunties, and a mother who just needs a little something. He has never had a budget.",
+      "The numbers give Andre's story context. For every £1 of wealth a White British household holds, a Black Caribbean household holds around 20p and a Black African household around 10p. The median property wealth of Black households in the UK is £0. In London, 28% of Black African adults are over-indebted, compared with 11% of White British.",
+      "On top of income, many Black men carry Black tax, the informal but heavy duty to support family at home and abroad, which quietly drains savings and pension pots. This is not a story of personal failure. It is a story of history, structural exclusion, and habits we were never taught to question."
+    ],
+    stats:[
+      {n:'20p', l:'Wealth held by a Black Caribbean household for every £1 of White British wealth. Black African: 10p.'},
+      {n:'£0', l:'Median property wealth of Black households in the UK.'},
+      {n:'28%', l:'Of Black African adults in London are over-indebted, vs 11% of White British.'}
+    ],
+    questions:[
+      'Do you actually know what comes in and what goes out of your account each month, to the nearest £50?',
+      'What money lessons did you grow up with, and which of them are still running your life today?',
+      'If your income stopped tomorrow, how many weeks could you keep a roof over your head?',
+      'Who in your family expects money from you, and are those expectations ones you have chosen or inherited?',
+      'What do you spend money on when you are stressed, and what is it actually trying to fix?',
+      'When did you last have an honest conversation with your partner about pensions, wills, savings, or debt?',
+      'What would "financially free" look like for you at 55, and what is one step you could take this month?'
+    ],
+    actions:[
+      {t:'Face the numbers. All of them.', d:'Sunday morning, cup of tea, every account, every credit card, every buy-now-pay-later, every loan. Write down the totals. MoneyHelper\'s free Budget Planner is a good start.'},
+      {t:'Get a £500 cushion. Then a one-month. Then three.', d:'An emergency fund separates people who drift into debt from those who do not. A credit union savings account is great for this.'},
+      {t:'Tackle debt with a plan, not shame.', d:'StepChange 0800 138 1111. National Debtline 0808 808 4000. Citizens Advice. All free, FCA-regulated, non-judgmental. Never pay for debt advice in the UK.'},
+      {t:'Set boundaries with family giving.', d:'Decide what you can give each month, set it aside, and when it is gone, it is gone. "I love you, and this is what I can do this month" is a complete sentence.'},
+      {t:'Use a credit union and understand your pension.', d:'London Mutual, Pentecostal Community Bank (Britain\'s first Black-led credit union). Workplace pension match is close to free money. Over 50: book free Pension Wise.'}
+    ],
+    resources:[
+      {n:'StepChange', d:'Free, 0800 138 1111'},
+      {n:'National Debtline', d:'Free, 0808 808 4000'},
+      {n:'MoneyHelper', d:'Free, 0800 138 7777'},
+      {n:'Pentecostal Community Bank', d:'Britain\'s first Black-led credit union', black_led:true},
+      {n:'Blackbullion', d:'Financial education platform', black_led:true},
+      {n:'Black Pound Day', d:'First Saturday of every month', black_led:true}
+    ]
+  },
+  {
+    n:'04', name:'Spirit', kicker:'Self-knowledge and meaning',
+    character:{name:'Marcus Reid', line:'Successful on paper, asking who he is underneath.'},
+    quote:"Marcus's story is about the danger of building your life on a question someone else asked you.",
+    image:'images/portrait-marcus.jpg',
+    essay:[
+      "Marcus Reid works in middle management at a logistics company. On paper he is successful: a steady job, a flat with a balcony, respect at work. People from his estate ask him about jobs for their sons and he is happy to help. But privately he feels like he is living someone else's life.",
+      "His parents pushed him hard towards stability after watching cousins drift, so he buried his interest in creative work and his quiet love of community mentoring, telling himself he would come back to it later. Now, after a colleague his age suddenly dies, Marcus cannot sleep. He keeps asking the same question: who am I outside of work and obligation?",
+      "For many Black men in Britain, faith and spirituality remain a real anchor. South London alone is home to one of the densest concentrations of African Christianity anywhere in the world outside Africa. Southwark counts roughly 240 Black Majority Churches, more than all other churches in the borough combined.",
+      "For others, the anchor is Islam, the Rastafari tradition, ancestral spirituality, or simply a quiet personal practice of reflection. Spiritual health is not the same as religion. At its core it is the work of knowing who you are, what you are here for, and who you answer to when no one else is watching."
+    ],
+    stats:[
+      {n:'240', l:'Black Majority Churches in Southwark alone, more than all other churches in the borough combined.'},
+      {n:'+58%', l:'Pentecostal congregation growth 2005 to 2012, while many White congregations declined.'},
+      {n:'Sankofa', l:'Akan principle: it is not wrong to go back and fetch what you forgot.'}
+    ],
+    questions:[
+      'If you stripped away your job, your bank balance, and other people\'s expectations, who is still standing there?',
+      'What did you love doing when you were 12 that you no longer make any space for?',
+      'Whose definition of "a successful man" are you living by, and have you ever sat down and written your own?',
+      'What do you believe in, and how does that belief actually show up in how you spend your week?',
+      'When was the last time you sat in silence for ten minutes, with no phone, no music, no agenda?',
+      'If you knew you had five years to live, what would change about tomorrow?',
+      'What gifts has life given you that you are currently keeping to yourself?'
+    ],
+    actions:[
+      {t:'Sit still long enough to hear yourself.', d:'Ten minutes a day. No phone, no podcast. A chair, a bench, your car before you go inside. The thoughts you have been outrunning will catch up, and that is the point.'},
+      {t:'Write things down.', d:'Once a week: what gave you peace, what drained you, one honest line about how you feel. Over months you will see your life with clearer eyes than anyone else has shown you.'},
+      {t:'Reconnect with your faith on your own terms.', d:'Even if it is one Sunday or one Friday a month. Black Majority Churches, mosques, Rastafari mansions, African heritage spiritual communities are full of brothers who have walked this path.'},
+      {t:'If faith is not your path, build your own practice.', d:'A walk in nature on a Sunday morning, a journal, a conversation with a trusted elder, breathwork, art. Headspace and Liberate (Black-led mindfulness) are good entry points.'},
+      {t:'Reconnect with your roots and reclaim what you buried.', d:'Talk to elders while they are still here. Visit the country your parents came from. Pick up the camera again. Sankofa: it is not wrong to go back and fetch what you forgot.'}
+    ],
+    resources:[
+      {n:'Cinnamon Network', d:'Find a Black Majority Church'},
+      {n:'Muslim Council of Britain', d:'Find a local mosque'},
+      {n:'Black Cultural Archives', d:'Brixton, grounding identity in heritage', black_led:true},
+      {n:'Africa Centre London', d:'Cultural and educational events', black_led:true},
+      {n:'Liberate Meditation App', d:'Black-led mindfulness', black_led:true},
+      {n:'Headspace', d:'Meditation and mindfulness'}
+    ]
+  },
+  {
+    n:'05', name:'Brotherhood', kicker:'Brothers and chosen family',
+    character:{name:'Kevin Blake', line:'A life that looks impressive and contains almost no one.'},
+    quote:'Brotherhood is not a feeling you are owed. It is a thing you build, on purpose, week by week.',
+    image:'images/portrait-kevin.jpg',
+    essay:[
+      "Kevin Blake prides himself on independence. He pays his own bills, fixes his own problems, and has the kind of energy that makes other men say Kev's good, he doesn't need anything. He handles disagreements with his wife by going quiet. He handles stress by going to the gym alone. He handles his father's illness by just getting on with it.",
+      "Over fifteen years his friendships have shrunk to text-message check-ins and the odd pint at Christmas. The men he calls his boys do not know what is going on in his marriage, his money, or his mind. When his marriage finally collapses and he moves into a one-bed flat alone, Kevin sits on the floor of an empty living room and realises something terrifying: he has built a life that looks impressive and contains almost no one.",
+      "The numbers tell us Kevin is not alone, even if he feels alone. UK Household Longitudinal Survey data shows Black ethnic group respondents are around 14% chronically lonely compared with 9% of White respondents. Suicide remains the single biggest cause of death for men under 50 in the UK, and a major driver is isolation.",
+      "Black men in particular have been raised on the gospel of self-reliance, the idea that asking for help is a kind of failure. It is not. It is how men have always survived: in the village, the band of brothers, the church mothers' boys, the football team, the barbershop on a Saturday morning."
+    ],
+    stats:[
+      {n:'14%', l:'Of Black UK respondents are chronically lonely, vs 9% of White respondents.'},
+      {n:'#1', l:'Suicide is the biggest cause of death for men under 50 in the UK. A major driver is isolation.'},
+      {n:'5,800', l:"Men attend Andy's Man Club every Monday, free, across 270+ UK locations."}
+    ],
+    questions:[
+      'When was the last time another man asked you how you really were, and how did you answer?',
+      'Who are the three men you would call at 2am if everything fell apart, and would they be surprised to be on that list?',
+      'What do you actually share with your closest male friends, and what have you been keeping locked behind your teeth for years?',
+      'Where in your week is there room for a real conversation with another man, not over a meeting or a screen?',
+      'What stops you from asking for help: pride, shame, not wanting to burden anyone, or something deeper?',
+      'Who in your life is going through something right now that you have not properly checked in on?',
+      'If your son grew up to live the way you live now in terms of friendship, would you be glad for him?'
+    ],
+    actions:[
+      {t:'Tell on yourself, on purpose, to one person.', d:'Pick one trusted man and tell him something true he does not know. One real thing. "Work has been heavy." "I\'m not okay since dad got ill." Watch what happens.'},
+      {t:"Walk into Andy's Man Club at 7pm on a Monday.", d:'Free, confidential peer-support groups for men 18+ at 270+ UK locations. No referral, no booking, no charge. Around 5,800 men attend each week.'},
+      {t:'Build a five-man WhatsApp group with ground rules.', d:'Three rules: check in weekly, tell the truth, what is said stays. Over months it becomes the place you stop pretending.'},
+      {t:"Find a Black-led men's space if that matters to you.", d:"The Black Men's Consortium. 100 Black Men of London. CAHN men's wellbeing groups. You do not have to translate yourself before being heard."},
+      {t:'Be honest about the cost of "I\'m good."', d:'Try a one-step upgrade. "Bit stressed, tell you the truth." A brother who knows you are real is far more likely to be real with you.'}
+    ],
+    resources:[
+      {n:"Andy's Man Club", d:'Free, every Monday 7-9pm, 270+ UK locations'},
+      {n:'100 Black Men of London', d:'Black professional men, mentoring', black_led:true},
+      {n:"The Black Men's Consortium", d:'London-based, intergenerational', black_led:true},
+      {n:'Caribbean & African Health Network', d:"CAHN men's wellbeing groups", black_led:true},
+      {n:'The Lions Barber Collective', d:'Mental health training for barbers'},
+      {n:"UK Men's Sheds Association", d:'Workshops, shoulder-to-shoulder'}
+    ]
+  },
+  {
+    n:'06', name:'Community', kicker:'Community leadership',
+    character:{name:'Sean Bennett', line:'Will he stay a commentator, or take responsibility?'},
+    quote:'The community has been waiting for him for a long time.',
+    image:'images/portrait-sean.jpg',
+    essay:[
+      "Sean Bennett grew up in the same neighbourhood he still lives in. He has watched the same cycles repeat for thirty years: bright kids drifting into trouble in their teens, the local boxing club closing, the youth centre cutting back its hours, the same bus stop where boys he used to babysit now stand looking lost.",
+      "He has always spoken passionately about it. At barbecues, in the barbershop, on his cousin's Instagram lives, in his group chat. He talks about what they should be doing and what we need to start. But he has never put himself forward to lead anything.",
+      "Black communities in the UK are more civically engaged than people realise. Black African adults volunteer formally at least once a month at higher rates (22%) than the England average (17%). Black people are the ethnic group most likely to say they can influence local decisions, at 44%.",
+      "Operation Black Vote has helped grow the number of Black, Asian and minority ethnic MPs from 5 in 1996 to 66 in 2020, with around 10% of those MPs being OBV mentoring alumni. The talent and the will are already in our communities. What is sometimes missing is the brother who finally says, right, I'll do it."
+    ],
+    stats:[
+      {n:'22%', l:'Of Black African adults volunteer monthly, vs 17% England average.'},
+      {n:'44%', l:'Of Black people say they can influence local decisions, the highest of any ethnic group.'},
+      {n:'5 → 66', l:'Black, Asian and minority ethnic MPs grew from 5 in 1996 to 66 in 2020.'}
+    ],
+    questions:[
+      'What in your local area angers you the most, and what have you actually done about it?',
+      'Who shaped you when you were 14, and who is doing that for the 14-year-olds in your area now?',
+      'Are you a commentator, a complainer, or a builder, and how do you know?',
+      'What skills, time, money, contacts, or wisdom do you have that someone in your community could use this week?',
+      'What is one local space, programme, school, or club that would not survive five years without people like you?',
+      'Whose permission are you waiting for to step forward, and is that person ever going to give it?',
+      'If you keep living the way you live now, what will your neighbourhood look like in ten years because of you, or in spite of you?'
+    ],
+    actions:[
+      {t:'Pick one thing in your area, not ten.', d:'Walk your road and notice what you would change. A youth centre closing. Kids with nowhere to go on a Friday night. A park gone wild. Pick one.'},
+      {t:'Volunteer locally before launching anything new.', d:'Most communities do not need another start-up; they need consistent hands. Six months of showing up before you propose anything.'},
+      {t:'Become a school governor.', d:'Unpaid, 8 to 10 hours a month, real influence over priorities, exclusions, recruitment, finances. Black male governors are massively under-represented.'},
+      {t:'Mentor a young man.', d:'Reach Society trains Black professional men as accredited role models. 100 Black Men of London runs a free Saturday Mentoring Programme for boys 10 to 16.'},
+      {t:'Vote in every election, and use your money.', d:'Local, mayoral, police commissioner. Politicians count votes; they do not count opinions. £10/month direct debit to a Black-led local organisation goes further than a year of group-chat venting.'}
+    ],
+    resources:[
+      {n:'Operation Black Vote', d:'Voter registration, MP Shadowing', black_led:true},
+      {n:'100 Black Men of London', d:'Free Saturday programme for boys 10-16', black_led:true},
+      {n:'Reach Society', d:'Black men as role models, UK-wide', black_led:true},
+      {n:'Governors for Schools', d:'Free recruitment to school governing boards'},
+      {n:'Stephen Lawrence Day Foundation', d:'Legacy and youth programmes', black_led:true},
+      {n:'Black Equity Organisation', d:'Black-led civil rights body', black_led:true}
+    ]
+  }
+];
+
+/* =====================================================================
+   BUILDER
+   ===================================================================== */
+
+function num(n){ return String(n).padStart(2,'0'); }
+
+function pageHeader(section, meta){
+  if(!section && !meta){
+    return `<div class="p-header empty"></div>`;
+  }
+  return `<div class="p-header"><div class="h-section">${section}</div><div class="h-meta">${meta}</div></div>`;
+}
+function pageFooter(folio, footnote){
+  return `<div class="p-footer"><div class="folio">${folio || ''}</div><div class="footnote">${footnote || ''}</div></div>`;
+}
+
+/* Front matter */
+
+function pCover(){
+  return `
+  <div class="page recto cover">
+    <div class="cover-inner">
+      <div class="titlewrap">
+        <span>The</span>
+        <span>Black Man's</span>
+        <span>Toolkit</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pInsideFront(){
+  return `<div class="page verso blank">${pageHeader('','')}<div class="p-body"></div>${pageFooter('','')}</div>`;
+}
+
+function pTitle(){
+  return `
+  <div class="page recto">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="title-page-body">
+        <div>
+          <div class="eyebrow">A field guide for the road ahead</div>
+          <div class="mono accent" style="color:var(--accent); margin-top:5mm; font-size:7.5pt; letter-spacing:.18em">BODY · MIND · MONEY · SPIRIT · BROTHERHOOD · COMMUNITY</div>
+        </div>
+        <div class="center">
+          <div class="titlewrap">
+            <span class="the">The</span>
+            <span class="bm">Black Man's</span>
+            <span class="tk">Toolkit</span>
+          </div>
+        </div>
+        <div>
+          <hr class="rule" style="margin-bottom:5mm">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end">
+            <div>
+              <div class="eyebrow">Published by</div>
+              <div style="font-family:'EB Garamond'; font-weight:500; font-size:13pt; margin-top:2mm">Black Thrive Lambeth</div>
+            </div>
+            <div style="font-family:'EB Garamond'; font-weight:500; font-size:8pt; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); text-align:right; line-height:1.6">Designed by<br>The Office of<br>Art &amp; Technology</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${pageFooter('03','')}
+  </div>`;
+}
+
+function pColophon(){
+  return `
+  <div class="page verso">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="eyebrow">About this book</div>
+        <p class="body lede" style="margin:4mm 0 8mm; max-width:100mm">
+          The Black Man's Toolkit is a printed companion to the digital field guide of the same name. Built with Black men, for Black men, from Lambeth, South London, to everywhere.
+        </p>
+        <dl class="meta-grid">
+          <dt>Publisher</dt><dd>Black Thrive Lambeth</dd>
+          <dt>Design</dt><dd>The Office of Art &amp; Technology</dd>
+          <dt>Published</dt><dd>2026, first printing</dd>
+          <dt>Format</dt><dd>A5, 148 × 210 mm, 48pp, saddle stitched</dd>
+          <dt>Stock</dt><dd>Munken Pure 120 gsm interior, 300 gsm cover</dd>
+          <dt>Type</dt><dd>EB Garamond, JetBrains Mono</dd>
+          <dt>Method</dt><dd>The six men named in this book are composites, drawn from in-person conversations, focus groups and interviews with Black men aged 24 to 65.</dd>
+        </dl>
+        <p class="body" style="font-size:8pt; color:var(--ink-soft); margin-top:auto; line-height:1.5">All rights reserved. No part of this publication may be reproduced without prior written permission of the publisher.</p>
+      </div>
+    </div>
+    ${pageFooter('04','')}
+  </div>`;
+}
+
+function pContents(){
+  return `
+  <div class="page recto">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="eyebrow">Six chapters</div>
+        <h2 class="h-display" style="font-size:42pt; margin:4mm 0 10mm">Contents</h2>
+        <div class="toc-list">
+          <div class="toc-row"><div class="num">01</div><div class="chap">Body<small>Leon Grant. Rebuilding the discipline to care for a body he has neglected.</small></div><div class="pg">09</div></div>
+          <div class="toc-row"><div class="num">02</div><div class="chap">Mind<small>Darius Thompson. Carrying silent storms behind a dependable face.</small></div><div class="pg">15</div></div>
+          <div class="toc-row"><div class="num">03</div><div class="chap">Money<small>Andre Walker. Earning well, broke every payday.</small></div><div class="pg">21</div></div>
+          <div class="toc-row"><div class="num">04</div><div class="chap">Spirit<small>Marcus Reid. Successful on paper, asking who he is underneath.</small></div><div class="pg">27</div></div>
+          <div class="toc-row"><div class="num">05</div><div class="chap">Brotherhood<small>Kevin Blake. A life that looks impressive and contains almost no one.</small></div><div class="pg">33</div></div>
+          <div class="toc-row"><div class="num">06</div><div class="chap">Community<small>Sean Bennett. Will he stay a commentator, or take responsibility?</small></div><div class="pg">39</div></div>
+        </div>
+      </div>
+    </div>
+    ${pageFooter('05','')}
+  </div>`;
+}
+
+function pHowToUse(){
+  return `
+  <div class="page verso">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="eyebrow">How to use this book</div>
+        <h2 class="h-display" style="font-size:28pt; font-weight:400; margin:4mm 0 6mm; line-height:1.1">Read it front to back, or open it at random, or skim the questions first.</h2>
+        <p class="body lede" style="font-style:italic; color:var(--ink-soft); margin-top:4mm">There is no right way to use this book, except honestly.</p>
+        <div style="display:grid; gap:0; margin-top:6mm">
+          <div style="display:grid; grid-template-columns:11mm 1fr; gap:3mm; padding:3mm 0; border-bottom:1px solid var(--rule)"><div class="mono" style="color:var(--accent); padding-top:1mm">/01</div><div><div style="font-family:'EB Garamond'; font-weight:600; font-size:11pt">A story</div><div style="font-family:'EB Garamond'; font-size:9pt; line-height:1.45; margin-top:1mm; color:var(--ink-2)">A Black man you might recognise.</div></div></div>
+          <div style="display:grid; grid-template-columns:11mm 1fr; gap:3mm; padding:3mm 0; border-bottom:1px solid var(--rule)"><div class="mono" style="color:var(--accent); padding-top:1mm">/02</div><div><div style="font-family:'EB Garamond'; font-weight:600; font-size:11pt">The numbers</div><div style="font-family:'EB Garamond'; font-size:9pt; line-height:1.45; margin-top:1mm; color:var(--ink-2)">UK data, honest, useful.</div></div></div>
+          <div style="display:grid; grid-template-columns:11mm 1fr; gap:3mm; padding:3mm 0; border-bottom:1px solid var(--rule)"><div class="mono" style="color:var(--accent); padding-top:1mm">/03</div><div><div style="font-family:'EB Garamond'; font-weight:600; font-size:11pt">Honest questions</div><div style="font-family:'EB Garamond'; font-size:9pt; line-height:1.45; margin-top:1mm; color:var(--ink-2)">For yourself, slowly.</div></div></div>
+          <div style="display:grid; grid-template-columns:11mm 1fr; gap:3mm; padding:3mm 0;"><div class="mono" style="color:var(--accent); padding-top:1mm">/04</div><div><div style="font-family:'EB Garamond'; font-weight:600; font-size:11pt">Small actions</div><div style="font-family:'EB Garamond'; font-size:9pt; line-height:1.45; margin-top:1mm; color:var(--ink-2)">Things you might do this week.</div></div></div>
+        </div>
+      </div>
+    </div>
+    ${pageFooter('06','')}
+  </div>`;
+}
+
+function pForeword1(){
+  return `
+  <div class="page recto">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="eyebrow">A letter from the editors</div>
+        <h2 class="h-display" style="font-size:30pt; margin:4mm 0 6mm">This is for you, <i>brother</i></h2>
+        <hr class="rule-accent">
+        <p class="body lede dropcap" style="margin-top:6mm">Welcome. Take a breath. You have opened something that was built with you in mind.</p>
+        <p class="body" style="font-size:10pt">This toolkit is a gift from Lambeth, South London, to Black men everywhere, but it started close to home. It is the work of <b>Black Thrive Lambeth</b>, a partnership founded in 2016 between Lambeth Council, South London and Maudsley NHS Foundation Trust, and a coalition of community organisations who were tired of seeing the same story on repeat.</p>
+        <p class="body" style="font-size:10pt">Much of that energy carries the memory of <b>Sean Rigg</b>, a 40-year-old Black man and talented musician who died in Brixton police custody in August 2008 after a mental-health crisis. His family's long fight for truth is one of the reasons this work exists at all.</p>
+      </div>
+    </div>
+    ${pageFooter('07','')}
+  </div>`;
+}
+
+function pForeword2(){
+  return `
+  <div class="page verso">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="body-pad">
+        <p class="body lede dropcap" style="margin-top:0">We see you. We know the weight you carry. We know what it feels like to be told from boyhood to "man up," to hold it down for family, to be the rock while quietly cracking. We know the side-eye you get at the GP, the letters from the bank that pile up in the drawer, the sleepless nights you never talk about.</p>
+        <p class="body" style="font-size:10pt">This toolkit will not lecture you. It will not pretend racism does not exist or that one walk a day fixes everything. What it will do is give you six honest conversations: about your body, your mind, your money, your spirit, your brothers, and your community.</p>
+        <p class="body" style="font-size:10pt">Use this at your pace. Skip around. Share it with a brother, a cousin, a son. There is no right way to use this, except honestly.</p>
+        <hr class="rule-accent" style="margin-top:6mm">
+        <p style="font-family:'EB Garamond'; font-weight:500; font-size:13pt; line-height:1.25; letter-spacing:-0.01em; margin-top:5mm; text-wrap:balance">You deserve a long life, a clear mind, a stable future, a known soul, real brothers, and a community you helped build.</p>
+      </div>
+    </div>
+    ${pageFooter('08','')}
+  </div>`;
+}
+
+/* Chapter pages */
+
+function chapterPages(c, startPage){
+  // 6 pages: opener-recto, essay1-verso, essay2-recto, numbers-verso, questions-recto, actions-verso
+  // startPage is the opener page (odd, recto).
+  const p1 = startPage;
+  const p2 = startPage+1;
+  const p3 = startPage+2;
+  const p4 = startPage+3;
+  const p5 = startPage+4;
+  const p6 = startPage+5;
+
+  const opener = `
+  <div class="page recto">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="opener-body" style="--bg:url('${c.image}')">
+        <div class="opener-label">Chapter ${c.n}</div>
+        <h2 class="opener-title">${c.name}</h2>
+        <hr class="opener-rule">
+        <div class="opener-quote">“${c.quote}”</div>
+        <div class="opener-summary">A short essay, seven questions, and a list of small actions.</div>
+        <div class="opener-image">
+          <div class="caption-row">
+            <div class="nm">${c.character.name}</div>
+            <div class="cap">Photograph to be commissioned</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${pageFooter(num(p1), '')}
+  </div>`;
+
+  const essay1 = `
+  <div class="page verso">
+    ${pageHeader(c.name, '')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="section-head">
+          <div class="lhs">
+            <span class="label">The story</span>
+            <span class="title">${c.character.name}</span>
+          </div>
+        </div>
+        <hr class="rule-strong">
+        <div style="margin-top:5mm" class="essay-body">
+          <p class="body lede dropcap">${c.essay[0]}</p>
+          <p class="body">${c.essay[1]}</p>
+        </div>
+      </div>
+    </div>
+    ${pageFooter(num(p2), '')}
+  </div>`;
+
+  const essay2 = `
+  <div class="page recto">
+    ${pageHeader(c.name, '')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="section-head">
+          <div class="lhs">
+            <span class="label">The story, continued</span>
+            <span class="title">${c.character.name}</span>
+          </div>
+        </div>
+        <hr class="rule-strong">
+        <div style="margin-top:5mm" class="essay-body">
+          <p class="body">${c.essay[2]}</p>
+          <div class="pullquote" style="margin:6mm 0; max-width:108mm"><span class="mark">“</span>${c.quote.replace(/^"|"$/g,'')}<span class="mark">”</span></div>
+          <p class="body">${c.essay[3]}</p>
+        </div>
+      </div>
+    </div>
+    ${pageFooter(num(p3), '')}
+  </div>`;
+
+  const numbers = `
+  <div class="page verso">
+    ${pageHeader(c.name, '')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="section-head">
+          <div class="lhs">
+            <span class="label">By the numbers</span>
+            <span class="title">${c.name}, in UK data</span>
+          </div>
+        </div>
+        <hr class="rule-strong">
+        <div class="stats-grid" style="margin-top:8mm">
+          ${c.stats.map(s=>`<div class="stat"><div class="n">${s.n}</div><div class="lbl">${s.l}</div></div>`).join('')}
+        </div>
+        <p class="body" style="font-style:italic; color:var(--ink-soft); margin-top:auto; font-size:9.5pt; max-width:100mm">
+          The numbers are not destiny. They are context. They tell us where the road is hardest, so we know where to look out for one another.
+        </p>
+      </div>
+    </div>
+    ${pageFooter(num(p4), '')}
+  </div>`;
+
+  const questions = `
+  <div class="page recto">
+    ${pageHeader(c.name, '')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="section-head">
+          <div class="lhs">
+            <span class="label">Questions for yourself</span>
+            <span class="title">Seven things to ask</span>
+          </div>
+        </div>
+        <hr class="rule-strong">
+        <p class="body" style="font-style:italic; font-size:9pt; color:var(--ink-soft); margin:4mm 0 4mm">The point is not to answer them quickly. Sit with one if it lands.</p>
+        <ol class="q-list">${c.questions.map(q=>`<li>${q}</li>`).join('')}</ol>
+      </div>
+    </div>
+    ${pageFooter(num(p5), '')}
+  </div>`;
+
+  const actions = `
+  <div class="page verso">
+    ${pageHeader(c.name, '')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="section-head">
+          <div class="lhs">
+            <span class="label">Small actions</span>
+            <span class="title">Five things you might do</span>
+          </div>
+        </div>
+        <hr class="rule-strong">
+        <p class="body" style="font-style:italic; font-size:9pt; color:var(--ink-soft); margin:4mm 0 4mm">Pick one. Pick none. Skip ahead. Resources for every chapter are gathered at the back of the book.</p>
+        <div class="a-list">
+          ${c.actions.map((a,i)=>`<div class="item"><div class="head"><div class="n">/${num(i+1)}</div><div class="t">${a.t.replace(/\.$/,'')}</div></div><div class="d">${a.d}</div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    ${pageFooter(num(p6), '')}
+  </div>`;
+
+  return [opener, essay1, essay2, numbers, questions, actions];
+}
+
+/* Back matter */
+
+function pClosing(){
+  return `
+  <div class="page recto">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="eyebrow">Closing</div>
+        <hr class="rule-accent" style="margin:4mm 0 6mm">
+        <p class="body lede" style="font-family:'EB Garamond'; font-weight:500; font-size:17pt; line-height:1.2; letter-spacing:-0.005em; max-width:110mm; margin:0 0 5mm">Leon, Darius, Andre, Marcus, Kevin, and Sean are not real, but you know them. <i style="font-style:italic">You might be them, or you might be the man they need to call.</i></p>
+        <div class="side-img" style="--bg:url('images/portrait-kevin.jpg'); aspect-ratio:16/9; margin:5mm 0 5mm"></div>
+        <p class="body" style="font-size:10pt">Looking after your body, your mind, your money, your spirit, your brothers, and your community is not vanity, selfishness, or soft. It is the work of a whole man. It is how you stay alive for the people who love you, and how you become the kind of ancestor your grandchildren will be proud of.</p>
+        <p class="body" style="font-size:10pt">Take the first step this week. One phone call. One walk. One conversation. One honest look at the bank statement. One quiet ten minutes. One Monday at Andy's Man Club. One school governor application. One small act, on purpose.</p>
+        <div style="margin-top:auto">
+          <hr class="rule-accent" style="margin-bottom:4mm">
+          <div style="font-family:'EB Garamond'; font-weight:600; font-size:14pt; letter-spacing:-0.01em">We are with you.</div>
+          <div class="mono" style="color:var(--ink-soft); margin-top:2mm; letter-spacing:.18em">BLACK THRIVE LAMBETH · 2026</div>
+        </div>
+      </div>
+    </div>
+    ${pageFooter('45','')}
+  </div>`;
+}
+
+function pCrisis(){
+  return `
+  <div class="page verso crisis">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="body-pad">
+        <h2 class="h-display"><b>If you need<br>help, now</b></h2>
+        <p class="lede" style="margin-top:6mm">Free, confidential, and ready, today. Send this page to a friend if it isn't you who needs it.</p>
+        <div class="lines" style="margin-top:6mm">
+          <div class="line-row"><div><div class="n">Samaritans</div><div class="d">Any reason, 24/7.</div></div><div class="num">116 123</div></div>
+          <div class="line-row"><div><div class="n">CALM</div><div class="d">For men. 5pm to midnight.</div></div><div class="num">0800 58 58 58</div></div>
+          <div class="line-row"><div><div class="n">Shout</div><div class="d">Text support, free, 24/7.</div></div><div class="num">SHOUT to 85258</div></div>
+          <div class="line-row"><div><div class="n">NHS Mental Health</div><div class="d">Urgent support.</div></div><div class="num">111 OPT. 2</div></div>
+          <div class="line-row"><div><div class="n">Black Minds Matter UK</div><div class="d">Free therapy with Black therapists.</div></div><div class="num">BMMUK.COM</div></div>
+          <div class="line-row"><div><div class="n">Emergency</div><div class="d">Immediate danger to life.</div></div><div class="num">999</div></div>
+        </div>
+      </div>
+    </div>
+    ${pageFooter('46','You are not wasting anyone\'s time')}
+  </div>`;
+}
+
+function pDirectory(){
+  let html = `
+  <div class="page recto">
+    ${pageHeader('','')}
+    <div class="p-body">
+      <div class="body-pad">
+        <div class="section-head">
+          <div class="lhs">
+            <span class="label">Where to go next</span>
+            <span class="title">Directory</span>
+          </div>
+          <div class="rhs">UK · free / low-cost</div>
+        </div>
+        <hr class="rule-strong">
+        <p class="body" style="font-style:italic; font-size:9pt; color:var(--ink-soft); margin:4mm 0 5mm; max-width:100mm">A selection of the most essential UK organisations, four per chapter. The full directory of 90+ resources lives at the digital toolkit, blackmanstoolkit.org.</p>
+        <div class="dir">
+          ${CHAPTERS.map(c=>`
+            <div class="group">
+              <div class="ghead"><span>${c.name}</span><span class="num">${c.n}</span></div>
+              ${c.resources.slice(0,4).map(r=>`<div class="item"><div class="nm">${r.n}${r.black_led?'<span class="bl">Black-led</span>':''}</div><div class="ds">${r.d}</div></div>`).join('')}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+    ${pageFooter('47','')}
+  </div>`;
+  return html;
+}
+
+function pBackCover(){
+  return `
+  <div class="page verso back">
+    <div class="back-inner">
+      <div class="top">
+        <div>Black Thrive Lambeth</div>
+        <div style="text-align:right">Designed by<br>The Office of<br>Art &amp; Technology</div>
+      </div>
+      <div class="pull">
+        <p>For the brother who has<br>been carrying too much,<br>for too long.</p>
+        <p class="strap">Body, mind, money, spirit, brothers, community. Six honest conversations, one small action at a time.</p>
+      </div>
+      <div class="bot">
+        <div>From Lambeth, to everywhere.</div>
+        <div style="text-align:right">148 × 210 mm<br>48 pages</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* =====================================================================
+   ASSEMBLY: single-page stack in book reading order
+   ===================================================================== */
+
+const startPages = [9,15,21,27,33,39];
+const chapterContent = CHAPTERS.map((c,i)=>chapterPages(c, startPages[i]));
+
+let html = '';
+html += `<div class="section-tag">Cover · p. 1</div><div class="spread">${pCover()}</div>`;
+html += `<div class="section-tag">Inside front · p. 2</div><div class="spread">${pInsideFront()}</div>`;
+html += `<div class="section-tag">Title · p. 3</div><div class="spread">${pTitle()}</div>`;
+html += `<div class="section-tag">Colophon · p. 4</div><div class="spread">${pColophon()}</div>`;
+html += `<div class="section-tag">Contents · p. 5</div><div class="spread">${pContents()}</div>`;
+html += `<div class="section-tag">How to use · p. 6</div><div class="spread">${pHowToUse()}</div>`;
+html += `<div class="section-tag">Foreword · p. 7</div><div class="spread">${pForeword1()}</div>`;
+html += `<div class="section-tag">Foreword, continued · p. 8</div><div class="spread">${pForeword2()}</div>`;
+
+chapterContent.forEach((pages, i)=>{
+  const c = CHAPTERS[i];
+  const start = startPages[i];
+  const labels = ['opener','the story','the story, continued','by the numbers','questions','small actions'];
+  pages.forEach((p, j)=>{
+    html += `<div class="section-tag">Chapter ${c.n} · ${c.name} · ${labels[j]} · p. ${start+j}</div><div class="spread">${p}</div>`;
+  });
+});
+
+html += `<div class="section-tag">Closing · p. 45</div><div class="spread">${pClosing()}</div>`;
+html += `<div class="section-tag">Help, now · p. 46</div><div class="spread">${pCrisis()}</div>`;
+html += `<div class="section-tag">Directory · p. 47</div><div class="spread">${pDirectory()}</div>`;
+html += `<div class="section-tag">Back cover · p. 48</div><div class="spread">${pBackCover()}</div>`;
+
+document.getElementById('book').innerHTML = html;
+</script>
+
+</body>
+</html>

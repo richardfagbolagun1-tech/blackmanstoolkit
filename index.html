@@ -14,10 +14,9 @@
 <header class="site-header" data-screen-label="00 Home">
   <a class="brand" href="index.html">
     <span class="brand-mark"></span>
-    <span class="brand-name">The Black Man's Toolkit</span>
+    <span class="brand-name">The Black Man's Toolkit</span><span class="brand-by">by <img class="brand-bt-logo" src="assets/img/black-thrive-white.png" alt="Black Thrive Lambeth" /></span>
   </a>
   <nav class="nav">
-    <a href="index.html" class="active">Home</a>
     <a href="index.html#chapters">Chapters</a>
     <a href="quiz.html">Where to start</a>
     <a href="tools/index.html">Tools</a>
@@ -28,19 +27,28 @@
 </header>
 
 <section class="hero" data-screen-label="Hero">
-  <div class="hero-img" style="background-image:url('assets/img/hero.jpg')" data-resource-id="heroImage"></div>
+  <div class="hero-slideshow" id="hero-slideshow" aria-hidden="true">
+    <div class="hero-slide is-active" style="background-image:url('assets/img/slideshow/slide-1.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/img/slideshow/slide-2.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/img/slideshow/slide-3.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/img/slideshow/slide-4.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/img/slideshow/slide-5.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/img/slideshow/slide-6.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/img/slideshow/slide-8.jpg')"></div>
+  </div>
+  <div class="hero-overlay"></div>
   <div class="hero-grain"></div>
   <div class="hero-content">
-    <h1 class="hero-title">The Black Man's<br/>Toolkit.</h1>
+    <h1 class="hero-title">The Black Man's Toolkit</h1>
     <div class="hero-words">
+      <span>Money</span>
       <span>Body</span>
       <span>Mind</span>
-      <span>Money</span>
       <span>Spirit</span>
       <span>Brotherhood</span>
       <span>Community</span>
     </div>
-    <p class="hero-tagline">Built with Black men, for Black men. From Lambeth, to everywhere.</p>
+    <p class="hero-tagline">Built in collaboration with Black men for Black men.</p>
     <div class="hero-cta-row">
       <a class="btn btn-accent" href="#chapters">Start reading
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -48,18 +56,32 @@
       <a class="btn btn-ghost" style="color:var(--paper);border-color:var(--paper)" href="quiz.html">Take the quiz: where to start</a>
     </div>
   </div>
-  <div class="hero-pattern"></div>
 </section>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('#hero-slideshow .hero-slide'));
+  if (slides.length < 2) return;
+  var i = 0;
+  if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(function () {
+      slides[i].classList.remove('is-active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('is-active');
+    }, 5000);
+  }
+})();
+</script>
 
 <section class="letter" data-screen-label="Letter">
   <div class="letter-inner">
     <div>
-      <h2>This is for you brother.</h2>
+      <h2>This is for you.</h2>
     </div>
     <div class="letter-body">
-      <p>Welcome. Take a breath. You have opened something that was built with you in mind.</p>
-      <p>This toolkit is a gift from Lambeth, South London to Black men everywhere. It is the work of <strong>Black Thrive Lambeth</strong>, a partnership of community organisations, NHS, and council, designed in 2025 with <strong>The Office of Art and Technology</strong>: a design studio that builds tools with communities, not just for them.</p>
-      <p>This toolkit will not lecture you. It will not pretend racism does not exist or that one walk a day fixes everything. What it will do is give you six honest conversations: about your body, your mind, your money, your spirit, your brothers, and your community.</p>
+      <p>Welcome. Take a breath. This was built for you in mind.</p>
+      <p>This toolkit is a gift from Lambeth, South London to Black men everywhere. It is the work of <strong>Black Thrive Lambeth</strong>, a partnership of community organisations, NHS, and council, designed in 2026 with <strong>The Office of Art and Technology</strong>: a creative technology studio that builds tools with communities, not just for them.</p>
+      <p>This toolkit will not lecture you. It will not pretend racism does not exist or that one walk a day fixes everything. What it will do is give you six honest scenarios: about your body, your mind, your money, your spirit, your brothers, and your community.</p>
       <p>If you are a queer or trans Black man, this toolkit is for you too. You will find <a href="lgbtq.html" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px">resources written with you in mind</a>, not as an afterthought.</p>
       <p>Use this at your pace. Skip around. Read one section, then close the page and come back next week. Share it with a brother, a cousin, a son. There is no right way to use this, except honestly.</p>
       <p style="margin-top:32px"><a href="about.html" class="btn btn-accent" style="font-size:13px">Read the full introduction
@@ -71,7 +93,7 @@
 
 <section id="chapters" class="directory" data-screen-label="Directory">
   <div class="section-head">
-    <h2>Six honest conversations.<br/>Each anchored in scenarios you might have experienced or heard of.</h2>
+    <h2>Six honest scenarios.<span class="sh-line2">Each anchored in experiences you might have experienced or heard of.</span></h2>
     <p>Pick the one that meets you where you are. Read top to bottom or skip around. Each chapter ends with a story, real questions, real next steps, and a list of free or low-cost UK organisations who can help.</p>
   </div>
   <div class="chapter-grid" id="chapter-grid"><!-- filled by JS --></div>
@@ -106,7 +128,7 @@
   <a class="cta-card resources" href="resources.html">
     <div>
       <div class="cta-eyebrow">Resource finder</div>
-      <h3>90+ UK organisations.</h3>
+      <h3>100+ organisations.</h3>
       <p>Filter by topic. Many are Black-led. All are free or low-cost.</p>
     </div>
     <span class="arrow">
@@ -116,22 +138,16 @@
 </section>
 
 <footer class="site-footer">
-  <div class="footer-grid">
-    <div>
-      <h4>The toolkit</h4>
-      <p class="footer-bigword">You deserve a long life, a clear mind, real brothers.</p>
-      <p style="font-size:13px;opacity:.75;line-height:1.6;max-width:38ch;margin-bottom:14px">This toolkit is for all Black men. Queer brothers, trans brothers, brothers of every faith and none.</p>
-      <p style="font-size:13px;opacity:.65;line-height:1.6;max-width:38ch">From Black Thrive Lambeth. Designed by The Office of Art and Technology, 2025.</p>
-    </div>
+  <div class="footer-grid" style="grid-template-columns:repeat(3,1fr)">
     <div>
       <h4>Chapters</h4>
       <ul>
-        <li><a href="chapters/body.html">01 Body</a></li>
-        <li><a href="chapters/mind.html">02 Mind</a></li>
-        <li><a href="chapters/money.html">03 Money</a></li>
-        <li><a href="chapters/spirit.html">04 Spirit</a></li>
-        <li><a href="chapters/brotherhood.html">05 Brotherhood</a></li>
-        <li><a href="chapters/community.html">06 Community</a></li>
+        <li><a href="chapters/body.html">Body</a></li>
+        <li><a href="chapters/mind.html">Mind</a></li>
+        <li><a href="chapters/money.html">Money</a></li>
+        <li><a href="chapters/spirit.html">Spirit</a></li>
+        <li><a href="chapters/brotherhood.html">Brotherhood</a></li>
+        <li><a href="chapters/community.html">Community</a></li>
       </ul>
     </div>
     <div>
@@ -152,13 +168,13 @@
       <ul>
         <li><a href="tel:116123">Samaritans 116 123</a></li>
         <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
-        <li><a href="tel:08005858 58">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:0800585858">CALM 0800 58 58 58</a></li>
         <li><a href="tel:999">Emergency 999</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-meta">
-    <span>&copy; 2025 Black Thrive Lambeth</span>
+    <span>&copy; 2026 Black Thrive Lambeth</span>
     <span>Designed by The Office of Art and Technology</span>
   </div>
 </footer>
@@ -186,14 +202,14 @@
       </div>
       <div class="card-body">
         <p class="card-promise">${c.promise}</p>
-        <div class="card-character">Meet <strong>${c.character.name}.</strong> ${c.character.line}</div>
+        <div class="card-character">Meet <strong>${c.character.name.split(" ")[0]}</strong>, who is ${c.character.line}.</div>
         <div class="card-foot">
           <span class="read-arrow">
             ${progress[c.slug]?.done ? "Read" : "Read"}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </span>
           <span style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700">${c.duration_min} min</span>
+            <span style="font-size:16px;letter-spacing:0.02em;text-transform:none;font-weight:700;white-space:nowrap">${c.duration_min} min</span>
             <span class="progress-pip"></span>
           </span>
         </div>

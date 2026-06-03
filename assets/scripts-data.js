@@ -5,7 +5,7 @@ window.TOOLKIT_SCRIPTS = {
     intro: "When the words are hard to find, here are some starters.",
     items: [
       {
-        situation: "Telling a brother you are worried about his health",
+        situation: "Telling a friend or family member you are worried about their health",
         text: "Bro, I am not trying to be in your business. I just noticed [thing]. Have you seen the GP? If you want, I will come with you.",
       },
       {

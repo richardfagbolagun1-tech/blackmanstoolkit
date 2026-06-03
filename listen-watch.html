@@ -17,10 +17,10 @@
 .lw-hero-inner { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: end; }
 @media (max-width: 880px) { .lw-hero-inner { grid-template-columns: 1fr; } }
 .lw-hero h1 { font-family: var(--display); font-weight: 500; font-size: clamp(56px, 8vw, 120px); line-height: 0.92; letter-spacing: -0.03em; margin: 0; max-width: 12ch; }
-.lw-hero .lead { font-family: var(--serif); font-style: italic; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.4; max-width: 42ch; margin: 0; color: rgba(255,255,255,0.85); }
+.lw-hero .lead { font-family: var(--serif); font-style: normal; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.4; max-width: 42ch; margin: 0; color: rgba(255,255,255,0.85); }
 .lw-hero .kicker {
   font-family: var(--sans); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent);
+  letter-spacing: 0.02em; text-transform: none; color: var(--accent);
   margin: 0 0 28px 0;
   display: inline-flex; align-items: center; gap: 14px;
 }
@@ -35,7 +35,7 @@
 }
 .lw-tab {
   font-family: var(--sans); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
   padding: 12px 22px; border-radius: 999px;
   border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink);
   cursor: pointer;
@@ -55,9 +55,9 @@
 .lw-inner { max-width: 1320px; margin: 0 auto; }
 .lw-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 48px; }
 @media (max-width: 880px) { .lw-head { grid-template-columns: 1fr; gap: 16px; } }
-.lw-head .num { font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: 0.28em; color: var(--accent); margin: 0 0 14px 0; text-transform: uppercase; }
+.lw-head .num { font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: 0.02em; color: var(--accent); margin: 0 0 14px 0; text-transform: none; }
 .lw-head h2 { font-family: var(--display); font-weight: 500; font-size: clamp(40px, 5.5vw, 72px); line-height: 0.95; letter-spacing: -0.025em; margin: 0; max-width: 14ch; }
-.lw-head p { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 1.8vw, 21px); line-height: 1.45; color: var(--ink-soft); margin: 0; max-width: 44ch; }
+.lw-head p { font-family: var(--serif); font-style: normal; font-size: clamp(18px, 1.8vw, 21px); line-height: 1.45; color: var(--ink-soft); margin: 0; max-width: 44ch; }
 
 .lw-grid {
   display: grid;
@@ -76,7 +76,7 @@
 .lw-card:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 12px 32px -16px rgba(10,31,68,0.2); }
 .lw-card .lw-kind {
   font-family: var(--sans); font-size: 10px; font-weight: 700;
-  letter-spacing: 0.22em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
   color: var(--ink-soft);
 }
 .lw-card .lw-title {
@@ -85,7 +85,7 @@
   margin: 0;
 }
 .lw-card .lw-by {
-  font-family: var(--serif); font-style: italic; font-size: 15px;
+  font-family: var(--serif); font-style: normal; font-size: 15px;
   color: var(--ink-soft); margin: 0;
 }
 .lw-card .lw-note {
@@ -97,14 +97,14 @@
   margin-top: auto; padding-top: 14px;
   border-top: 1px solid var(--rule);
   font-family: var(--sans); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.18em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
 }
 .lw-card .lw-foot .src { color: var(--ink-soft); }
 .lw-card .lw-foot .visit { color: var(--ink); display: inline-flex; align-items: center; gap: 6px; }
 .lw-card .black-led {
   position: absolute; top: 14px; right: 14px;
   font-family: var(--sans); font-size: 9px; font-weight: 800;
-  letter-spacing: 0.18em; text-transform: uppercase;
+  letter-spacing: 0.02em; text-transform: none;
   background: var(--ink); color: var(--accent);
   padding: 4px 9px; border-radius: 999px;
 }
@@ -112,7 +112,7 @@
 .lw-empty {
   padding: 60px 0;
   text-align: center;
-  font-family: var(--serif); font-style: italic;
+  font-family: var(--serif); font-style: normal;
   color: var(--ink-soft); font-size: 18px;
 }
 
@@ -124,14 +124,13 @@
 }
 @media (max-width: 880px) { .lw-suggest { grid-template-columns: 1fr; } }
 .lw-suggest h3 { font-family: var(--display); font-weight: 500; font-size: clamp(28px, 3vw, 36px); line-height: 1; letter-spacing: -0.02em; margin: 0 0 8px; max-width: 20ch; }
-.lw-suggest p { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink-soft); margin: 0; max-width: 44ch; }
+.lw-suggest p { font-family: var(--serif); font-style: normal; font-size: 17px; color: var(--ink-soft); margin: 0; max-width: 44ch; }
 </style>
 </head>
 <body>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span><span class="brand-by">by <img class="brand-bt-logo" src="assets/img/black-thrive-white.png" alt="Black Thrive Lambeth" /></span></a>
   <nav class="nav">
-    <a href="index.html">Home</a>
     <a href="index.html#chapters">Chapters</a>
     <a href="quiz.html">Where to start</a>
     <a href="tools/index.html">Tools</a>
@@ -215,25 +214,29 @@
 </main>
 
 <footer class="site-footer">
-  <div class="footer-grid">
+  <div class="footer-grid" style="grid-template-columns:repeat(3,1fr)">
     <div>
-      <h4>The toolkit</h4>
-      <p class="footer-bigword">Built with Black men, for Black men. From Lambeth, to everywhere.</p>
-      <p style="font-size:13px;opacity:.75;line-height:1.6;max-width:38ch">This toolkit is for all Black men. Queer brothers, trans brothers, brothers of every faith and none.</p>
-    </div>
-    <div>
-      <h4>Take it off the screen</h4>
+      <h4>Chapters</h4>
       <ul>
-        <li><a href="print.html">Pocket pack &amp; PDFs</a></li>
-        <li><a href="listen-watch.html">Listen &amp; watch</a></li>
-        <li><a href="Booklet.html">The booklet</a></li>
+        <li><a href="chapters/body.html">Body</a></li>
+        <li><a href="chapters/mind.html">Mind</a></li>
+        <li><a href="chapters/money.html">Money</a></li>
+        <li><a href="chapters/spirit.html">Spirit</a></li>
+        <li><a href="chapters/brotherhood.html">Brotherhood</a></li>
+        <li><a href="chapters/community.html">Community</a></li>
       </ul>
     </div>
     <div>
-      <h4>Find us</h4>
+      <h4>Tools</h4>
       <ul>
+        <li><a href="quiz.html">Where to start quiz</a></li>
+        <li><a href="tools/index.html">In-the-moment tools</a></li>
+        <li><a href="resources.html">Resource finder</a></li>
+        <li><a href="listen-watch.html">Listen &amp; watch</a></li>
+        <li><a href="print.html">Print &amp; pocket cards</a></li>
+        <li><a href="bookmarks.html">Saved for later</a></li>
+        <li><a href="lgbtq.html">For LGBTQ+ brothers</a></li>
         <li><a href="about.html">About this work</a></li>
-        <li><a href="mailto:hello@blackthrivelambeth.com">Get in touch</a></li>
       </ul>
     </div>
     <div>
@@ -241,12 +244,13 @@
       <ul>
         <li><a href="tel:116123">Samaritans 116 123</a></li>
         <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
-        <li><a href="tel:08005858 58">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:0800585858">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:999">Emergency 999</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-meta">
-    <span>&copy; 2025 Black Thrive Lambeth</span>
+    <span>&copy; 2026 Black Thrive Lambeth</span>
     <span>Designed by The Office of Art and Technology</span>
   </div>
 </footer>

@@ -16,7 +16,7 @@
     max-width: 1320px; margin: 0 auto;
   }
   .tools-hero .kicker {
-    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+    font-size: 11px; letter-spacing: 0.02em; text-transform: none;
     font-weight: 600; color: var(--accent); margin-bottom: 20px;
     display: inline-flex; align-items: center; gap: 14px;
   }
@@ -40,8 +40,8 @@
     gap: 18px;
   }
   @media (min-width: 1100px) {
-    .tools-grid { grid-template-columns: repeat(5, 1fr); }
-    .tools-grid .tool-tile.big { grid-column: span 2; }
+    .tools-grid { grid-template-columns: repeat(3, 1fr); }
+    .tools-grid .tool-tile.big { grid-column: span 1; }
   }
   .tool-tile {
     position: relative;
@@ -61,7 +61,7 @@
   .tool-tile:focus-visible { outline: 3px solid var(--paper); outline-offset: -4px; }
   .tool-tile .tile-num {
     font-family: var(--display); font-weight: 500;
-    font-size: 13px; letter-spacing: 0.16em;
+    font-size: 13px; letter-spacing: 0.02em;
     opacity: 0.7;
   }
   .tool-tile h2 {
@@ -77,8 +77,8 @@
   }
   .tool-tile .arrow {
     display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--sans); font-weight: 600; font-size: 12px;
-    letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: var(--sans); font-weight: 600; font-size: 13px;
+    letter-spacing: 0.01em;
     margin-top: 20px;
   }
   .tool-tile .arrow svg { transition: transform 0.2s ease; }
@@ -89,16 +89,36 @@
     color: rgba(255,255,255,0.6);
     font-size: 13px; line-height: 1.6;
   }
+  .tools-more {
+    max-width: 1320px; margin: 80px auto 0;
+    padding: 0 clamp(28px,6vw,96px);
+  }
+  .tools-more-head {
+    padding-top: 44px; margin-bottom: 28px;
+    border-top: 1px solid rgba(255,255,255,0.16);
+  }
+  .tools-more-head h2 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(30px, 4vw, 48px); line-height: 1;
+    letter-spacing: -0.03em; margin: 0 0 14px 0;
+  }
+  .tools-more-head p {
+    font-size: clamp(16px, 1.4vw, 19px); line-height: 1.5;
+    color: rgba(255,255,255,0.72); max-width: 60ch; margin: 0;
+  }
+  .tools-grid-more { padding: 0; }
+  @media (min-width: 1100px) {
+    .tools-grid-more { grid-template-columns: repeat(4, 1fr); }
+  }
 </style>
 </head>
 <body>
 <header class="site-header">
-  <a class="brand" href="../index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <a class="brand" href="../index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span><span class="brand-by">by <img class="brand-bt-logo" src="../assets/img/black-thrive-white.png" alt="Black Thrive Lambeth" /></span></a>
   <nav class="nav">
-    <a href="../index.html">Home</a>
     <a href="../index.html#chapters">Chapters</a>
     <a href="../quiz.html">Where to start</a>
-    <a href="index.html" class="active">Tools</a>
+    <a href="../tools/index.html" class="active">Tools</a>
     <a href="../resources.html">Resources</a>
     <a href="../bookmarks.html">Saved</a>
     <a href="../about.html">About</a>
@@ -107,57 +127,75 @@
 
 <main class="tools-page" data-screen-label="Tools">
   <div class="tools-hero">
-    <div class="kicker">Co-designed with brothers from Lambeth</div>
     <h1>Tools, for now.</h1>
-    <p class="lead">Five tools for when you need something now. Use them on the bus, in the waiting room, before you walk through your front door. They were built from what brothers told us they actually needed.</p>
+    <p class="lead">Six tools for when you need something now. Use them on the bus, in the waiting room, before you walk through your front door. They were built from what black men told us they actually needed.</p>
   </div>
 
-  <div class="tools-grid">
-    <a class="tool-tile big" href="field-guide.html" style="--tile-bg:#1f6962">
+  <div class="energy-bar">
+    <div class="energy-q">How much have you got in the tank today?</div>
+    <div class="energy-toggle">
+      <button type="button" data-mode="all" class="on">Show me everything</button>
+      <button type="button" data-mode="low">Not much, keep it light</button>
+    </div>
+  </div>
+  <p class="energy-note" id="energy-note" hidden>On a low day, start with these. They ask the least of you. The deeper ones will keep until you have more in the tank.</p>
+
+  <div class="tools-grid" id="primary-tools">
+    <a class="tool-tile big" href="field-guide.html" data-energy="deep" style="--tile-bg:#1f6962">
       <div>
-        <div class="tile-num">01</div>
         <h2>The Field Guide.</h2>
         <p>Scripts for when your doctor is not listening.</p>
+        <div class="tile-energy">Best before an appointment</div>
       </div>
       <span class="arrow">Open
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </span>
     </a>
-    <a class="tool-tile" href="feelings-wheel.html" style="--tile-bg:#b54a2a">
+    <a class="tool-tile" href="feelings-wheel.html" data-energy="low" style="--tile-bg:#b54a2a">
       <div>
-        <div class="tile-num">02</div>
         <h2>The Feelings Wheel.</h2>
         <p>When you cannot find the word for what you feel.</p>
+        <div class="tile-energy">For a low day &middot; 2 min</div>
       </div>
       <span class="arrow">Open
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </span>
     </a>
-    <a class="tool-tile" href="vetting-card.html" style="--tile-bg:#a87a2a">
+    <a class="tool-tile" href="vetting-card.html" data-energy="deep" style="--tile-bg:#a87a2a">
       <div>
-        <div class="tile-num">03</div>
         <h2>The Vetting Card.</h2>
         <p>Who is actually safe to talk to.</p>
+        <div class="tile-energy">For a planning day</div>
       </div>
       <span class="arrow">Open
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </span>
     </a>
-    <a class="tool-tile" href="de-mask.html" style="--tile-bg:#2a4a36">
+    <a class="tool-tile" href="de-mask.html" data-energy="low" style="--tile-bg:#2a4a36">
       <div>
-        <div class="tile-num">04</div>
         <h2>The De-Mask.</h2>
         <p>Five minutes to take the armour off before you get home.</p>
+        <div class="tile-energy">For a low day &middot; 5 min</div>
       </div>
       <span class="arrow">Open
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </span>
     </a>
-    <a class="tool-tile" href="value-sheet.html" style="--tile-bg:#8c4a5e">
+    <a class="tool-tile" href="value-sheet.html" data-energy="deep" style="--tile-bg:#8c4a5e">
       <div>
-        <div class="tile-num">05</div>
         <h2>The Value Sheet.</h2>
         <p>Net worth is not self worth.</p>
+        <div class="tile-energy">For a planning day</div>
+      </div>
+      <span class="arrow">Open
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+    <a class="tool-tile" href="your-corner.html" data-energy="deep" style="--tile-bg:#a85a32">
+      <div>
+        <h2>Your Corner.</h2>
+        <p>Name the people already holding you up.</p>
+        <div class="tile-energy">For a planning day</div>
       </div>
       <span class="arrow">Open
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -165,19 +203,113 @@
     </a>
   </div>
 
-  <div class="tools-foot">
-    Built from 42 in-person conversations at the Lambeth Country Show and several focus groups. Nothing you write here leaves your device.
+  <div class="tools-more">
+    <div class="tools-more-head">
+      <h2>More in the toolkit.</h2>
+      <p>Slower things to come back to. Watch, print, gather your people, and find the corner of this built for queer and trans brothers.</p>
+    </div>
+    <div class="tools-grid tools-grid-more">
+      <a class="tool-tile" href="../listen-watch.html" style="--tile-bg:#2f5d8a">
+        <div>
+          <h2>Listen &amp; watch.</h2>
+          <p>Podcasts, videos and books by black voices. Curated, not autoplayed.</p>
+        </div>
+        <span class="arrow">Open
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+      <a class="tool-tile" href="../print.html" style="--tile-bg:#6a5a3a">
+        <div>
+          <h2>Print &amp; pocket cards.</h2>
+          <p>Take it off the screen. Print the cards, leave the PDFs at your barbers.</p>
+        </div>
+        <span class="arrow">Open
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+      <a class="tool-tile" href="../circle.html" style="--tile-bg:#3a6149">
+        <div>
+          <h2>Find your circle.</h2>
+          <p>Brotherhood is built, not owed. Join a room, or start your own.</p>
+        </div>
+        <span class="arrow">Open
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+      <a class="tool-tile" href="../lgbtq.html" style="--tile-bg:#7a4a6e">
+        <div>
+          <h2>For queer &amp; trans brothers.</h2>
+          <p>Black and LGBTQ+, here without afterthought. This corner is for you.</p>
+        </div>
+        <span class="arrow">Open
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
   </div>
 </main>
 
 <footer class="site-footer">
-  <div class="footer-meta" style="border:none;padding:0">
-    <span>From Black Thrive Lambeth. Designed by The Office of Art and Technology.</span>
-    <a href="../index.html" style="color:var(--accent);text-decoration:none;font-weight:700">Back to home &rarr;</a>
+  <div class="footer-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div>
+      <h4>Chapters</h4>
+      <ul>
+        <li><a href="../chapters/body.html">Body</a></li>
+        <li><a href="../chapters/mind.html">Mind</a></li>
+        <li><a href="../chapters/money.html">Money</a></li>
+        <li><a href="../chapters/spirit.html">Spirit</a></li>
+        <li><a href="../chapters/brotherhood.html">Brotherhood</a></li>
+        <li><a href="../chapters/community.html">Community</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="../quiz.html">Where to start quiz</a></li>
+        <li><a href="../tools/index.html">In-the-moment tools</a></li>
+        <li><a href="../resources.html">Resource finder</a></li>
+        <li><a href="../listen-watch.html">Listen &amp; watch</a></li>
+        <li><a href="../print.html">Print &amp; pocket cards</a></li>
+        <li><a href="../bookmarks.html">Saved for later</a></li>
+        <li><a href="../lgbtq.html">For LGBTQ+ brothers</a></li>
+        <li><a href="../about.html">About this work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>If you need help now</h4>
+      <ul>
+        <li><a href="tel:116123">Samaritans 116 123</a></li>
+        <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
+        <li><a href="tel:0800585858">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:999">Emergency 999</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <span>&copy; 2026 Black Thrive Lambeth</span>
+    <span>Designed by The Office of Art and Technology</span>
   </div>
 </footer>
 
 <script src="../assets/data.js"></script>
 <script src="../assets/app.js"></script>
+<script>
+(function () {
+  var tiles = [].slice.call(document.querySelectorAll('#primary-tools .tool-tile'));
+  var note = document.getElementById('energy-note');
+  var btns = [].slice.call(document.querySelectorAll('.energy-toggle button'));
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      btns.forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      var low = b.dataset.mode === 'low';
+      if (note) note.hidden = !low;
+      tiles.forEach(function (t) {
+        t.style.display = (low && t.dataset.energy !== 'low') ? 'none' : '';
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>

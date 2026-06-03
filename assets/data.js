@@ -4,7 +4,7 @@
 window.TOOLKIT = {
   meta: {
     title: "The Black Man's Toolkit",
-    tagline: "Body. Mind. Money. Spirit. Brotherhood. Community.",
+    tagline: "Money. Body. Mind. Spirit. Brotherhood. Community.",
     blurb: "A toolkit built with Black men, for Black men. From Lambeth, to everywhere.",
     credit_line: "From Black Thrive Lambeth. Designed by The Office of Art and Technology.",
   },
@@ -14,17 +14,17 @@ window.TOOLKIT = {
   chapters: [
     {
       slug: "body",
-      number: "01",
+      number: "02",
       title: "Body",
       kicker: "Physical health",
       promise: "Looking after the body you live in.",
-      character: { name: "Leon Grant", line: "Rebuilding the discipline to care for a body he has neglected." },
+      character: { name: "Leon Grant", line: "rebuilding the discipline to care for a body he has neglected" },
       testimonial: {
         quote: "I used to push through tiredness, stress, even pain, like it made me tougher. It didn't. If something feels off, get it checked. Future you will thank you.",
         attribution: "A man we spoke with, advising his younger self."
       },
-      hero_image: "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=2000&q=80&auto=format&fit=crop",
-      portrait: "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=1200&q=80&auto=format&fit=crop",
+      hero_image: "assets/img/body.jpg",
+      portrait: "assets/img/body.jpg",
       accent: "ochre",
       duration_min: 9,
 
@@ -33,10 +33,9 @@ window.TOOLKIT = {
         "After a routine medical check reveals high blood pressure and early signs of heart disease, Leon is shaken. The doctor is polite but firm. Leon realises he can no longer rely on past strength. His turmoil is rebuilding the discipline to care for a body he has neglected, and quietly grieving the young athlete he used to be.",
         "Leon is not an exception. He is a pattern. In the UK, Black African and Black Caribbean men carry a heavier load of hypertension, stroke, type 2 diabetes, and prostate cancer than the general population. A UK study found hypertension prevalence of 31% in Afro-Caribbean men compared with 19% in White men, even after adjusting for age and lifestyle. Black men are diagnosed with type 2 diabetes two to four times more often, often around 15 years younger than their White peers.",
         "And one of the biggest numbers every Black man in Britain needs to know: 1 in 4 Black men will be diagnosed with prostate cancer in their lifetime, compared with 1 in 8 men overall, and roughly twice as likely to die from it.",
-        "Leon's story is about the body catching up with us. The question is whether we catch up with it first.",
       ],
 
-      pull_quote: "Leon's story is about the body catching up with us. The question is whether we catch up with it first.",
+      pull_quote: "",
 
       stats: [
         { big: "1 in 4", label: "Black men diagnosed with prostate cancer in their lifetime, vs 1 in 8 overall." },
@@ -64,6 +63,8 @@ window.TOOLKIT = {
         { h: "Sleep is medicine.", p: "Six hours a night, night after night, raises your blood pressure, wrecks your blood sugar, and feeds anxiety. Give yourself seven to eight if you can. Phones out of the bedroom. Consistent bedtime. This is discipline, not weakness." },
         { h: "Build a relationship with one GP.", p: "Switching surgeries every move, rushing appointments, accepting the first answer makes good care harder. If you have experienced racism or dismissal in the past, you are not imagining it; UK evidence is unambiguous. You are still entitled to ask questions, bring a friend or advocate, and request a second opinion. The NHS belongs to you too." },
         { h: "Find a community that holds you accountable.", p: "WhatsApp group, parkrun, church fitness club, barbershop challenge, Sunday League. Men change in community, not alone. Leon's recovery will not be written in a diet app; it will be written in who he chooses to show up with." },
+        { h: "Find a place to move where you actually feel welcome.", p: "A gym only works if you go, and you will not go somewhere you feel watched or out of place. Belonging matters as much as price. Look for spaces where you can see other Black men: a local Black-led run club, a football cage, a boxing gym, the free outdoor gym in the park, a community walking group. Black Trail Runners and crews like it exist precisely so movement feels like yours, not a performance for anyone else. Free, outdoors and with people who get it beats an expensive membership you dread." },
+        { h: "Chase energy and strength, not fear.", p: "You are far more likely to keep this up if it is about feeling good than about being scared of dying. Frame it the way it actually pays off: more energy through the day, deeper sleep, moving without pain, being present for your kids, feeling strong in your own body. Seeing other Black men talk openly about training, eating well and getting checked makes it feel achievable rather than preachy. The Caribbean and African Health Network runs a weekly Health Hour with Black doctors for exactly this." },
         { h: "Be honest about alcohol and smoking.", p: "UK guideline is no more than 14 units a week, spread across several days with drink-free days. Smoking is still the single biggest avoidable cause of early death. The free NHS Better Health Quit Smoking service works." },
       ],
 
@@ -76,6 +77,9 @@ window.TOOLKIT = {
         { name: "Diabetes UK", note: "Free Know Your Risk tool, 0345 123 2399", link: "https://www.diabetes.org.uk" },
         { name: "Cancer Research UK", note: "Information and support", link: "https://www.cancerresearchuk.org" },
         { name: "Caribbean & African Health Network (CAHN)", note: "Black-led health charity, weekly Health Hour with Black doctors", link: "https://www.cahn.org.uk", black_led: true },
+        { name: "Black Trail Runners", note: "Black-led running community, trails and roads, all levels", link: "https://www.blacktrailrunners.run", black_led: true },
+        { name: "Black Swimming Association", note: "Black-led, making swimming and water safety ours too", link: "https://thebsa.co.uk", black_led: true },
+        { name: "Our Parks", note: "Free outdoor group fitness in local parks", link: "https://ourparks.org.uk" },
         { name: "Black Men's Health UK", note: "Black-led health information", link: "https://blackmenshealth.org.uk", black_led: true },
         { name: "The Black Men's Consortium", note: "London-based intergenerational peer group", link: "https://theblackmensconsortium.com", black_led: true },
         { name: "BME Cancer Communities", note: "0115 845 6432", link: "https://bmecancer.com", black_led: true },
@@ -87,11 +91,11 @@ window.TOOLKIT = {
 
     {
       slug: "mind",
-      number: "02",
+      number: "03",
       title: "Mind",
       kicker: "Mental and emotional health",
       promise: "Strength is not silence.",
-      character: { name: "Darius Thompson", line: "Carrying silent storms behind a dependable face." },
+      character: { name: "Darius Thompson", line: "carrying silent storms behind a dependable face" },
       testimonial: {
         quote: "The biggest barrier is the idea that being a man means you're not susceptible to emotions, so you can't feel your feels.",
         attribution: "From our focus groups."
@@ -163,11 +167,11 @@ window.TOOLKIT = {
 
     {
       slug: "money",
-      number: "03",
+      number: "01",
       title: "Money",
       kicker: "Financial health",
       promise: "Earning well, living free.",
-      character: { name: "Andre Walker", line: "Earning good money. Broke every payday." },
+      character: { name: "Andre Walker", line: "earning good money but broke every payday" },
       testimonial: {
         quote: "When I was not financially stable, I experienced a series of mood swings and my mental wellbeing would flow negatively at the end of each month.",
         attribution: "A man we spoke with at the Lambeth Country Show."
@@ -215,6 +219,9 @@ window.TOOLKIT = {
         { h: "Build credit deliberately, not accidentally.", p: "Your credit score decides your mortgage rate, your phone contract, sometimes whether you can rent. Check your file for free at ClearScore, Credit Karma, or Experian. Register on the electoral roll. Keep credit-card balances below 30% of the limit. Pay on time, every time, even if only the minimum. Slow game. Reward is options." },
         { h: "Get home ownership into the conversation.", p: "The Lifetime ISA (LISA) lets you save up to \u00A34,000 a year for your first home and the Government adds 25% on top, free. Shared ownership and the Mortgage Guarantee Scheme can lower the deposit you need. MoneyHelper's homebuying guides walk you through it step by step. If you never buy, that is fine; but do not let the door shut because no one told you it was open." },
         { h: "Invest in knowledge, and in each other.", p: "Financial confidence is built in rooms where these conversations happen without shame. Blackbullion (free through many UK universities) and Black professional networks like Reach Society run events and mentoring on money, careers, enterprise. Running a business or want to? British Business Bank Start Up Loans offers \u00A3500 to \u00A325,000 at a fixed 6% with free mentoring. Black Pound Day (first Saturday of every month) is a simple way to recycle wealth inside our own communities." },
+        { h: "Name the bias at work, without carrying the blame.", p: "If you feel you have to work twice as hard to be taken half as seriously, you are not imagining it. UK evidence on hiring, pay and promotion gaps is clear, and Black men are too often read as the disciplinarian, the risk, the diversity hire, rather than the talent. That is a structural problem, not a personal failing, and you cannot out-work it alone by being quietly excellent. Name it out loud to a mentor, a union rep, a trusted colleague, or even your own journal. Putting it on the table takes it off your shoulders, and protects your peace at the end of the day." },
+        { h: "Get into the rooms: mentoring and networks.", p: "Men told us again and again that they have less access to the networks and sponsors that actually move careers. That is fixable, and asking is not begging. Find one man about ten years ahead of you and ask him real questions. Join a Black professional network: the BYP Network, Reach Society and 10,000 Black Interns open doors to jobs, mentoring and introductions across the UK. Who you know is not a shameful shortcut; it is most of how progress works. Get in the room before you feel ready." },
+        { h: "Treat growing your income as a health move, not vanity.", p: "One man we spoke with retrained from teaching into data analysis and described the peace and joy that arrived once his finances steadied: bills handled, plans possible, sleep returning. Because money sits underneath everything else, a pay rise, a new skill, a career change or a side business is not separate from your wellbeing; it is one of the fastest routes to it. Pick one thing this season: a course, a certification, a conversation with your manager about progression, and treat it as seriously as you would your blood pressure." },
       ],
 
       resources: [
@@ -230,6 +237,8 @@ window.TOOLKIT = {
         { name: "London Community Credit Union", note: "Local member-owned bank", link: "https://www.londoncu.co.uk" },
         { name: "Blackbullion", note: "Financial education platform", link: "https://www.blackbullion.com", black_led: true },
         { name: "Reach Society", note: "Black professional men's network", link: "https://reachsociety.com", black_led: true },
+        { name: "BYP Network", note: "UK's largest Black professional network. Jobs, mentoring, events.", link: "https://www.bypnetwork.com", black_led: true },
+        { name: "10,000 Black Interns", note: "Paid internships and career access across UK sectors", link: "https://www.10000blackinterns.com", black_led: true },
         { name: "British Business Bank Start Up Loans", note: "\u00A3500 to \u00A325k at fixed 6% with mentoring", link: "https://www.startuploans.co.uk" },
         { name: "Black Pound Day", note: "First Saturday every month", link: "https://blackpoundday.uk", black_led: true },
         { name: "Fair4All Finance", note: "Affordable credit and finance", link: "https://fair4allfinance.org.uk" },
@@ -242,7 +251,7 @@ window.TOOLKIT = {
       title: "Spirit",
       kicker: "Spiritual health and self-knowledge",
       promise: "Knowing the man you are.",
-      character: { name: "Marcus Reid", line: "Successful on paper, asking who he is underneath." },
+      character: { name: "Marcus Reid", line: "successful on paper but asking who he is underneath" },
       testimonial: {
         quote: "My faith is integral because life on planet earth is crazy. I use the scripture to encourage me, communing with other people, sharing with other people, and within that allowing myself to be vulnerable.",
         attribution: "A brother in his late thirties.",
@@ -317,7 +326,7 @@ window.TOOLKIT = {
       title: "Brotherhood",
       kicker: "Brotherhood",
       promise: "Strength is shared, not solo.",
-      character: { name: "Kevin Blake", line: "Built a life that looks impressive and contains almost no one." },
+      character: { name: "Kevin Blake", line: "waking up to a life that looks impressive but contains almost no one" },
       testimonial: {
         quote: "I have built my mind to deal with problems this way, because I don't want to be a burden to others who have their own problems.",
         attribution: "From our research. This is the thing the Vetting Card is designed to help with."
@@ -388,7 +397,7 @@ window.TOOLKIT = {
       title: "Community",
       kicker: "Community leadership",
       promise: "From commentator to builder.",
-      character: { name: "Sean Bennett", line: "Will he stay a commentator, or take responsibility?" },
+      character: { name: "Sean Bennett", line: "deciding whether to stay a commentator or finally take responsibility" },
       testimonial: {
         quote: "I used to be part of the Black Men's Consortium based in Brixton. That group has been very instrumental in supporting me.",
         attribution: "A man we spoke with."
@@ -476,6 +485,9 @@ window.TOOLKIT = {
     "We are with you.",
   ],
 };
+
+// Money was the loudest finding in the research, so it leads the directory.
+window.TOOLKIT.chapters.sort((a, b) => a.number.localeCompare(b.number));
 
 // Helper for cross-page lookup
 window.getChapter = function(slug) {

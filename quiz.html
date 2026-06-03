@@ -11,9 +11,8 @@
 </head>
 <body>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span></a>
+  <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">The Black Man's Toolkit</span><span class="brand-by">by <img class="brand-bt-logo" src="assets/img/black-thrive-white.png" alt="Black Thrive Lambeth" /></span></a>
   <nav class="nav">
-    <a href="index.html">Home</a>
     <a href="index.html#chapters">Chapters</a>
     <a href="quiz.html" class="active">Where to start</a>
     <a href="tools/index.html">Tools</a>
@@ -138,7 +137,7 @@ function showResult() {
     <a class="quiz-recommendation" href="chapters/${top.slug}.html" style="text-decoration:none;color:var(--ink)">
       <img src="${top.portrait}" alt="${top.title}" />
       <div>
-        <div class="rec-eyebrow">${top.number} \u00B7 ${top.kicker}</div>
+        <div class="rec-eyebrow">${top.kicker}</div>
         <h3>${top.title}.</h3>
         <p>${top.promise}</p>
         <span class="btn btn-primary" style="font-size:13px">Read chapter
@@ -147,13 +146,13 @@ function showResult() {
       </div>
     </a>
 
-    <p style="margin:48px 0 16px;font-size:15px;font-style:normal;font-family:var(--sans);font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.7">Then come back to these</p>
+    <p style="margin:48px 0 16px;font-size:15px;font-style:normal;font-family:var(--sans);font-weight:700;letter-spacing:0.02em;text-transform:none;opacity:.7">Then come back to these</p>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
       ${others.map(o => `
         <a href="chapters/${o.slug}.html" style="text-decoration:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:20px;display:block;color:var(--paper)">
-          <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;font-weight:700;margin-bottom:8px">${o.number} \u00B7 ${o.kicker}</div>
+          <div style="font-size:11px;letter-spacing:0.02em;text-transform:none;opacity:.7;font-weight:700;margin-bottom:8px">${o.kicker}</div>
           <div style="font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.015em">${o.title}</div>
-          <div style="font-family:var(--serif);font-style:italic;font-size:14px;opacity:.85;margin-top:6px">${o.promise}</div>
+          <div style="font-family:var(--serif);font-style:normal;font-size:14px;opacity:.85;margin-top:6px">${o.promise}</div>
         </a>
       `).join("")}
     </div>
@@ -171,5 +170,46 @@ function showResult() {
 
 render();
 </script>
+<footer class="site-footer">
+  <div class="footer-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div>
+      <h4>Chapters</h4>
+      <ul>
+        <li><a href="chapters/body.html">Body</a></li>
+        <li><a href="chapters/mind.html">Mind</a></li>
+        <li><a href="chapters/money.html">Money</a></li>
+        <li><a href="chapters/spirit.html">Spirit</a></li>
+        <li><a href="chapters/brotherhood.html">Brotherhood</a></li>
+        <li><a href="chapters/community.html">Community</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="quiz.html">Where to start quiz</a></li>
+        <li><a href="tools/index.html">In-the-moment tools</a></li>
+        <li><a href="resources.html">Resource finder</a></li>
+        <li><a href="listen-watch.html">Listen &amp; watch</a></li>
+        <li><a href="print.html">Print &amp; pocket cards</a></li>
+        <li><a href="bookmarks.html">Saved for later</a></li>
+        <li><a href="lgbtq.html">For LGBTQ+ brothers</a></li>
+        <li><a href="about.html">About this work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>If you need help now</h4>
+      <ul>
+        <li><a href="tel:116123">Samaritans 116 123</a></li>
+        <li><a href="sms:85258&body=SHOUT">Text SHOUT to 85258</a></li>
+        <li><a href="tel:0800585858">CALM 0800 58 58 58</a></li>
+        <li><a href="tel:999">Emergency 999</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <span>&copy; 2026 Black Thrive Lambeth</span>
+    <span>Designed by The Office of Art and Technology</span>
+  </div>
+</footer>
 </body>
 </html>
