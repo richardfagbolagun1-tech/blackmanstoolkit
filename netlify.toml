@@ -42,6 +42,26 @@
   status = 200
 
 [[redirects]]
+  from = "/circle"
+  to = "/circle.html"
+  status = 200
+
+[[redirects]]
+  from = "/progress"
+  to = "/progress.html"
+  status = 200
+
+[[redirects]]
+  from = "/booklet"
+  to = "/Booklet.html"
+  status = 200
+
+[[redirects]]
+  from = "/booklet-print"
+  to = "/Booklet-print.html"
+  status = 200
+
+[[redirects]]
   from = "/chapters/:slug"
   to = "/chapters/:slug.html"
   status = 200
